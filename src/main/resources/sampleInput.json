@@ -1,0 +1,17 @@
+{
+  "traceCorrections": [
+    {
+      "traceUnits": [],
+      "corrections": [
+        {
+          "indexInTrace": 2,
+          "expectedVariables": {
+            "a": 4,
+            "b": false,
+            "c": "abcd"
+          }
+        }
+      ]
+    }
+  ]
+}
