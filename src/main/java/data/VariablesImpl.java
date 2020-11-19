@@ -1,116 +1,78 @@
 package data;
 
+import collection.SetFactory;
+
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+//  TODO: Implement and test variables other than ints
 public class VariablesImpl implements Variables {
 
-    private Map<String, Integer> varNameToIntValue;
-    private Map<String, Double> varNameToDoubleValue;
-    private Map<String, Long> varNameToLongValue;
-    private Map<String, Boolean> varNameToBooleanValue;
-    private Map<String, String> varNameToStringValue;
-    private Map<String, Character> varNameToCharValue;
-    private Map<String, Object> varNameToObjectValue;
+	private SetFactory setFactory;
+	private Map<String, Integer> varNameToIntValue;
+	private Map<String, Double> varNameToDoubleValue;
+	private Map<String, Long> varNameToLongValue;
+	private Map<String, Boolean> varNameToBooleanValue;
+	private Map<String, String> varNameToStringValue;
+	private Map<String, Character> varNameToCharValue;
+	private Map<String, Object> varNameToObjectValue;
 
-    public VariablesImpl(
-            Map<String, Integer> varNameToIntValue,
-            Map<String, Double> varNameToDoubleValue,
-            Map<String, Long> varNameToLongValue,
-            Map<String, Boolean> varNameToBooleanValue,
-            Map<String, String> varNameToStringValue,
-            Map<String, Character> varNameToCharValue,
-            Map<String, Object> varNameToObjectValue
-    ) {
-        this.varNameToIntValue = varNameToIntValue;
-        this.varNameToDoubleValue = varNameToDoubleValue;
-        this.varNameToLongValue = varNameToLongValue;
-        this.varNameToBooleanValue = varNameToBooleanValue;
-        this.varNameToStringValue = varNameToStringValue;
-        this.varNameToCharValue = varNameToCharValue;
-        this.varNameToObjectValue = varNameToObjectValue;
-    }
+	public VariablesImpl(
+			SetFactory setFactory,
+			Map<String, Integer> varNameToIntValue,
+			Map<String, Double> varNameToDoubleValue,
+			Map<String, Long> varNameToLongValue,
+			Map<String, Boolean> varNameToBooleanValue,
+			Map<String, String> varNameToStringValue,
+			Map<String, Character> varNameToCharValue,
+			Map<String, Object> varNameToObjectValue) {
+		this.setFactory = setFactory;
+		this.varNameToIntValue = varNameToIntValue;
+		this.varNameToDoubleValue = varNameToDoubleValue;
+		this.varNameToLongValue = varNameToLongValue;
+		this.varNameToBooleanValue = varNameToBooleanValue;
+		this.varNameToStringValue = varNameToStringValue;
+		this.varNameToCharValue = varNameToCharValue;
+		this.varNameToObjectValue = varNameToObjectValue;
+	}
 
-    @Override
-    public Class<?> getTypeOf(String name) {
-        return null;
-    }
+	@Override
+	public Class<?> getTypeOf(String name) {
+		return null;
+	}
 
-    @Override
-    public int getIntegerValue(String name) {
-        if (varNameToIntValue.containsKey(name)) {
-            return varNameToIntValue.get(name);
-        }
-        throw new NoSuchVariableException(name, Integer.class);
-    }
+	@Override
+	public <TValue> TValue getValue(String name, Class<TValue> type) {
+		Map<String, TValue> mapToUse;
+		if (type == Integer.class) {
+			mapToUse = (Map<String, TValue>) varNameToIntValue;
+		} else {
+			mapToUse = (Map<String, TValue>) varNameToObjectValue;
+		}
+		if (mapToUse.containsKey(name)) {
+			return mapToUse.get(name);
+		}
+		throw new NoSuchVariableException(name, Integer.class);
+	}
 
-    @Override
-    public double getDoubleValue(String name) {
-        return 0;
-    }
+	@Override
+	public <TValue> Set<Variable<TValue>> getAllOfType(Class<TValue> type) {
+		Set<Variable<TValue>> result = this.setFactory.getHashSet();
+		if (type == Integer.class) {
+			addVariablesToResult(result, (Map<String, TValue>) varNameToIntValue);
+		} else {
+			addVariablesToResult(result, (Map<String, TValue>) varNameToObjectValue);
+		}
+		return result;
+	}
 
-    @Override
-    public long getLongValue(String name) {
-        return 0;
-    }
+	private <TValue> void addVariablesToResult(Set<Variable<TValue>> result, Map<String, TValue> map) {
 
-    @Override
-    public boolean getBooleanValue(String name) {
-        return false;
-    }
-
-    @Override
-    public String getStringValue(String name) {
-        return null;
-    }
-
-    @Override
-    public char getCharValue(String name) {
-        return 0;
-    }
-
-    @Override
-    public Object getCustomObjectValue(String name) {
-        return null;
-    }
-
-    @Override
-    public Set<Variable<Integer>> getAllIntegers() {
-        return null;
-    }
-
-    @Override
-    public Set<Variable<Double>> getAllDoubles() {
-        return null;
-    }
-
-    @Override
-    public Set<Variable<Long>> getAllLongs() {
-        return null;
-    }
-
-    @Override
-    public Set<Variable<Boolean>> getAllBooleans() {
-        return null;
-    }
-
-    @Override
-    public Set<Variable<String>> getAllStrings() {
-        return null;
-    }
-
-    @Override
-    public Set<Variable<Character>> getAllChars() {
-        return null;
-    }
-
-    @Override
-    public Set<Variable<Object>> getAllCustomObjects() {
-        return null;
-    }
-
-    @Override
-    public Set<Variable<?>> getAllVariables() {
-        return null;
-    }
+		map.entrySet()
+				.stream()
+				.forEach(entry -> result.add(new Variable<TValue>(
+						entry.getKey(),
+						entry.getValue())));
+	}
 }
