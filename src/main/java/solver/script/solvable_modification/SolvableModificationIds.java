@@ -1,11 +1,11 @@
 package solver.script.solvable_modification;
 
 public class SolvableModificationIds {
-	public String funcName;
+	public String method;
 	public String changeVariable;
 
-	public SolvableModificationIds(String funcName, String changeVariable) {
-		this.funcName = funcName;
+	public SolvableModificationIds(String method, String changeVariable) {
+		this.method = method;
 		this.changeVariable = changeVariable;
 	}
 }

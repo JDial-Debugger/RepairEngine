@@ -6,9 +6,14 @@ import com.intellij.psi.PsiMethod;
 public abstract class PsiNodeDelegate implements NodeDelegate {
 
 	protected PsiElement element;
+	protected PsiElementExtractor extractor;
 
 	protected PsiNodeDelegate(PsiElement element) {
 		this.element = element;
+	}
+
+	public void setImplementationExtractor(PsiElementExtractor extractor) {
+		this.extractor = extractor;
 	}
 
 	@Override
@@ -25,4 +30,9 @@ public abstract class PsiNodeDelegate implements NodeDelegate {
 	public String toString() {
 		return element.getText();
 	}
+
+	protected PsiElement getWrappedElement() {
+		return element;
+	}
+
 }

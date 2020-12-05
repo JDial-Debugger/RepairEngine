@@ -34,6 +34,14 @@ public class VariablesImplTest {
 			new MockEntry<String, Integer>("c", 3)
 	};
 
+	@Test
+	public void test() {
+		int a = 5;
+		a += 3;
+		int b = 3 + a;
+
+	}
+
 	private Variable<Integer>[] expectedInts = new Variable[] {
 			new Variable("a", 1), new Variable("b", 2), new Variable("c", 3),
 	};

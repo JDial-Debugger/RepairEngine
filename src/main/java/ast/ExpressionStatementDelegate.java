@@ -1,4 +1,4 @@
 package ast;
 
-public interface ExpressionStatementDelegate {
+public interface ExpressionStatementDelegate extends StatementDelegate {
 }

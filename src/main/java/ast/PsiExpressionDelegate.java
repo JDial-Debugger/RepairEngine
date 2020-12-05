@@ -8,4 +8,13 @@ public class PsiExpressionDelegate extends PsiNodeDelegate implements  Expressio
 	protected PsiExpressionDelegate(PsiExpression expression) {
 		super(expression);
 	}
+
+	protected PsiExpression getWrappedExpression() {
+		return (PsiExpression) super.element;
+	}
+
+	@Override
+	public TypeDelegate getType() {
+		return new PsiTypeDelegate(((PsiExpression) this.element).getType());
+	}
 }
