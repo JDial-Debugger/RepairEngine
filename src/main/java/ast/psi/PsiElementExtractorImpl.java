@@ -12,7 +12,7 @@ class PsiElementExtractorImpl implements PsiElementExtractor {
 	@Override
 	public <TWrapped extends PsiElement, TWrapper extends NodeDelegate> TWrapped getWrappedElement(
 			Class<TWrapped> wrappedType, TWrapper wrapper) {
-		PsiNodeDelegate impl = (PsiNodeDelegate) wrapper;
+		PsiNodeDelegateBase impl = (PsiNodeDelegateBase) wrapper;
 		return wrappedType.cast(impl.getWrappedElement());
 	}
 
