@@ -1,6 +1,6 @@
 package solver.script.solvable_modification;
 
-import ast.*;
+import ast.interfaces.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package solver.script.solvable_modification;
 
-import ast.NodeDelegate;
+import ast.interfaces.NodeDelegate;
 
 import java.util.List;
 

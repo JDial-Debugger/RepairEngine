@@ -1,9 +1,9 @@
 package solver.script.correction;
 
-import ast.AssertStatementDelegate;
-import ast.DeclarationStatementDelegate;
-import ast.IfStatementDelegate;
-import ast.NodeFactory;
+import ast.interfaces.AssertStatementDelegate;
+import ast.interfaces.DeclarationStatementDelegate;
+import ast.interfaces.IfStatementDelegate;
+import ast.interfaces.NodeFactory;
 import data.Variable;
 
 public class CorrectedVariableASTImpl<TValue> implements CorrectedVariableAST<TValue> {

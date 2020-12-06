@@ -1,7 +1,7 @@
 package solver.repair;
 
-import ast.ExpressionDelegate;
-import ast.NodeFactory;
+import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.NodeFactory;
 
 public class SolvedModificationsASTImpl<TValue> implements  SolvedModificationsAST{
 

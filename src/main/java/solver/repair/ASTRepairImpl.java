@@ -1,7 +1,7 @@
 package solver.repair;
 
-import ast.FileDelegate;
-import ast.NodeFactory;
+import ast.interfaces.FileDelegate;
+import ast.interfaces.NodeFactory;
 import solver.script.SolverScriptGenerator;
 
 import java.util.Map;

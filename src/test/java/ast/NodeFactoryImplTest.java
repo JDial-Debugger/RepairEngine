@@ -1,5 +1,7 @@
 package ast;
 
+import ast.interfaces.DeclarationStatementDelegate;
+import ast.psi.PsiNodeFactory;
 import com.intellij.psi.PsiDeclarationStatement;
 import com.intellij.psi.PsiElementFactory;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,6 +1,6 @@
 package solver.script.state_record;
 
-import ast.VisitorDelegate;
+import ast.psi.VisitorDelegate;
 
 public class StateRecordVisitor extends VisitorDelegate {
 }

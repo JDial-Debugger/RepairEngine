@@ -1,6 +1,6 @@
 package solver.script.solvable_modification;
 
-import ast.*;
+import ast.interfaces.*;
 
 import java.util.Arrays;
 import java.util.List;

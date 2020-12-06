@@ -1,7 +1,7 @@
 package solver.script.state_record;
 
-import ast.DeclarationStatementDelegate;
-import ast.ExpressionStatementDelegate;
+import ast.interfaces.DeclarationStatementDelegate;
+import ast.interfaces.ExpressionStatementDelegate;
 import data.ProgramTrace;
 
 import java.util.List;

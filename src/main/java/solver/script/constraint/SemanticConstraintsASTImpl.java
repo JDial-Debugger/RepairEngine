@@ -1,8 +1,8 @@
 package solver.script.constraint;
 
-import ast.CodeBlockDelegate;
-import ast.ExpressionDelegate;
-import ast.NodeFactory;
+import ast.interfaces.CodeBlockDelegate;
+import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.NodeFactory;
 import solver.script.state_record.StateRecord;
 import solver.script.state_record.StateRecordAST;
 

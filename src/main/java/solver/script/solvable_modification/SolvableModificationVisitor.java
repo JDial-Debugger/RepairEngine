@@ -1,6 +1,6 @@
 package solver.script.solvable_modification;
 
-import ast.VisitorDelegate;
+import ast.psi.VisitorDelegate;
 
 import java.util.Set;
 

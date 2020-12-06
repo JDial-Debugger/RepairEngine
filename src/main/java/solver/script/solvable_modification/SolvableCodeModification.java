@@ -1,6 +1,6 @@
 package solver.script.solvable_modification;
 
-import ast.ExpressionDelegate;
+import ast.interfaces.ExpressionDelegate;
 
 public class SolvableCodeModification {
 	public ExpressionDelegate originalCode;

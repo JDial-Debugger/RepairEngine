@@ -1,7 +1,7 @@
 package solver.script.constraint;
 
-import ast.CodeBlockDelegate;
-import ast.ExpressionDelegate;
+import ast.interfaces.CodeBlockDelegate;
+import ast.interfaces.ExpressionDelegate;
 
 public interface MinimizableConstraintAST {
 	public ExpressionDelegate getReferenceExpression();

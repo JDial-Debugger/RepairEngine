@@ -1,8 +1,7 @@
 package solver.script.solvable_modification;
 
-import ast.CodeBlockDelegate;
-import ast.ExpressionDelegate;
-import ast.NodeDelegate;
+import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.NodeDelegate;
 
 import java.util.List;
 

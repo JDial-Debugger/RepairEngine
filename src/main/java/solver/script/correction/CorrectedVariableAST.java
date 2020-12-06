@@ -1,8 +1,8 @@
 package solver.script.correction;
 
-import ast.AssertStatementDelegate;
-import ast.DeclarationStatementDelegate;
-import ast.IfStatementDelegate;
+import ast.interfaces.AssertStatementDelegate;
+import ast.interfaces.DeclarationStatementDelegate;
+import ast.interfaces.IfStatementDelegate;
 import data.Variable;
 
 public interface CorrectedVariableAST<TValue> {

@@ -1,6 +1,6 @@
 package solver.repair;
 
-import ast.FileDelegate;
+import ast.interfaces.FileDelegate;
 
 import java.util.Map;
 

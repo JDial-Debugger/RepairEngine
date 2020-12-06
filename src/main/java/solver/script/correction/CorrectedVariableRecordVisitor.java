@@ -1,6 +1,6 @@
 package solver.script.correction;
 
-import ast.VisitorDelegate;
+import ast.psi.VisitorDelegate;
 
 public class CorrectedVariableRecordVisitor extends VisitorDelegate {
 

@@ -1,6 +1,6 @@
 package solver.script.constraint;
 
-import ast.NodeFactory;
+import ast.interfaces.NodeFactory;
 import solver.script.solvable_modification.SolvableCodeModificationAST;
 import solver.script.solvable_modification.SolvableModificationIds;
 
