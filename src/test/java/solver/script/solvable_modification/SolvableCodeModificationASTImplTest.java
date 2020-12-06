@@ -31,7 +31,7 @@ class SolvableCodeModificationASTImplTest {
 
 	@Test
 	void getInitializationStatement() {
-		String sampleFuncName = "foo";
+		String sampleMethodName = "foo";
 		String sampleVarName = "bar";
 
 		DeclarationStatementDelegate expectedChangeVarDecl
@@ -67,11 +67,11 @@ class SolvableCodeModificationASTImplTest {
 
 		MethodDelegate expectedMethod = mock(MethodDelegate.class);
 		when(this.mockNodeFactory.getMethod(mockModificationType,
-				sampleFuncName,
+				sampleMethodName,
 				null,
 				expectedMethodBody)).thenReturn(expectedMethod);
 
-		SolvableModificationIds id = new SolvableModificationIds(sampleFuncName, sampleVarName);
+		SolvableModificationIds id = new SolvableModificationIds(sampleMethodName, sampleVarName);
 		SolvableCodeModification sampleInput = new SolvableCodeModification(this.mockOriginalCode,
 				id);
 		List<NodeDelegate> result = this.astToTest.getInitializationCode(sampleInput);
@@ -87,5 +87,27 @@ class SolvableCodeModificationASTImplTest {
 
 	@Test
 	void getSolvableCode() {
+		String sampleMethodName = "foo";
+		SolvableModificationIds ids = new SolvableModificationIds(sampleMethodName, null);
+		ExpressionDelegate sampleOriginalCode = mock(ExpressionDelegate.class);
+
+		ExpressionDelegate expectedMethodCall = mock(ExpressionDelegate.class);
+		when(this.mockNodeFactory.getMethodCall(sampleMethodName)).thenReturn(expectedMethodCall);
+
+		BinaryExpressionDelegate mockSolvableCode = mock(BinaryExpressionDelegate.class);
+		when(this.mockNodeFactory.getBinaryExpression(
+				sampleOriginalCode,
+				BinaryOperator.ADD,
+				expectedMethodCall)).thenReturn(mockSolvableCode);
+
+		SolvableCodeModification sampleInput = new SolvableCodeModification(
+				sampleOriginalCode,
+				ids);
+
+		ExpressionDelegate resultSolvableCode = this.astToTest.getSolvableCode(sampleInput);
+		assertEquals(
+				mockSolvableCode,
+				resultSolvableCode,
+				"Did not use psi factory to create binary expression of solvable code");
 	}
 }

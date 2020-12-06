@@ -38,4 +38,9 @@ public interface NodeFactory {
 			CodeBlockDelegate body);
 
 	public MethodDelegate getEmptyMethod();
+
+	BinaryExpressionDelegate getBinaryExpression(
+			ExpressionDelegate left, BinaryOperator op, ExpressionDelegate right);
+
+	ExpressionDelegate getMethodCall(String methodName, ExpressionDelegate... params);
 }

@@ -83,6 +83,11 @@ public class SolvableCodeModificationASTImpl implements SolvableCodeModification
 
 	@Override
 	public ExpressionDelegate getSolvableCode(SolvableCodeModification modification) {
-		return null;
+		ExpressionDelegate solvableMethodCall
+				= this.nodeFactory.getMethodCall(modification.id.method);
+		return this.nodeFactory.getBinaryExpression(
+				modification.originalCode,
+				BinaryOperator.ADD,
+				solvableMethodCall);
 	}
 }

@@ -168,4 +168,34 @@ public class PsiNodeFactory implements NodeFactory {
 		String defaultText = "void f() {}";
 		return psiElementFactory.createMethodFromText(defaultText, null);
 	}
+
+	@Override
+	public BinaryExpressionDelegate getBinaryExpression(
+			ExpressionDelegate left, BinaryOperator op, ExpressionDelegate right) {
+		PsiBinaryExpression result
+				= (PsiBinaryExpression) this.psiElementFactory.createExpressionFromText(left.toString()
+				+ op.toString()
+				+ right.toString(), null);
+		return new PsiBinaryExpressionDelegate(result);
+	}
+
+	@Override
+	public ExpressionDelegate getMethodCall(String methodName, ExpressionDelegate... params) {
+		//  Psi factory API does not have parameter list creation so we must construct it form text
+		StringBuilder callText = new StringBuilder();
+		callText.append(methodName);
+		callText.append("(");
+		for (int i = 0; i < params.length; ++i) {
+			callText.append(params[i].toString());
+			if (i != params.length - 1) {
+				callText.append(",");
+			}
+		}
+		callText.append(")");
+		PsiMethodCallExpression result
+				= (PsiMethodCallExpression) this.psiElementFactory.createExpressionFromText(
+				callText.toString(),
+				null);
+		return new PsiExpressionDelegate(result);
+	}
 }
