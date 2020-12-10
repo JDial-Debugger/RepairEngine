@@ -1,8 +1,13 @@
 package solver.script;
 
+import ast.interfaces.ExpressionDelegate;
+import ast.psi.PsiElementExtractorImpl;
+import ast.psi.PsiNodeFactory;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.JavaPsiFacade;
+import intellij.CommandProcessorDelegateImpl;
 import solver.script.correction.CorrectedVariableRecordVisitor;
-import solver.script.solvable_modification.SolvableCodeModification;
-import solver.script.solvable_modification.SolvableModificationVisitor;
+import solver.script.solvable_modification.*;
 import solver.script.state_record.ScopedVariablesVisitor;
 import solver.script.state_record.StateRecordVisitor;
 
@@ -10,12 +15,22 @@ import java.util.HashSet;
 
 public class VisitorFactoryImpl implements  VisitorFactory{
 
-	public VisitorFactoryImpl() {
+	private Project project;
+	public VisitorFactoryImpl(Project project) {
+		this.project = project;
 	}
 
 	@Override
-	public SolvableModificationVisitor getSolvableModificationVisitor() {
-		return new SolvableModificationVisitor(new HashSet<SolvableCodeModification>());
+	public SolvableModificationVisitor getSolvableModificationVisitor(ExpressionDelegate solverHolePlaceholder) {
+		return new SolvableModificationVisitor(
+				new SolvableCodeModificationASTImpl(
+						new PsiNodeFactory(
+								JavaPsiFacade.getInstance(project).getElementFactory(),
+								new CommandProcessorDelegateImpl(project),
+								new PsiElementExtractorImpl()),
+						solverHolePlaceholder),
+				new HashSet<SolvableCodeModification>(),
+				new SolvableModificationIDGeneratorImpl());
 	}
 
 	@Override

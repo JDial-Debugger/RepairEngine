@@ -11,7 +11,7 @@ public class PsiNodeDelegateBase implements NodeDelegate {
 	protected PsiElement element;
 	protected PsiElementExtractor extractor;
 	protected DelegateFactory delegateFactory;
-	protected Map<PsiElement, NodeDelegate> wrappedElementToChild;
+	protected Map<PsiElement, NodeDelegate> wrappedElementToDelegate;
 
 	protected PsiNodeDelegateBase(PsiElement element) {
 		this.element = element;
@@ -30,34 +30,41 @@ public class PsiNodeDelegateBase implements NodeDelegate {
 	public void acceptChildren(VisitorDelegate visitor) {
 		PsiElement child = element.getFirstChild();
 		while (child != null) {
-			this.getChildFrom(child).accept(visitor);
+			this.getDelegateFrom(child).accept(visitor);
 			child = child.getNextSibling();
 		}
 	}
 
-	protected NodeDelegate getChildFrom(PsiElement wrappedChild) {
-		if (this.wrappedElementToChild.containsKey(wrappedChild)) {
-			return this.wrappedElementToChild.get(wrappedChild);
+	protected NodeDelegate getDelegateFrom(PsiElement wrappedElement) {
+		if (this.wrappedElementToDelegate.containsKey(wrappedElement)) {
+			return this.wrappedElementToDelegate.get(wrappedElement);
 		}
-		NodeDelegate wrapper = delegateFactory.getNode(wrappedChild);
-		this.wrappedElementToChild.put(wrappedChild, wrapper);
+		NodeDelegate wrapper = delegateFactory.getNode(wrappedElement);
+		this.wrappedElementToDelegate.put(wrappedElement, wrapper);
 		return wrapper;
 	}
 
 	@Override
 	public String toString() {
-		return element.getText();
+		return this.element.getText();
 	}
 
 	@Override
 	public void replace(NodeDelegate nodeToReplaceWith) {
-		PsiElement wrappedElement = this.extractor.getWrappedElement(PsiElement.class, nodeToReplaceWith);
+		PsiElement wrappedElement = this.extractor.getWrappedElement(
+				PsiElement.class,
+				nodeToReplaceWith);
 		this.element.replace(wrappedElement);
 		this.element = wrappedElement;
 	}
 
 	protected PsiElement getWrappedElement() {
-		return element;
+		return this.element;
+	}
+
+	@Override
+	public NodeDelegate getParent() {
+		return this.getDelegateFrom(this.element.getParent());
 	}
 
 }

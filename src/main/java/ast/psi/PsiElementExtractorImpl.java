@@ -4,7 +4,7 @@ import ast.interfaces.NodeDelegate;
 import ast.interfaces.TypeDelegate;
 import com.intellij.psi.*;
 
-class PsiElementExtractorImpl implements PsiElementExtractor {
+public class PsiElementExtractorImpl implements PsiElementExtractor {
 
 	public PsiElementExtractorImpl() {
 	}

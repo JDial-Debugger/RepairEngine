@@ -2,7 +2,7 @@ package solver.script.constraint;
 
 import ast.interfaces.NodeFactory;
 import solver.script.solvable_modification.SolvableCodeModificationAST;
-import solver.script.solvable_modification.SolvableModificationIds;
+import solver.script.solvable_modification.SolvableModificationId;
 
 public class SyntacticConstraintsASTImpl implements  SyntacticConstraintsAST {
 
@@ -15,7 +15,7 @@ public class SyntacticConstraintsASTImpl implements  SyntacticConstraintsAST {
 	}
 
 	@Override
-	public void addSolvableModificationConstraint(SolvableModificationIds solvableModificationId) {
+	public void addSolvableModificationConstraint(SolvableModificationId solvableModificationId) {
 
 	}
 }

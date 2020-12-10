@@ -6,4 +6,6 @@ public interface NodeDelegate {
 	public String toString();
 
 	void replace(NodeDelegate nodeToReplaceWith);
+
+	NodeDelegate getParent();
 }

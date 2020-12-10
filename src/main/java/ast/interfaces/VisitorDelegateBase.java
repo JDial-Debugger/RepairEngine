@@ -4,6 +4,7 @@ public abstract class VisitorDelegateBase implements VisitorDelegate {
 
 	@Override
 	public void visitNode(NodeDelegate node) {
+		node.acceptChildren(this);
 	}
 
 	@Override

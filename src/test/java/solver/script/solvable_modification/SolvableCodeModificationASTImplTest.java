@@ -71,7 +71,7 @@ class SolvableCodeModificationASTImplTest {
 				null,
 				expectedMethodBody)).thenReturn(expectedMethod);
 
-		SolvableModificationIds id = new SolvableModificationIds(sampleMethodName, sampleVarName);
+		SolvableModificationId id = new SolvableModificationId(sampleMethodName, sampleVarName);
 		SolvableCodeModification sampleInput = new SolvableCodeModification(this.mockOriginalCode,
 				id);
 		List<NodeDelegate> result = this.astToTest.getInitializationCode(sampleInput);
@@ -88,7 +88,7 @@ class SolvableCodeModificationASTImplTest {
 	@Test
 	void getSolvableCode() {
 		String sampleMethodName = "foo";
-		SolvableModificationIds ids = new SolvableModificationIds(sampleMethodName, null);
+		SolvableModificationId ids = new SolvableModificationId(sampleMethodName, null);
 		ExpressionDelegate sampleOriginalCode = mock(ExpressionDelegate.class);
 
 		ExpressionDelegate expectedMethodCall = mock(ExpressionDelegate.class);

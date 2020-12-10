@@ -7,7 +7,7 @@ public class SolvableModificationIDGeneratorImpl implements SolvableModification
 	}
 
 	@Override
-	public SolvableModificationIds getSolvableModificationId() {
+	public SolvableModificationId getSolvableModificationId() {
 		return null;
 	}
 

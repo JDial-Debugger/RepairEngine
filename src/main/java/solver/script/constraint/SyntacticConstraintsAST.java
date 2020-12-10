@@ -1,7 +1,7 @@
 package solver.script.constraint;
 
-import solver.script.solvable_modification.SolvableModificationIds;
+import solver.script.solvable_modification.SolvableModificationId;
 
 public interface SyntacticConstraintsAST {
-	public void addSolvableModificationConstraint(SolvableModificationIds solvableModificationId);
+	public void addSolvableModificationConstraint(SolvableModificationId solvableModificationId);
 }

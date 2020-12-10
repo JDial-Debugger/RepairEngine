@@ -1,5 +1,5 @@
 package solver.script.correction;
 
-public class CorrectedVariableRecordVisitor extends PsiVisitorDelegate {
+public class CorrectedVariableRecordVisitor {
 
 }
