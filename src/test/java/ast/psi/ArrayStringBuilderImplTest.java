@@ -26,7 +26,7 @@ class ArrayStringBuilderImplTest {
 		String initValue = "0";
 		Integer[] dimensions = { 1, 3, 2 };
 
-		String expectedText = "int var1[][][] = {{{0, 0}, {0, 0}, {0, 0}}}";
+		String expectedText = "int[][][] var1 = {{{0, 0}, {0, 0}, {0, 0}}}";
 
 		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
 				name,
@@ -41,7 +41,7 @@ class ArrayStringBuilderImplTest {
 		String initValue = "0";
 		Integer[] dimensions = { 4 };
 
-		String expectedText = "int var1[] = {0, 0, 0, 0}";
+		String expectedText = "int[] var1 = {0, 0, 0, 0}";
 
 		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
 				name,
@@ -56,7 +56,7 @@ class ArrayStringBuilderImplTest {
 		String initValue = "0";
 		Integer[] dimensions = { 3, 2, 0 };
 
-		String expectedText = "int var1[][][] = {{{}, {}}, {{}, {}}, {{}, {}}}";
+		String expectedText = "int[][][] var1 = {{{}, {}}, {{}, {}}, {{}, {}}}";
 
 		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
 				name,
@@ -71,7 +71,7 @@ class ArrayStringBuilderImplTest {
 		String initValue = "0";
 		Integer[] dimensions = { };
 
-		String expectedText = "int var1[] = {}";
+		String expectedText = "int[] var1 = {}";
 
 		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
 				name,

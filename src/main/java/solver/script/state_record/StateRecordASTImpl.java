@@ -25,6 +25,7 @@ public class StateRecordASTImpl implements  StateRecordAST{
 	@Override
 	public DeclarationStatementDelegate getInitializationStatement(
 			StateRecord record, List<ProgramTrace> traces) {
+		int[][] dimensions = {{}};
 		return null;
 	}
 }

@@ -26,13 +26,17 @@ public class ArrayStringBuilderImpl implements ArrayStringBuilder {
 	private String buildArrayDeclString(TypeDelegate type, String name) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(type.toString());
+		this.appendBrackets(sb);
 		sb.append(" ");
 		sb.append(name);
-		sb.append("[]");
-		for (int i = 1; i < dimensions.length; ++i) {
-			sb.append("[]");
-		}
 		return sb.toString();
+	}
+
+	private void appendBrackets(StringBuilder stringBuilder) {
+		stringBuilder.append("[]");
+		for (int i = 1; i < dimensions.length; ++i) {
+			stringBuilder.append("[]");
+		}
 	}
 
 	//  example: {{{0, 0}, {0, 0}, {0, 0}}
