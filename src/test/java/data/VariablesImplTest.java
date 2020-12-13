@@ -1,12 +1,10 @@
 package data;
 
-import collection.SetFactory;
+import factory.java.util.SetFactory;
 import helper.MockEntry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,14 +31,6 @@ public class VariablesImplTest {
 			new MockEntry<String, Integer>("b", 2),
 			new MockEntry<String, Integer>("c", 3)
 	};
-
-	@Test
-	public void test() {
-		int a = 5;
-		a += 3;
-		int b = 3 + a;
-
-	}
 
 	private Variable<Integer>[] expectedInts = new Variable[] {
 			new Variable("a", 1), new Variable("b", 2), new Variable("c", 3),

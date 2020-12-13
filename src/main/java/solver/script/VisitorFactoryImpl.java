@@ -3,6 +3,7 @@ package solver.script;
 import ast.interfaces.ExpressionDelegate;
 import ast.psi.PsiElementExtractorImpl;
 import ast.psi.PsiNodeFactory;
+import ast.psi.factory.ArrayStringBuilderImpl;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import intellij.CommandProcessorDelegateImpl;
@@ -27,7 +28,8 @@ public class VisitorFactoryImpl implements  VisitorFactory{
 						new PsiNodeFactory(
 								JavaPsiFacade.getInstance(project).getElementFactory(),
 								new CommandProcessorDelegateImpl(project),
-								new PsiElementExtractorImpl()),
+								new PsiElementExtractorImpl(),
+								new ArrayStringBuilderImpl()),
 						solverHolePlaceholder),
 				new HashSet<SolvableCodeModification>(),
 				new SolvableModificationIDGeneratorImpl());

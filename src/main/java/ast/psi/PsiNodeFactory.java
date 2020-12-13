@@ -1,6 +1,8 @@
 package ast.psi;
 
 import ast.interfaces.*;
+import ast.psi.factory.ArrayStringBuilder;
+import com.intellij.pom.java.LanguageLevel;
 import com.intellij.psi.*;
 import intellij.CommandProcessorDelegate;
 
@@ -22,14 +24,92 @@ public class PsiNodeFactory implements NodeFactory {
 	private PsiElementFactory psiElementFactory;
 	private CommandProcessorDelegate commandProcessor;
 	private PsiElementExtractor elementExtractor;
+	private ArrayStringBuilder arrayStringBuilder;
+
+	private static final String ZERO = "0";
+	private static final String ZERO_DECIMAL = "0.0d";
+	private static final String ZERO_FLOAT = "0.0f";
+	private static final String ZERO_LONG = "0.0L";
+	private static final String ZERO_CHAR = "\'\\u0000\'";
+	private static final String FALSE = "false";
 
 	public PsiNodeFactory(
 			PsiElementFactory psiElementFactory,
 			CommandProcessorDelegate commandProcessor,
-			PsiElementExtractor elementExtractor) {
+			PsiElementExtractor elementExtractor,
+			ArrayStringBuilder arrayStringBuilder) {
 		this.psiElementFactory = psiElementFactory;
 		this.commandProcessor = commandProcessor;
 		this.elementExtractor = elementExtractor;
+		this.arrayStringBuilder = arrayStringBuilder;
+	}
+
+	public DeclarationStatementDelegate getEmptyArrayDeclaration(int... dimensions) {
+		return null;
+	}
+
+	@Override
+	public LiteralExpressionDelegate getLiteralIntExpression(int expressionContents) {
+		PsiLiteralExpression result
+				= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(""
+				+ expressionContents, null);
+		return new PsiLiteralExpressionDelegate(result);
+	}
+
+	@Override
+	public ArrayDeclarationStatementDelegate getEmptyArrayDeclaration(
+			TypeDelegate type, String name, Integer[] dimensions) {
+		String defaultInitValue = this.getDefaultLiteralExpressionFor(type).toString();
+		String statementText = this.arrayStringBuilder.buildArrayDeclarationStatement(type,
+				name,
+				defaultInitValue,
+				dimensions);
+		PsiStatement statement = this.psiElementFactory.createStatementFromText(statementText,
+				null);
+		return new PsiArrayDeclarationStatementDelegate(statement);
+	}
+
+	@Override
+	public LiteralExpressionDelegate getDefaultLiteralExpressionFor(TypeDelegate type) {
+		PsiLiteralExpression wrappedExpression;
+		if (PsiTypeDelegate.BYTE.equals(type)) {
+			wrappedExpression
+					= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
+					null);
+		} else if (PsiTypeDelegate.BOOLEAN.equals(type)) {
+			wrappedExpression
+					= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(FALSE,
+					null);
+		} else if (PsiTypeDelegate.CHAR.equals(type)) {
+			wrappedExpression
+					= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_CHAR,
+					null);
+		} else if (PsiTypeDelegate.DOUBLE.equals(type)) {
+			wrappedExpression
+					= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_DECIMAL,
+					null);
+		} else if (PsiTypeDelegate.FLOAT.equals(type)) {
+			wrappedExpression
+					= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_FLOAT,
+					null);
+		} else if (PsiTypeDelegate.INT.equals(type)) {
+			wrappedExpression
+					= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
+					null);
+		} else if (PsiTypeDelegate.LONG.equals(type)) {
+			wrappedExpression
+					= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_LONG,
+					null);
+		} else if (PsiTypeDelegate.SHORT.equals(type)) {
+			wrappedExpression
+					= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
+					null);
+		} else {
+			throw new InvalidTypeException("Provided type "
+					+ type.toString()
+					+ " does not have a default value");
+		}
+		return new PsiLiteralExpressionDelegate(wrappedExpression);
 	}
 
 	@Override
@@ -194,9 +274,8 @@ public class PsiNodeFactory implements NodeFactory {
 		}
 		callText.append(")");
 		PsiMethodCallExpression result
-				= (PsiMethodCallExpression) this.psiElementFactory.createExpressionFromText(
-				callText.toString(),
-				null);
+				= (PsiMethodCallExpression) this.psiElementFactory.createExpressionFromText(callText
+				.toString(), null);
 		return new PsiExpressionDelegate(result);
 	}
 }

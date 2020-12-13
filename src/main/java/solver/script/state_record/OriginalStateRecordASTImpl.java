@@ -7,7 +7,7 @@ import data.ProgramTrace;
 
 import java.util.List;
 
-public class OriginalStateRecordASTImpl implements  StateRecordAST{
+public class OriginalStateRecordASTImpl implements  StateRecordAST {
 
 	private NodeFactory nodeFactory;
 	private VariableTraceExtractor traceExtractor;

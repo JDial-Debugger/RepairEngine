@@ -5,6 +5,13 @@ import java.util.List;
 
 public interface NodeFactory {
 
+	LiteralExpressionDelegate getLiteralIntExpression(int expressionContents);
+
+	ArrayDeclarationStatementDelegate getEmptyArrayDeclaration(
+			TypeDelegate type, String name, Integer[] dimensions);
+
+	LiteralExpressionDelegate getDefaultLiteralExpressionFor(TypeDelegate type);
+
 	StatementDelegate getReturnStatement(ExpressionDelegate expressionToReturn);
 
 	CodeBlockDelegate getCodeBlockFromStatements(List<StatementDelegate> statements);

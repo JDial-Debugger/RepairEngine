@@ -1,8 +1,7 @@
 package data;
 
-import collection.SetFactory;
+import factory.java.util.SetFactory;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 

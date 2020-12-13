@@ -1,4 +1,4 @@
-package collection;
+package factory.java.util;
 
 import java.util.HashSet;
 import java.util.Set;

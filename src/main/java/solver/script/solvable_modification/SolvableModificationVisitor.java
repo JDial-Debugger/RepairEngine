@@ -1,8 +1,6 @@
 package solver.script.solvable_modification;
 
 import ast.interfaces.*;
-import com.intellij.ide.ui.EditorOptionsTopHitProvider;
-import solver.repair.SolvedModificationsAST;
 
 import java.util.Set;
 
