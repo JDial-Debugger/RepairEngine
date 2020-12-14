@@ -8,6 +8,6 @@ import data.ProgramTrace;
 import java.util.List;
 
 public interface StateRecordAST {
-	public ExpressionStatementDelegate getRecordStatement(StateRecord record);
+	public StatementDelegate getRecordStatement(StateRecord record);
 	public StatementDelegate getInitializationStatement(StateRecord record, List<ProgramTrace> traces);
 }

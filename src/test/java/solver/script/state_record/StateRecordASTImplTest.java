@@ -107,7 +107,7 @@ public class StateRecordASTImplTest {
 				+ EXPECTED_VAR_NAME
 				+ ";")).thenReturn(mockFactoryResult);
 
-		StatementDelegate result = this.astUnderTest.getRecordStatement(eq(sampleRecord));
+		StatementDelegate result = this.astUnderTest.getRecordStatement(sampleRecord);
 		assertEquals(mockFactoryResult, result, Errors.FAILED_FACTORY_RESULT);
 	}
 }

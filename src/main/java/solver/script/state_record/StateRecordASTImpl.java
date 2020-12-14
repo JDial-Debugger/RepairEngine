@@ -8,7 +8,7 @@ import data.ProgramTrace;
 
 import java.util.List;
 
-public class StateRecordASTImpl implements  StateRecordAST {
+public class StateRecordASTImpl implements StateRecordAST {
 
 	private NodeFactory nodeFactory;
 	private String stateIndexId;
@@ -22,8 +22,17 @@ public class StateRecordASTImpl implements  StateRecordAST {
 	}
 
 	@Override
-	public ExpressionStatementDelegate getRecordStatement(StateRecord record) {
-		return null;
+	public StatementDelegate getRecordStatement(StateRecord record) {
+		return this.nodeFactory.getStatementFromText(getIdentifierFrom(record)
+				+ "["
+				+ this.stateIndexId
+				+ "++] = "
+				+ record.variableName
+				+ ";");
+	}
+
+	private String getIdentifierFrom(StateRecord record) {
+		return ID_PREFIX + record.functionName + "_" + record.variableName + ID_SUFFIX;
 	}
 
 	@Override
@@ -32,11 +41,10 @@ public class StateRecordASTImpl implements  StateRecordAST {
 		String identifier = this.getIdentifierFrom(record);
 		Integer[] dimensions = this.getDimensionsAsTraceLengths(traces);
 
-		return this.nodeFactory.getEmptyArrayDeclaration(record.variableType, identifier, dimensions);
-	}
-
-	private String getIdentifierFrom(StateRecord record) {
-		return ID_PREFIX + record.functionName + "_" + record.variableName + ID_SUFFIX;
+		return this.nodeFactory.getEmptyArrayDeclaration(
+				record.variableType,
+				identifier,
+				dimensions);
 	}
 
 	private Integer[] getDimensionsAsTraceLengths(List<ProgramTrace> traces) {
