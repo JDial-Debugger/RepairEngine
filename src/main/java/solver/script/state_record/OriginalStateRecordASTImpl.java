@@ -3,6 +3,7 @@ package solver.script.state_record;
 import ast.interfaces.DeclarationStatementDelegate;
 import ast.interfaces.ExpressionStatementDelegate;
 import ast.interfaces.NodeFactory;
+import ast.interfaces.StatementDelegate;
 import data.ProgramTrace;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class OriginalStateRecordASTImpl implements  StateRecordAST {
 	}
 
 	@Override
-	public DeclarationStatementDelegate getInitializationStatement(
+	public StatementDelegate getInitializationStatement(
 			StateRecord record, List<ProgramTrace> traces) {
 		return null;
 	}
