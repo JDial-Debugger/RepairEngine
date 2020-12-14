@@ -3,9 +3,6 @@ package ast.psi.factory;
 import ast.interfaces.TypeDelegate;
 import ast.psi.InvalidDimensionSizeException;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class ArrayStringBuilderImpl implements ArrayStringBuilder {
 
 	private Integer[] dimensions;

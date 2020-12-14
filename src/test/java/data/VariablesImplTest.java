@@ -17,19 +17,13 @@ public class VariablesImplTest {
 
 	private SetFactory mockSetFactory;
 	private Set mockSet;
-	private Map<String, Integer> mockVarNameToIntValue;
-	private Map<String, Double> mockVarNameToDoubleValue;
-	private Map<String, Long> mockVarNameToLongValue;
-	private Map<String, Boolean> mockVarNameToBooleanValue;
-	private Map<String, String> mockVarNameToStringValue;
-	private Map<String, Character> mockVarNameToCharValue;
-	private Map<String, Object> mockVarNameToObjectValue;
+	private Map<String, Object> mockVarNameToValue;
 	private VariablesImpl variablesImplToTest;
 
-	private Map.Entry<String, Integer>[] sampleIntEntries = new Map.Entry[] {
-			new MockEntry<String, Integer>("a", 1),
-			new MockEntry<String, Integer>("b", 2),
-			new MockEntry<String, Integer>("c", 3)
+	private Map.Entry<String, Object>[] sampleIntEntries = new Map.Entry[] {
+			new MockEntry<String, Object>("a", 1),
+			new MockEntry<String, Object>("b", 2),
+			new MockEntry<String, Object>("c", 3)
 	};
 
 	private Variable<Integer>[] expectedInts = new Variable[] {
@@ -38,36 +32,22 @@ public class VariablesImplTest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		mockVarNameToIntValue = mock(Map.class);
-		when(mockVarNameToIntValue.entrySet()).thenReturn(Stream.of(sampleIntEntries)
-				.collect(Collectors.toSet()));
-		mockVarNameToDoubleValue = mock(Map.class);
-		mockVarNameToLongValue = mock(Map.class);
-		mockVarNameToBooleanValue = mock(Map.class);
-		mockVarNameToStringValue = mock(Map.class);
-		mockVarNameToCharValue = mock(Map.class);
-		mockVarNameToObjectValue = mock(Map.class);
+		mockVarNameToValue = mock(Map.class);
+		when(mockVarNameToValue.entrySet()).thenReturn(Stream.of(sampleIntEntries)
+		                                                     .collect(Collectors.toSet()));
 		mockSetFactory = mock(SetFactory.class);
 		mockSet = mock(Set.class);
 		when(mockSetFactory.getHashSet()).thenReturn(mockSet);
 
-		variablesImplToTest = new VariablesImpl(
-				mockSetFactory,
-				mockVarNameToIntValue,
-				mockVarNameToDoubleValue,
-				mockVarNameToLongValue,
-				mockVarNameToBooleanValue,
-				mockVarNameToStringValue,
-				mockVarNameToCharValue,
-				mockVarNameToObjectValue);
+		variablesImplToTest = new VariablesImpl(mockSetFactory, mockVarNameToValue);
 	}
 
 	@Test
 	void getValueOnInteger() {
 		String sampleVariableName = "var1";
 		int sampleValue = 4;
-		when(mockVarNameToIntValue.containsKey(sampleVariableName)).thenReturn(true);
-		when(mockVarNameToIntValue.get(sampleVariableName)).thenReturn(sampleValue);
+		when(mockVarNameToValue.containsKey(sampleVariableName)).thenReturn(true);
+		when(mockVarNameToValue.get(sampleVariableName)).thenReturn(sampleValue);
 		int result = variablesImplToTest.getValue(sampleVariableName, Integer.class);
 		assertEquals(sampleValue, result);
 	}
@@ -75,7 +55,7 @@ public class VariablesImplTest {
 	@Test
 	void getValueWhenNoIntegerExists() {
 		String sampleVariableName = "var1";
-		when(mockVarNameToIntValue.containsKey(sampleVariableName)).thenReturn(false);
+		when(mockVarNameToValue.containsKey(sampleVariableName)).thenReturn(false);
 		assertThrows(NoSuchVariableException.class, () -> {
 			variablesImplToTest.getValue(sampleVariableName, Integer.class);
 		});

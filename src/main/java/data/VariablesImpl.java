@@ -9,31 +9,12 @@ import java.util.Set;
 public class VariablesImpl implements Variables {
 
 	private SetFactory setFactory;
-	private Map<String, Integer> varNameToIntValue;
-	private Map<String, Double> varNameToDoubleValue;
-	private Map<String, Long> varNameToLongValue;
-	private Map<String, Boolean> varNameToBooleanValue;
-	private Map<String, String> varNameToStringValue;
-	private Map<String, Character> varNameToCharValue;
-	private Map<String, Object> varNameToObjectValue;
+	private Map<String, Object> varNameToVarValue;
 
 	public VariablesImpl(
-			SetFactory setFactory,
-			Map<String, Integer> varNameToIntValue,
-			Map<String, Double> varNameToDoubleValue,
-			Map<String, Long> varNameToLongValue,
-			Map<String, Boolean> varNameToBooleanValue,
-			Map<String, String> varNameToStringValue,
-			Map<String, Character> varNameToCharValue,
-			Map<String, Object> varNameToObjectValue) {
+			SetFactory setFactory, Map<String, Object> varNameToVarValue) {
 		this.setFactory = setFactory;
-		this.varNameToIntValue = varNameToIntValue;
-		this.varNameToDoubleValue = varNameToDoubleValue;
-		this.varNameToLongValue = varNameToLongValue;
-		this.varNameToBooleanValue = varNameToBooleanValue;
-		this.varNameToStringValue = varNameToStringValue;
-		this.varNameToCharValue = varNameToCharValue;
-		this.varNameToObjectValue = varNameToObjectValue;
+		this.varNameToVarValue = varNameToVarValue;
 	}
 
 	@Override
@@ -43,35 +24,79 @@ public class VariablesImpl implements Variables {
 
 	@Override
 	public <TValue> TValue getValue(String name, Class<TValue> type) {
-		Map<String, TValue> mapToUse;
-		if (type == Integer.class) {
-			mapToUse = (Map<String, TValue>) varNameToIntValue;
-		} else {
-			mapToUse = (Map<String, TValue>) varNameToObjectValue;
-		}
-		if (mapToUse.containsKey(name)) {
-			return mapToUse.get(name);
+		if (this.varNameToVarValue.containsKey(name)) {
+			return attemptValueRetrieval(name, type);
 		}
 		throw new NoSuchVariableException(name, Integer.class);
 	}
 
+	private <TValue> TValue attemptValueRetrieval(String varName, Class<TValue> type) {
+		Object valueRetrieved = this.varNameToVarValue.get(varName);
+		try {
+			return type.cast(valueRetrieved);
+		} catch (ClassCastException ex) {
+			throw new WrongVariableTypeException(valueRetrieved.getClass(), type);
+		}
+	}
+
 	@Override
 	public <TValue> Set<Variable<TValue>> getAllOfType(Class<TValue> type) {
-		Set<Variable<TValue>> result = this.setFactory.getHashSet();
-		if (type == Integer.class) {
-			addVariablesToResult(result, (Map<String, TValue>) varNameToIntValue);
-		} else {
-			addVariablesToResult(result, (Map<String, TValue>) varNameToObjectValue);
+		Set<Variable<TValue>> result = this.setFactory.<Variable<TValue>>getHashSet();
+		for (Map.Entry<String, Object> entry : this.varNameToVarValue.entrySet()) {
+			attemptAddVariable(entry.getKey(), entry.getValue(), result, type);
 		}
 		return result;
 	}
 
-	private <TValue> void addVariablesToResult(Set<Variable<TValue>> result, Map<String, TValue> map) {
+	private <TValue> void attemptAddVariable(
+			String varName,
+			Object varValue,
+			Set<Variable<TValue>> variables,
+			Class<TValue> type) {
+		if (type.isAssignableFrom(varValue.getClass())) {
+			variables.add(new Variable<TValue>(varName, type.cast(varValue)));
+		}
+	}
 
-		map.entrySet()
-				.stream()
-				.forEach(entry -> result.add(new Variable<TValue>(
-						entry.getKey(),
-						entry.getValue())));
+	@Override
+	public Variables addIntegers(Map<String, Integer> nameToIntValue) {
+		this.varNameToVarValue.putAll(nameToIntValue);
+		return this;
+	}
+
+	@Override
+	public Variables addBooleans(Map<String, Boolean> nameToBoolValue) {
+		this.varNameToVarValue.putAll(nameToBoolValue);
+		return this;
+	}
+
+	@Override
+	public Variables addDoubles(Map<String, Double> nameToDoubleValue) {
+		this.varNameToVarValue.putAll(nameToDoubleValue);
+		return this;
+	}
+
+	@Override
+	public Variables addLongs(Map<String, Long> nameToLongValue) {
+		this.varNameToVarValue.putAll(nameToLongValue);
+		return this;
+	}
+
+	@Override
+	public Variables addStrings(Map<String, String> nameToStringValue) {
+		this.varNameToVarValue.putAll(nameToStringValue);
+		return this;
+	}
+
+	@Override
+	public Variables addCharacters(Map<String, Character> nameToCharValue) {
+		this.varNameToVarValue.putAll(nameToCharValue);
+		return this;
+	}
+
+	@Override
+	public Variables addObjects(Map<String, Object> nameToObjectValue) {
+		this.varNameToVarValue.putAll(nameToObjectValue);
+		return this;
 	}
 }

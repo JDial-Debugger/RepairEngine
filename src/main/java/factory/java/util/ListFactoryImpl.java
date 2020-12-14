@@ -7,8 +7,8 @@ import java.util.List;
 public class ListFactoryImpl implements ListFactory {
 
 	@Override
-	public List getEmptyArrayList() {
-		return new ArrayList();
+	public <TContents> List<TContents> getEmptyArrayList() {
+		return new ArrayList<TContents>();
 	}
 
 	@Override
