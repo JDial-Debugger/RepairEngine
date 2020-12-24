@@ -1,14 +1,19 @@
 package ast.psi;
 
 import ast.interfaces.BinaryExpressionDelegate;
+import ast.interfaces.NodeDelegate;
 import ast.interfaces.VisitorDelegate;
 import com.intellij.psi.PsiBinaryExpression;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiExpression;
 
-public class PsiBinaryExpressionDelegate extends PsiExpressionDelegate implements
-		BinaryExpressionDelegate {
+public class PsiBinaryExpressionDelegate extends PsiExpressionDelegate implements BinaryExpressionDelegate {
 
-	protected PsiBinaryExpressionDelegate(PsiBinaryExpression expression) {
-		super(expression);
+public class PsiBinaryExpressionDelegate extends PsiExpressionDelegate
+		implements BinaryExpressionDelegate {
+
+	protected PsiBinaryExpressionDelegate(NodeConfig<? extends PsiBinaryExpression> config) {
+		super(config);
 	}
 
 	@Override

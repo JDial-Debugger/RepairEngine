@@ -10,6 +10,15 @@ public class ArrayStringBuilderImpl implements ArrayStringBuilder {
 	public ArrayStringBuilderImpl() {
 	}
 
+	/**
+	 *
+	 * @param type
+	 * @param name
+	 * @param initValue
+	 * @param dimensions
+	 * @throws
+	 * @return
+	 */
 	@Override
 	public String buildArrayDeclarationStatement(
 			TypeDelegate type, String name, String initValue, Integer[] dimensions) {

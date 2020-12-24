@@ -8,8 +8,8 @@ import java.util.Set;
 //  TODO: Implement and test variables other than ints
 public class VariablesImpl implements Variables {
 
-	private SetFactory setFactory;
-	private Map<String, Object> varNameToVarValue;
+	private final SetFactory setFactory;
+	private final Map<String, Object> varNameToVarValue;
 
 	public VariablesImpl(
 			SetFactory setFactory, Map<String, Object> varNameToVarValue) {

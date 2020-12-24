@@ -1,14 +1,19 @@
 package ast.psi;
 
 import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.NodeDelegate;
 import ast.interfaces.TypeDelegate;
 import ast.interfaces.VisitorDelegate;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiExpression;
+import com.intellij.psi.PsiStatement;
+
+import java.util.Map;
 
 public class PsiExpressionDelegate extends PsiNodeDelegateBase implements ExpressionDelegate {
 
-	protected PsiExpressionDelegate(PsiExpression expression) {
-		super(expression);
+	protected PsiExpressionDelegate(NodeConfig<? extends PsiExpression> config) {
+		super(config);
 	}
 
 	protected PsiExpression getWrappedExpression() {

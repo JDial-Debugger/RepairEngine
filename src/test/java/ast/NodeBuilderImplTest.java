@@ -1,7 +1,7 @@
 package ast;
 
 import ast.interfaces.DeclarationStatementDelegate;
-import ast.psi.PsiNodeFactory;
+import ast.psi.PsiNodeBuilder;
 import com.intellij.psi.PsiDeclarationStatement;
 import com.intellij.psi.PsiElementFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-class NodeFactoryImplTest {
+class NodeBuilderImplTest {
 
-	private PsiNodeFactory factoryToTest;
+	private PsiNodeBuilder factoryToTest;
 	private PsiElementFactory mockWrappedFactory;
 
 	@BeforeEach
@@ -23,7 +23,7 @@ class NodeFactoryImplTest {
 		PsiDeclarationStatement mockDeclStmt = mock(PsiDeclarationStatement.class);
 		when(mockWrappedFactory.createStatementFromText(eq("int a = 0;"), eq(null)))
 				.thenReturn(mockDeclStmt);
-		DeclarationStatementDelegate result = factoryToTest.getEmptyDeclarationStatement();
+		DeclarationStatementDelegate result = factoryToTest.buildEmptyDeclarationStatement();
 
 	}
 }

@@ -1,7 +1,7 @@
 package solver.repair;
 
 import ast.interfaces.FileDelegate;
-import ast.interfaces.NodeFactory;
+import ast.interfaces.NodeBuilder;
 import solver.script.SolverScriptGenerator;
 
 import java.util.Map;
@@ -12,20 +12,20 @@ public class ASTRepairImpl implements ASTRepair {
 	private SolverRepository solverRepository;
 	private RawSolverReader rawSolverReader;
 	private SolvedModificationVisitor solvedModificationVisitor;
-	private NodeFactory nodeFactory;
+	private NodeBuilder nodeBuilder;
 
 	public ASTRepairImpl(
 			SolverScriptGenerator solverScriptGenerator,
 			SolverRepository solverRepository,
 			RawSolverReader rawSolverReader,
 			SolvedModificationVisitor solvedModificationVisitor,
-			NodeFactory nodeFactory
+			NodeBuilder nodeBuilder
 	) {
 		this.solverScriptGenerator = solverScriptGenerator;
 		this.solverRepository = solverRepository;
 		this.rawSolverReader = rawSolverReader;
 		this.solvedModificationVisitor = solvedModificationVisitor;
-		this.nodeFactory = nodeFactory;
+		this.nodeBuilder = nodeBuilder;
 	}
 
 	@Override

@@ -7,14 +7,14 @@ import com.intellij.psi.PsiStatement;
 
 public class PsiCodeBlockDelegate extends PsiNodeDelegateBase implements CodeBlockDelegate {
 
-	protected PsiCodeBlockDelegate(
-			PsiCodeBlock element) {
-		super(element);
+	protected PsiCodeBlockDelegate(NodeConfig<? extends PsiCodeBlock> config) {
+		super(config);
 	}
 
 	@Override
 	public void addStatement(StatementDelegate statement) {
-		PsiStatement wrappedStatement = super.extractor.getWrappedElement(PsiStatement.class, statement);
+		PsiStatement wrappedStatement = super.extractor.getDelegateElement(PsiStatement.class,
+				statement);
 		((PsiCodeBlock) this.element).add(wrappedStatement);
 	}
 

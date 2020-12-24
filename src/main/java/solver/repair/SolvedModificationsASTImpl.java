@@ -1,14 +1,14 @@
 package solver.repair;
 
 import ast.interfaces.ExpressionDelegate;
-import ast.interfaces.NodeFactory;
+import ast.interfaces.NodeBuilder;
 
 public class SolvedModificationsASTImpl<TValue> implements  SolvedModificationsAST{
 
-	private NodeFactory nodeFactory;
+	private NodeBuilder nodeBuilder;
 
-	public SolvedModificationsASTImpl(NodeFactory nodeFactory) {
-		this.nodeFactory = nodeFactory;
+	public SolvedModificationsASTImpl(NodeBuilder nodeBuilder) {
+		this.nodeBuilder = nodeBuilder;
 	}
 
 	@Override

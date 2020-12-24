@@ -21,7 +21,7 @@ public class PsiTypeDelegate implements TypeDelegate {
 			.put(PsiType.SHORT, Type.SHORT)
 			.put(PsiType.VOID, Type.VOID)
 			.build();
-
+/*
 	public static final PsiTypeDelegate BYTE = new PsiTypeDelegate(PsiType.BYTE);
 	public static final PsiTypeDelegate BOOLEAN = new PsiTypeDelegate(PsiType.BOOLEAN);
 	public static final PsiTypeDelegate CHAR = new PsiTypeDelegate(PsiType.CHAR);
@@ -32,7 +32,7 @@ public class PsiTypeDelegate implements TypeDelegate {
 	public static final PsiTypeDelegate NULL = new PsiTypeDelegate(PsiType.NULL);
 	public static final PsiTypeDelegate SHORT = new PsiTypeDelegate(PsiType.SHORT);
 	public static final PsiTypeDelegate VOID = new PsiTypeDelegate(PsiType.VOID);
-
+*/
 	private PsiType type;
 
 	protected PsiTypeDelegate(PsiType type) {
