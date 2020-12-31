@@ -4,7 +4,7 @@ import ast.interfaces.*;
 
 import java.util.Set;
 
-public class SolvableModificationVisitor extends VisitorDelegateBase {
+public class SolvableModificationVisitor extends VisitorDelegateBase implements SolvableModificationGenerator {
 
 	private SolvableCodeModificationAST ast;
 	private Set<SolvableCodeModification> solvableModifications;
@@ -53,4 +53,8 @@ public class SolvableModificationVisitor extends VisitorDelegateBase {
 		return expression.getType().asEnum() == Type.INT;
 	}
 
+	@Override
+	public Set<SolvableCodeModification> getSolvableCodeModifications() {
+		return this.solvableModifications;
+	}
 }

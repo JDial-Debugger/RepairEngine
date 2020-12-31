@@ -7,14 +7,14 @@ import java.util.List;
 
 public class SolvableCodeModificationASTImpl implements SolvableCodeModificationAST {
 
-	private NodeFactory nodeFactory;
+	private NodeBuilder nodeBuilder;
 	private ExpressionDelegate solverHolePlaceholder;
 
 	private final String noChangeRawValue = "0";
 
 	public SolvableCodeModificationASTImpl(
-			NodeFactory nodeFactory, ExpressionDelegate solverHolePlaceholder) {
-		this.nodeFactory = nodeFactory;
+			NodeBuilder nodeBuilder, ExpressionDelegate solverHolePlaceholder) {
+		this.nodeBuilder = nodeBuilder;
 		this.solverHolePlaceholder = solverHolePlaceholder;
 	}
 
@@ -37,7 +37,7 @@ public class SolvableCodeModificationASTImpl implements SolvableCodeModification
 		String changeVarName = modification.id.changeVariable;
 
 		//  int coeff_1_change = ??;
-		DeclarationStatementDelegate changeVarDecl = this.nodeFactory.getDeclarationStatement(changeVarName,
+		DeclarationStatementDelegate changeVarDecl = this.nodeBuilder.buildDeclarationStatement(changeVarName,
 				modificationType,
 				solverHolePlaceholder);
 
@@ -55,37 +55,37 @@ public class SolvableCodeModificationASTImpl implements SolvableCodeModification
 
 		// return coeff_1_change;
 		StatementDelegate changeReturn
-				= this.nodeFactory.getReturnStatement(this.nodeFactory.getExpressionFromText(
+				= this.nodeBuilder.buildReturnStatement(this.nodeBuilder.buildExpressionFromText(
 				changeVarName));
 
-		CodeBlockDelegate methodBody = this.nodeFactory.getEmptyCodeBlock();
+		CodeBlockDelegate methodBody = this.nodeBuilder.buildEmptyCodeBlock();
 		methodBody.addStatements(noChangeIfStatement, changeReturn);
 
-		return this.nodeFactory.getMethod(type, methodName, null, methodBody);
+		return this.nodeBuilder.buildMethod(type, methodName, null, methodBody);
 	}
 
 	// if (??) { return 0; }
 	private IfStatementDelegate createNoChangeIfStatement() {
 		StatementDelegate noChangeReturn = this.getNoChangeReturn();
 
-		CodeBlockDelegate noChangeIfBody = this.nodeFactory.getEmptyCodeBlock();
+		CodeBlockDelegate noChangeIfBody = this.nodeBuilder.buildEmptyCodeBlock();
 		noChangeIfBody.addStatement(noChangeReturn);
 
-		return this.nodeFactory.getIfStatement(this.solverHolePlaceholder, noChangeIfBody);
+		return this.nodeBuilder.buildIfStatement(this.solverHolePlaceholder, noChangeIfBody);
 	}
 
 	//  return 0;
 	private StatementDelegate getNoChangeReturn() {
 		ExpressionDelegate noChangeValue
-				= this.nodeFactory.getExpressionFromText(this.noChangeRawValue);
-		return this.nodeFactory.getReturnStatement(noChangeValue);
+				= this.nodeBuilder.buildExpressionFromText(this.noChangeRawValue);
+		return this.nodeBuilder.buildReturnStatement(noChangeValue);
 	}
 
 	@Override
 	public ExpressionDelegate getSolvableCode(SolvableCodeModification modification) {
 		ExpressionDelegate solvableMethodCall
-				= this.nodeFactory.getMethodCall(modification.id.method);
-		return this.nodeFactory.getBinaryExpression(
+				= this.nodeBuilder.buildMethodCall(modification.id.method);
+		return this.nodeBuilder.buildBinaryExpression(
 				modification.originalCode,
 				BinaryOperator.ADD,
 				solvableMethodCall);

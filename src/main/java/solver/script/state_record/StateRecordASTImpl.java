@@ -1,8 +1,6 @@
 package solver.script.state_record;
 
-import ast.interfaces.DeclarationStatementDelegate;
-import ast.interfaces.ExpressionStatementDelegate;
-import ast.interfaces.NodeFactory;
+import ast.interfaces.NodeBuilder;
 import ast.interfaces.StatementDelegate;
 import data.ProgramTrace;
 
@@ -10,29 +8,35 @@ import java.util.List;
 
 public class StateRecordASTImpl implements StateRecordAST {
 
-	private NodeFactory nodeFactory;
+	private NodeBuilder nodeBuilder;
 	private String stateIndexId;
+	private String exampleIndexId;
 
 	private static final String ID_PREFIX = "__JDIAL__";
-	private static final String ID_SUFFIX = "_state_record";
+	private static final String ID_SUFFIX = "__state_record";
 
-	public StateRecordASTImpl(NodeFactory nodeFactory, String stateIndexId) {
-		this.nodeFactory = nodeFactory;
+	public StateRecordASTImpl(NodeBuilder nodeBuilder, String stateIndexId, String exampleIndexId) {
+		this.nodeBuilder = nodeBuilder;
 		this.stateIndexId = stateIndexId;
+		this.exampleIndexId = exampleIndexId;
 	}
 
+	// __JDIAL__func_var__state_record[__JDIAL__example_idx][__JDIAL__state_idx] = var;
 	@Override
 	public StatementDelegate getRecordStatement(StateRecord record) {
-		return this.nodeFactory.getStatementFromText(getIdentifierFrom(record)
+		return this.nodeBuilder.buildStatementFromText(
+				getIdentifierFrom(record)
 				+ "["
+				+ this.exampleIndexId
+				+ "]["
 				+ this.stateIndexId
-				+ "++] = "
+				+ "] = "
 				+ record.variableName
 				+ ";");
 	}
 
 	private String getIdentifierFrom(StateRecord record) {
-		return ID_PREFIX + record.functionName + "_" + record.variableName + ID_SUFFIX;
+		return ID_PREFIX + record.functionName + "__" + record.variableName + ID_SUFFIX;
 	}
 
 	@Override
@@ -41,7 +45,7 @@ public class StateRecordASTImpl implements StateRecordAST {
 		String identifier = this.getIdentifierFrom(record);
 		Integer[] dimensions = this.getDimensionsAsTraceLengths(traces);
 
-		return this.nodeFactory.getEmptyArrayDeclaration(
+		return this.nodeBuilder.buildEmptyArrayDeclaration(
 				record.variableType,
 				identifier,
 				dimensions);
