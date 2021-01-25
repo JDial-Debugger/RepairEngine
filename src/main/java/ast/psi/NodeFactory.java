@@ -5,7 +5,7 @@ import com.intellij.psi.*;
 import kotlin.contracts.Returns;
 
 //  Used when classes outside the factory class in this package need to create delegate class for a Psi element
-interface NodeFactory {
+public interface NodeFactory {
 
 	AssertStatementDelegate getNode(PsiAssertStatement delegate);
 

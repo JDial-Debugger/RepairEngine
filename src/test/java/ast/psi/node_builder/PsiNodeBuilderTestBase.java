@@ -1,8 +1,10 @@
-package ast.psi;
+package ast.psi.node_builder;
 
 import ast.interfaces.*;
+import ast.psi.*;
 import ast.psi.factory.ArrayStringBuilder;
 import ast.psi.mocks.MockNode;
+import ast.psi.mocks.MockPsiElement;
 import ast.psi.mocks.MockPsiIfStatement;
 import com.intellij.psi.*;
 import intellij.CommandProcessorDelegate;
@@ -34,8 +36,8 @@ class PsiNodeBuilderTestBase {
 		this.mockExtractor = mock(PsiElementExtractor.class);
 		this.mockArrayStringBuilder = mock(ArrayStringBuilder.class);
 		this.mockNodeFactory = mock(NodeFactory.class);
-		this.builderUnderTest = new PsiNodeBuilder(mockElementFactory,
-				mockProcessor,
+		this.builderUnderTest = new PsiNodeBuilder(this.mockElementFactory,
+				this.mockProcessor,
 				this.mockExtractor,
 				this.mockArrayStringBuilder,
 				this.mockNodeFactory);
@@ -45,24 +47,6 @@ class PsiNodeBuilderTestBase {
 	@Test
 	void getEmptyArrayDeclaration() {
 
-	}
-
-	@Test
-	void buildLiteralIntExpression() {
-		int sampleInput = 5;
-		String expectedExpressionString = "5";
-
-		PsiLiteralExpression mockElementFactoryResult = mock(PsiLiteralExpression.class);
-		when(this.mockElementFactory.createExpressionFromText(expectedExpressionString,
-				null)).thenReturn(mockElementFactoryResult);
-
-		LiteralExpressionDelegate expectedResult = mock(LiteralExpressionDelegate.class);
-		when(this.mockNodeFactory.getNode(mockElementFactoryResult)).thenReturn(expectedResult);
-
-		LiteralExpressionDelegate actualResult = this.builderUnderTest.buildLiteralIntExpression(
-				sampleInput);
-
-		assertEquals(expectedResult, actualResult, BAD_RETURN);
 	}
 
 	@Test

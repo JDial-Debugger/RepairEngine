@@ -1,4 +1,9 @@
 package ast.psi.mocks;
 
-public class MockPsiLiteralExpression {
+import com.intellij.psi.PsiLiteralExpression;
+
+public class MockPsiLiteralExpression extends MockPsiElement<PsiLiteralExpression> {
+	public MockPsiLiteralExpression() {
+		super(PsiLiteralExpression.class);
+	}
 }
