@@ -44,38 +44,6 @@ class PsiNodeBuilderTestBase {
 	}
 
 	@Test
-	void buildExpressionFromText() {
-		String sampleText = "a + 4 - 3 * 2 + func()";
-
-		PsiExpression mockElementFactoryResult = mock(PsiExpression.class);
-		when(this.mockElementFactory.createExpressionFromText(sampleText, null)).thenReturn(
-				mockElementFactoryResult);
-
-		ExpressionDelegate expectedResult = mock(ExpressionDelegate.class);
-		when(this.mockNodeFactory.getNode(mockElementFactoryResult)).thenReturn(expectedResult);
-
-		ExpressionDelegate actualResult = this.builderUnderTest.buildExpressionFromText(sampleText);
-
-		assertEquals(expectedResult, actualResult, BAD_RETURN);
-	}
-
-	@Test
-	void buildStatementFromText() {
-		String sampleText = "int b = a + 4 - 3 * 2 + func()";
-
-		PsiStatement mockElementFactoryResult = mock(PsiStatement.class);
-		when(this.mockElementFactory.createStatementFromText(sampleText, null)).thenReturn(
-				mockElementFactoryResult);
-
-		StatementDelegate expectedResult = mock(StatementDelegate.class);
-		when(this.mockNodeFactory.getNode(mockElementFactoryResult)).thenReturn(expectedResult);
-
-		StatementDelegate actualResult = this.builderUnderTest.buildStatementFromText(sampleText);
-
-		assertEquals(expectedResult, actualResult, BAD_RETURN);
-	}
-
-	@Test
 	void buildEmptyDeclarationStatement() {
 
 		PsiDeclarationStatement mockElementFactoryResult = mock(PsiDeclarationStatement.class);
