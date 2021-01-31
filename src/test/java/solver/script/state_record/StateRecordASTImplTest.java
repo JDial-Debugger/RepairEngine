@@ -45,7 +45,7 @@ public class StateRecordASTImplTest {
 
 		DeclarationStatement mockFactoryResult = mock(DeclarationStatement.class);
 		Type mockType = this.getMockIntType();
-		when(this.mockNodeBuilder.buildEmptyArrayDeclaration(mockType,
+		when(this.mockNodeBuilder.buildEmptyArrayDeclaration(eq(mockType),
 				eq(EXPECTED_ID),
 				aryEq(expectedDimensions))).thenReturn(mockFactoryResult);
 

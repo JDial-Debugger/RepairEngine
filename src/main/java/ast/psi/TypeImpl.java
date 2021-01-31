@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableMap;
 
 import java.util.Objects;
 
-public class PsiType implements Type {
+public class TypeImpl implements Type {
 
 	private static final ImmutableMap<com.intellij.psi.PsiType, PrimitiveType> psiTypeToEnum = ImmutableMap.<com.intellij.psi.PsiType, PrimitiveType>builder()
 			.put(com.intellij.psi.PsiType.BOOLEAN, PrimitiveType.BOOLEAN)
@@ -21,20 +21,20 @@ public class PsiType implements Type {
 			.put(com.intellij.psi.PsiType.VOID, PrimitiveType.VOID)
 			.build();
 /*
-	public static final PsiType BYTE = new PsiType(PsiType.BYTE);
-	public static final PsiType BOOLEAN = new PsiType(PsiType.BOOLEAN);
-	public static final PsiType CHAR = new PsiType(PsiType.CHAR);
-	public static final PsiType DOUBLE = new PsiType(PsiType.DOUBLE);
-	public static final PsiType FLOAT = new PsiType(PsiType.FLOAT);
-	public static final PsiType INT = new PsiType(PsiType.INT);
-	public static final PsiType LONG = new PsiType(PsiType.LONG);
-	public static final PsiType NULL = new PsiType(PsiType.NULL);
-	public static final PsiType SHORT = new PsiType(PsiType.SHORT);
-	public static final PsiType VOID = new PsiType(PsiType.VOID);
+	public static final TypeImpl BYTE = new TypeImpl(TypeImpl.BYTE);
+	public static final TypeImpl BOOLEAN = new TypeImpl(TypeImpl.BOOLEAN);
+	public static final TypeImpl CHAR = new TypeImpl(TypeImpl.CHAR);
+	public static final TypeImpl DOUBLE = new TypeImpl(TypeImpl.DOUBLE);
+	public static final TypeImpl FLOAT = new TypeImpl(TypeImpl.FLOAT);
+	public static final TypeImpl INT = new TypeImpl(TypeImpl.INT);
+	public static final TypeImpl LONG = new TypeImpl(TypeImpl.LONG);
+	public static final TypeImpl NULL = new TypeImpl(TypeImpl.NULL);
+	public static final TypeImpl SHORT = new TypeImpl(TypeImpl.SHORT);
+	public static final TypeImpl VOID = new TypeImpl(TypeImpl.VOID);
 */
 	private com.intellij.psi.PsiType type;
 
-	protected PsiType(com.intellij.psi.PsiType type) {
+	protected TypeImpl(com.intellij.psi.PsiType type) {
 		this.type = type;
 	}
 
@@ -50,7 +50,7 @@ public class PsiType implements Type {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		PsiType that = (PsiType) o;
+		TypeImpl that = (TypeImpl) o;
 		return type.equals(that.type);
 	}
 

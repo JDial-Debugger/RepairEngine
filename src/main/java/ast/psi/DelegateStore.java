@@ -1,7 +1,9 @@
 package ast.psi;
 
 import ast.interfaces.Node;
+import ast.interfaces.Type;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiType;
 
 public interface DelegateStore {
 	/**
@@ -13,4 +15,6 @@ public interface DelegateStore {
 	 * @return - a node that wraps the given delegate
 	 */
 	public Node getNodeFrom(PsiElement delegate);
+
+	public Type getTypeFrom(PsiType type);
 }

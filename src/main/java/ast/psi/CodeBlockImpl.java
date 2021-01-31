@@ -2,7 +2,13 @@ package ast.psi;
 
 import ast.interfaces.CodeBlock;
 import ast.interfaces.Statement;
+import com.intellij.psi.PsiCodeBlock;
 import com.intellij.psi.PsiStatement;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 public class CodeBlockImpl extends NodeImplBase implements CodeBlock {
 
@@ -14,7 +20,7 @@ public class CodeBlockImpl extends NodeImplBase implements CodeBlock {
 	public void addStatement(Statement statement) {
 		PsiStatement wrappedStatement = super.extractor.getDelegateElement(PsiStatement.class,
 				statement);
-		((com.intellij.psi.PsiCodeBlock) this.element).add(wrappedStatement);
+		this.element.add(wrappedStatement);
 	}
 
 	@Override
@@ -22,5 +28,25 @@ public class CodeBlockImpl extends NodeImplBase implements CodeBlock {
 		for (Statement stmt : statements) {
 			this.addStatement(stmt);
 		}
+	}
+
+	@NotNull
+	@Override
+	public Iterator<Statement> iterator() {
+		PsiCodeBlock myElement = (PsiCodeBlock) this.element;
+		DelegateStore delegateStore = this.delegateStore;
+		return new Iterator<Statement>() {
+			int curIndex = 0;
+			@Override
+			public boolean hasNext() {
+				return curIndex < myElement.getStatements().length;
+			}
+
+			@Override
+			public Statement next() {
+				PsiStatement delegate = myElement.getStatements()[curIndex++];
+				return (Statement) delegateStore.getNodeFrom(delegate);
+			}
+		};
 	}
 }

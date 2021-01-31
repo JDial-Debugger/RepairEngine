@@ -16,7 +16,7 @@ public class ExpressionImpl extends NodeImplBase implements Expression {
 
 	@Override
 	public Type getType() {
-		return new PsiType(((com.intellij.psi.PsiExpression) this.element).getType());
+		return new TypeImpl(((com.intellij.psi.PsiExpression) this.element).getType());
 	}
 
 	@Override

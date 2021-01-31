@@ -6,35 +6,35 @@ import com.intellij.psi.*;
 //  Used when classes outside the factory class in this package need to create delegate class for a Psi element
 public interface NodeFactory {
 
-	AssertStatement getNode(AssertStatementImpl delegate);
+	AssertStatement getNode(PsiAssertStatement delegate);
 
 	AssignExpression getNode(PsiAssignmentExpression delegate);
 
-	BinaryExpression getNode(BinaryExpressionImpl delegate);
+	BinaryExpression getNode(PsiBinaryExpression delegate);
 
-	CodeBlock getNode(CodeBlockImpl delegate);
+	CodeBlock getNode(PsiCodeBlock delegate);
 
-	DeclarationStatement getNode(DeclarationStatementImpl delegate);
+	DeclarationStatement getNode(PsiDeclarationStatement delegate);
 
-	Expression getNode(ExpressionImpl delegate);
+	Expression getNode(PsiExpression delegate);
 
-	ExpressionStatement getNode(ExpressionStatementImpl delegate);
+	ExpressionStatement getNode(PsiExpressionStatement delegate);
 
-	File getNode(FileImpl delegate);
+	File getNode(PsiFile delegate);
 
-	IfStatement getNode(IfStatementImpl delegate);
+	IfStatement getNode(PsiIfStatement delegate);
 
-	LiteralExpression getNode(LiteralExpressionImpl delegate);
+	LiteralExpression getNode(PsiLiteralExpression delegate);
 
-	Method getNode(MethodImpl delegate);
+	Method getNode(PsiMethod delegate);
 
 	Node getNode(PsiElement delegate);
 
-	ParameterList getNode(ParameterListImpl delegate);
+	ParameterList getNode(PsiParameterList delegate);
 
-	ReturnStatement getNode(ReturnStatementImpl delegate);
+	ReturnStatement getNode(PsiReturnStatement delegate);
 
-	Statement getNode(StatementImpl delegate);
+	Statement getNode(PsiStatement delegate);
 
 	Type getType(PsiType delegate);
 }

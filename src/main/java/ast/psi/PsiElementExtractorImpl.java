@@ -18,6 +18,6 @@ public class PsiElementExtractorImpl implements PsiElementExtractor {
 
 	@Override
 	public com.intellij.psi.PsiType getDelegateType(Type type) {
-		return ((PsiType) type).getWrappedType();
+		return ((TypeImpl) type).getWrappedType();
 	}
 }
