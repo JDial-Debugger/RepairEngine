@@ -1,13 +1,13 @@
 package ast.psi;
 
-import ast.interfaces.NodeDelegate;
-import ast.interfaces.TypeDelegate;
+import ast.interfaces.Node;
+import ast.interfaces.Type;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
 
-interface PsiElementExtractor {
-	<TWrapped extends PsiElement, TWrapper extends NodeDelegate> TWrapped getWrappedElement(
-			Class<TWrapped> wrappedType, TWrapper wrapper);
-	PsiType getWrappedType(TypeDelegate typeDelegate);
+public interface PsiElementExtractor {
+	<TDelegate extends PsiElement, TWrapper extends Node> TDelegate getDelegateElement(
+			Class<TDelegate> delegateType, TWrapper wrapper);
+	PsiType getDelegateType(Type type);
 
 }

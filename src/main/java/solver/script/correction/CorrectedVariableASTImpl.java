@@ -1,33 +1,33 @@
 package solver.script.correction;
 
-import ast.interfaces.AssertStatementDelegate;
-import ast.interfaces.DeclarationStatementDelegate;
-import ast.interfaces.IfStatementDelegate;
-import ast.interfaces.NodeFactory;
+import ast.interfaces.AssertStatement;
+import ast.interfaces.DeclarationStatement;
+import ast.interfaces.IfStatement;
+import ast.interfaces.NodeBuilder;
 import data.Variable;
 
 public class CorrectedVariableASTImpl<TValue> implements CorrectedVariableAST<TValue> {
 
 	private CorrectedVariablesIDGenerator idGenerator;
-	private NodeFactory nodeFactory;
+	private NodeBuilder nodeBuilder;
 
-	public CorrectedVariableASTImpl(CorrectedVariablesIDGenerator idGenerator, NodeFactory nodeFactory) {
+	public CorrectedVariableASTImpl(CorrectedVariablesIDGenerator idGenerator, NodeBuilder nodeBuilder) {
 		this.idGenerator = idGenerator;
-		this.nodeFactory = nodeFactory;
+		this.nodeBuilder = nodeBuilder;
 	}
 
 	@Override
-	public DeclarationStatementDelegate getInitializationStatement(CorrectedVariable correctedVariable) {
+	public DeclarationStatement getInitializationStatement(CorrectedVariable correctedVariable) {
 		return null;
 	}
 
 	@Override
-	public IfStatementDelegate getCaptureStatement(CorrectedVariable correctedVariable) {
+	public IfStatement getCaptureStatement(CorrectedVariable correctedVariable) {
 		return null;
 	}
 
 	@Override
-	public AssertStatementDelegate getValueAssertionStatement(
+	public AssertStatement getValueAssertionStatement(
 			CorrectedVariable correctedVariable, Variable<TValue> expectedValue) {
 		return null;
 	}

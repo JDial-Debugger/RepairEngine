@@ -1,8 +1,9 @@
 package solver.script;
 
-import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.Expression;
+import ast.psi.NodeFactoryImpl;
 import ast.psi.PsiElementExtractorImpl;
-import ast.psi.PsiNodeFactory;
+import ast.psi.PsiNodeBuilder;
 import ast.psi.factory.ArrayStringBuilderImpl;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
@@ -22,14 +23,15 @@ public class VisitorFactoryImpl implements  VisitorFactory{
 	}
 
 	@Override
-	public SolvableModificationVisitor getSolvableModificationVisitor(ExpressionDelegate solverHolePlaceholder) {
+	public SolvableModificationVisitor getSolvableModificationVisitor(Expression solverHolePlaceholder) {
 		return new SolvableModificationVisitor(
 				new SolvableCodeModificationASTImpl(
-						new PsiNodeFactory(
+						new PsiNodeBuilder(
 								JavaPsiFacade.getInstance(project).getElementFactory(),
 								new CommandProcessorDelegateImpl(project),
 								new PsiElementExtractorImpl(),
-								new ArrayStringBuilderImpl()),
+								new ArrayStringBuilderImpl(),
+								new NodeFactoryImpl()),
 						solverHolePlaceholder),
 				new HashSet<SolvableCodeModification>(),
 				new SolvableModificationIDGeneratorImpl());
@@ -42,7 +44,7 @@ public class VisitorFactoryImpl implements  VisitorFactory{
 
 	@Override
 	public StateRecordVisitor getStateRecordVisitor() {
-		return new StateRecordVisitor();
+		return null;
 	}
 
 	@Override

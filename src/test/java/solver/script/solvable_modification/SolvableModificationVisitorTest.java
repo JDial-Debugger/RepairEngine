@@ -1,9 +1,9 @@
 package solver.script.solvable_modification;
 
-import ast.interfaces.BinaryExpressionDelegate;
-import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.BinaryExpression;
+import ast.interfaces.Expression;
+import ast.interfaces.PrimitiveType;
 import ast.interfaces.Type;
-import ast.interfaces.TypeDelegate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,10 +33,10 @@ class SolvableModificationVisitorTest {
 	void visitBinaryExpression() {
 
 		SolvableModificationId sampleId = this.mockSampleIds();
-		BinaryExpressionDelegate mockExpressionToSolve = this.createMockExpressionToSolve();
+		BinaryExpression mockExpressionToSolve = this.createMockExpressionToSolve();
 		SolvableCodeModification expectedModification = new SolvableCodeModification(mockExpressionToSolve, sampleId);
 
-		ExpressionDelegate expectedSolvableCode = mock(ExpressionDelegate.class);
+		Expression expectedSolvableCode = mock(Expression.class);
 		when(this.mockAST.getSolvableCode(eq(expectedModification)))
 				.thenReturn(expectedSolvableCode);
 
@@ -54,11 +54,11 @@ class SolvableModificationVisitorTest {
 		return sampleId;
 	}
 
-	private BinaryExpressionDelegate createMockExpressionToSolve() {
-		BinaryExpressionDelegate sampleInput = mock(BinaryExpressionDelegate.class);
-		TypeDelegate mockTypeDelegate = mock(TypeDelegate.class);
-		when(mockTypeDelegate.asEnum()).thenReturn(Type.INT);
-		when(sampleInput.getType()).thenReturn(mockTypeDelegate);
+	private BinaryExpression createMockExpressionToSolve() {
+		BinaryExpression sampleInput = mock(BinaryExpression.class);
+		Type mockType = mock(Type.class);
+		when(mockType.asEnum()).thenReturn(PrimitiveType.INT);
+		when(sampleInput.getType()).thenReturn(mockType);
 		return sampleInput;
 	}
 }

@@ -1,19 +1,19 @@
 package solver.script.constraint;
 
-import ast.interfaces.CodeBlockDelegate;
-import ast.interfaces.ExpressionDelegate;
-import ast.interfaces.NodeFactory;
+import ast.interfaces.CodeBlock;
+import ast.interfaces.Expression;
+import ast.interfaces.NodeBuilder;
 import solver.script.state_record.StateRecord;
 import solver.script.state_record.StateRecordAST;
 
 public class SemanticConstraintsASTImpl implements  SemanticConstraintsAST {
 
 	private StateRecordAST stateRecordAST;
-	private NodeFactory nodeFactory;
+	private NodeBuilder nodeBuilder;
 
-	public SemanticConstraintsASTImpl(StateRecordAST stateRecordAST, NodeFactory nodeFactory) {
+	public SemanticConstraintsASTImpl(StateRecordAST stateRecordAST, NodeBuilder nodeBuilder) {
 		this.stateRecordAST = stateRecordAST;
-		this.nodeFactory = nodeFactory;
+		this.nodeBuilder = nodeBuilder;
 	}
 
 	@Override
@@ -22,12 +22,12 @@ public class SemanticConstraintsASTImpl implements  SemanticConstraintsAST {
 	}
 
 	@Override
-	public ExpressionDelegate getReferenceExpression() {
+	public Expression getReferenceExpression() {
 		return null;
 	}
 
 	@Override
-	public CodeBlockDelegate getInitializationStatements() {
+	public CodeBlock getInitializationStatements() {
 		return null;
 	}
 }
