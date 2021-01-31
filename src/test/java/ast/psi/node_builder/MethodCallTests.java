@@ -22,7 +22,7 @@ public class MethodCallTests extends PsiNodeBuilderTestBase {
 
 		this.createMockNodes();
 
-		this.stubDependencies();
+		this.stubDependencies("func1(foo,bar)");
 
 		this.assertBuilderReturnsCorrectNodeFactoryResult();
 	}
@@ -44,19 +44,34 @@ public class MethodCallTests extends PsiNodeBuilderTestBase {
 		this.mockNode = mock(ExpressionDelegate.class);
 	}
 
-	private void stubDependencies() {
-		String expectedExpressionText = "func1(foo,bar)";
-		when(this.mockElementFactory.createExpressionFromText(eq(expectedExpressionText),
-				isNull())).thenReturn(this.mockDelegate);
+	private void stubDependencies(String expectedExpressionText) {
+		when(this.mockElementFactory.createExpressionFromText(eq(expectedExpressionText), isNull()))
+				.thenReturn(this.mockDelegate);
 
 		when(this.mockNodeFactory.getNode(this.mockDelegate)).thenReturn(this.mockNode);
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		ExpressionDelegate actualResult = this.builderUnderTest.buildMethodCall(
-				this.inputName,
+		ExpressionDelegate actualResult = this.builderUnderTest.buildMethodCall(this.inputName,
 				this.inputParam1,
 				this.inputParam2);
+
+		assertEquals(this.mockNode, actualResult, BAD_RETURN);
+	}
+
+	@Test
+	void buildMethodCallOnNoParams() {
+		this.inputName = "func1";
+
+		this.createMockNodes();
+
+		this.stubDependencies("func1()");
+
+		this.assertBuilderReturnsCorrectNodeFactoryResultOnNoParams();
+	}
+
+	private void assertBuilderReturnsCorrectNodeFactoryResultOnNoParams() {
+		ExpressionDelegate actualResult = this.builderUnderTest.buildMethodCall(this.inputName);
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);
 	}
