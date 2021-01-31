@@ -1,6 +1,6 @@
 package ast.interfaces;
 
-public abstract class AstVisitorDelegateBase implements AstVisitor {
+public abstract class AstVisitorBase implements AstVisitor {
 
 	@Override
 	public void visitNode(Node node) {

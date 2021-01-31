@@ -4,7 +4,7 @@ import ast.interfaces.*;
 
 import java.util.Set;
 
-public class SolvableModificationVisitor extends AstVisitorDelegateBase implements SolvableModificationGenerator {
+public class SolvableModificationVisitor extends AstVisitorBase implements SolvableModificationGenerator {
 
 	private SolvableCodeModificationAST ast;
 	private Set<SolvableCodeModification> solvableModifications;

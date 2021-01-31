@@ -1,9 +1,9 @@
 package solver.script.state_record;
 
 import ast.interfaces.Statement;
-import ast.interfaces.AstVisitorDelegateBase;
+import ast.interfaces.AstVisitorBase;
 
-public class StateRecordVisitor extends AstVisitorDelegateBase {
+public class StateRecordVisitor extends AstVisitorBase {
 	private StateRecordAST ast;
 
 	public StateRecordVisitor(StateRecordAST ast) {
