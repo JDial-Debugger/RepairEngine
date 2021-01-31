@@ -44,23 +44,6 @@ class PsiNodeBuilderTestBase {
 	}
 
 	@Test
-	void buildEmptyDeclarationStatement() {
-
-		PsiDeclarationStatement mockElementFactoryResult = mock(PsiDeclarationStatement.class);
-		String defaultText = "int a = 0;";
-		when(this.mockElementFactory.createStatementFromText(defaultText, null)).thenReturn(
-				mockElementFactoryResult);
-
-		DeclarationStatementDelegate expectedResult = mock(DeclarationStatementDelegate.class);
-		when(this.mockNodeFactory.getNode(mockElementFactoryResult)).thenReturn(expectedResult);
-
-		DeclarationStatementDelegate actualResult
-				= this.builderUnderTest.buildEmptyDeclarationStatement();
-
-		assertEquals(expectedResult, actualResult, BAD_RETURN);
-	}
-
-	@Test
 	void buildDeclarationStatement() {
 		String sampleName = "var1";
 		TypeDelegate mockType = mock(TypeDelegate.class);
