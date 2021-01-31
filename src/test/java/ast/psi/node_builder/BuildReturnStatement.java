@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 public class BuildReturnStatement extends PsiNodeBuilderTestBase {
 
 	private ExpressionDelegate inputExpression;
+
 	private PsiStatement mockDelegate;
 	private StatementDelegate mockNode;
 
@@ -32,7 +33,6 @@ public class BuildReturnStatement extends PsiNodeBuilderTestBase {
 
 		String inputExpressionText = "a + 4";
 		when(this.inputExpression.toString()).thenReturn(inputExpressionText);
-
 	}
 
 	private void createNodeMocks() {
@@ -49,8 +49,8 @@ public class BuildReturnStatement extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		StatementDelegate actualResult = this.builderUnderTest.buildReturnStatement(
-				this.inputExpression);
+		StatementDelegate actualResult
+				= this.builderUnderTest.buildReturnStatement(this.inputExpression);
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);
 	}

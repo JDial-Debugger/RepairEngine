@@ -17,11 +17,12 @@ import static org.mockito.Mockito.when;
 
 public class BuildEmptyArrayDeclarationTest extends PsiNodeBuilderTestBase {
 
-	private PsiDeclarationStatement mockDelegate;
-	private DeclarationStatementDelegate mockNode;
 	private TypeDelegate mockInputType;
 	private Integer[] inputDimensions;
 	private String inputName;
+
+	private PsiDeclarationStatement mockDelegate;
+	private DeclarationStatementDelegate mockNode;
 
 	private static final String EXPECTED_DEFAULT_VALUE = "0";
 	private static final String SAMPLE_STATEMENT_TEXT = "int[2][2][1] array = {{{0}, {0}}};";
