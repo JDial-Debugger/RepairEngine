@@ -3,10 +3,10 @@ package ast.psi;
 import ast.interfaces.AssignExpression;
 import com.intellij.psi.PsiAssignmentExpression;
 
-public class PsiAssignExpression extends PsiExpression
+public class AssignExpressionImpl extends ExpressionImpl
 		implements AssignExpression {
 
-	protected PsiAssignExpression(NodeConfig<? extends PsiAssignmentExpression> config) {
+	protected AssignExpressionImpl(NodeConfig<? extends PsiAssignmentExpression> config) {
 		super(config);
 	}
 }

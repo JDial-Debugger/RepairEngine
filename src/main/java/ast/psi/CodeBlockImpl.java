@@ -4,9 +4,9 @@ import ast.interfaces.CodeBlock;
 import ast.interfaces.Statement;
 import com.intellij.psi.PsiStatement;
 
-public class PsiCodeBlock extends PsiNodeBase implements CodeBlock {
+public class CodeBlockImpl extends NodeImplBase implements CodeBlock {
 
-	protected PsiCodeBlock(NodeConfig<? extends com.intellij.psi.PsiCodeBlock> config) {
+	protected CodeBlockImpl(NodeConfig<? extends com.intellij.psi.PsiCodeBlock> config) {
 		super(config);
 	}
 

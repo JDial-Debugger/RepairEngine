@@ -3,9 +3,9 @@ package ast.psi;
 import ast.interfaces.Statement;
 import ast.interfaces.AstVisitor;
 
-public class PsiStatement extends PsiNodeBase implements Statement {
+public class StatementImpl extends NodeImplBase implements Statement {
 
-	protected PsiStatement(NodeConfig<? extends com.intellij.psi.PsiStatement> config) {
+	protected StatementImpl(NodeConfig<? extends com.intellij.psi.PsiStatement> config) {
 		super(config);
 	}
 

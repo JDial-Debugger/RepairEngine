@@ -3,10 +3,10 @@ package ast.psi;
 import ast.interfaces.BinaryExpression;
 import ast.interfaces.AstVisitor;
 
-public class PsiBinaryExpression extends PsiExpression
+public class BinaryExpressionImpl extends ExpressionImpl
 		implements BinaryExpression {
 
-	protected PsiBinaryExpression(NodeConfig<? extends com.intellij.psi.PsiBinaryExpression> config) {
+	protected BinaryExpressionImpl(NodeConfig<? extends com.intellij.psi.PsiBinaryExpression> config) {
 		super(config);
 	}
 

@@ -4,9 +4,9 @@ import ast.interfaces.Expression;
 import ast.interfaces.Type;
 import ast.interfaces.AstVisitor;
 
-public class PsiExpression extends PsiNodeBase implements Expression {
+public class ExpressionImpl extends NodeImplBase implements Expression {
 
-	protected PsiExpression(NodeConfig<? extends com.intellij.psi.PsiExpression> config) {
+	protected ExpressionImpl(NodeConfig<? extends com.intellij.psi.PsiExpression> config) {
 		super(config);
 	}
 

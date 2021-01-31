@@ -11,13 +11,13 @@ import java.util.Set;
  * Most functionality is delegated to the wrapped PSI element. This class is never meant to be
  * instantiated, but extended for use for the different types of AST nodes.
  */
-public class PsiNodeBase implements Node {
+public class NodeImplBase implements Node {
 
 	protected PsiElement element;
 	protected PsiElementExtractor extractor;
 	protected DelegateStore delegateStore;
 
-	protected PsiNodeBase(NodeConfig<? extends PsiElement> config) {
+	protected NodeImplBase(NodeConfig<? extends PsiElement> config) {
 		this.element = config.delegateElement;
 		this.extractor = config.elementExtractor;
 		this.delegateStore = config.delegateStore;

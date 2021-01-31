@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 
 class PsiStatementDelegateTest {
 
-	private PsiStatement statementUnderTest;
+	private StatementImpl statementUnderTest;
 	private com.intellij.psi.PsiStatement mockStatement;
 	private PsiElement mockParent;
 
