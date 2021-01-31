@@ -1,7 +1,7 @@
 package ast.psi;
 
-import ast.interfaces.NodeDelegate;
-import ast.interfaces.TypeDelegate;
+import ast.interfaces.Node;
+import ast.interfaces.Type;
 import com.intellij.psi.*;
 
 public class PsiElementExtractorImpl implements PsiElementExtractor {
@@ -10,14 +10,14 @@ public class PsiElementExtractorImpl implements PsiElementExtractor {
 	}
 
 	@Override
-	public <TWrapped extends PsiElement, TWrapper extends NodeDelegate> TWrapped getDelegateElement(
+	public <TWrapped extends PsiElement, TWrapper extends Node> TWrapped getDelegateElement(
 			Class<TWrapped> delegateType, TWrapper wrapper) {
-		PsiNodeDelegateBase impl = (PsiNodeDelegateBase) wrapper;
+		PsiNodeBase impl = (PsiNodeBase) wrapper;
 		return delegateType.cast(impl.getWrappedElement());
 	}
 
 	@Override
-	public PsiType getDelegateType(TypeDelegate typeDelegate) {
-		return ((PsiTypeDelegate) typeDelegate).getWrappedType();
+	public com.intellij.psi.PsiType getDelegateType(Type type) {
+		return ((PsiType) type).getWrappedType();
 	}
 }

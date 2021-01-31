@@ -1,10 +1,10 @@
 package ast.psi.factory;
 
-import ast.interfaces.TypeDelegate;
+import ast.interfaces.Type;
 
 public interface ArrayStringBuilder {
 	String buildArrayDeclarationStatement(
-			TypeDelegate type,
+			Type type,
 			String name,
 			String initValue,
 			Integer[] dimensions);

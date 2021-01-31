@@ -5,42 +5,42 @@ import java.util.List;
 
 public interface NodeBuilder {
 
-	LiteralExpressionDelegate buildLiteralIntExpression(int expressionContents);
+	LiteralExpression buildLiteralIntExpression(int expressionContents);
 
-	DeclarationStatementDelegate buildEmptyArrayDeclaration(
-			TypeDelegate type, String name, Integer[] dimensions);
+	DeclarationStatement buildEmptyArrayDeclaration(
+			Type type, String name, Integer[] dimensions);
 
-	LiteralExpressionDelegate buildDefaultLiteralExpressionFor(TypeDelegate type);
+	LiteralExpression buildDefaultLiteralExpressionFor(Type type);
 
-	StatementDelegate buildReturnStatement(ExpressionDelegate expressionToReturn);
+	Statement buildReturnStatement(Expression expressionToReturn);
 
-	CodeBlockDelegate buildCodeBlockFromStatements(List<StatementDelegate> statements);
+	CodeBlock buildCodeBlockFromStatements(List<Statement> statements);
 
-	CodeBlockDelegate buildEmptyCodeBlock();
+	CodeBlock buildEmptyCodeBlock();
 
-	ExpressionDelegate buildExpressionFromText(String text);
+	Expression buildExpressionFromText(String text);
 
-	StatementDelegate buildStatementFromText(String text);
+	Statement buildStatementFromText(String text);
 
-	DeclarationStatementDelegate buildEmptyDeclarationStatement();
+	DeclarationStatement buildEmptyDeclarationStatement();
 
-	DeclarationStatementDelegate buildDeclarationStatement(
-			String name, TypeDelegate type, ExpressionDelegate initializer);
+	DeclarationStatement buildDeclarationStatement(
+			String name, Type type, Expression initializer);
 
-	IfStatementDelegate buildIfStatement(
-			ExpressionDelegate condition, CodeBlockDelegate thenBody);
+	IfStatement buildIfStatement(
+			Expression condition, CodeBlock thenBody);
 
-	IfStatementDelegate buildIfStatement(
-			ExpressionDelegate condition, CodeBlockDelegate thenBody, CodeBlockDelegate elseBody);
+	IfStatement buildIfStatement(
+			Expression condition, CodeBlock thenBody, CodeBlock elseBody);
 
-	MethodDelegate buildMethod(
-			TypeDelegate returnType,
+	Method buildMethod(
+			Type returnType,
 			String name,
-			ParameterListDelegate paramList,
-			CodeBlockDelegate body);
+			ParameterList paramList,
+			CodeBlock body);
 
-	BinaryExpressionDelegate buildBinaryExpression(
-			ExpressionDelegate left, BinaryOperator op, ExpressionDelegate right);
+	BinaryExpression buildBinaryExpression(
+			Expression left, BinaryOperator op, Expression right);
 
-	ExpressionDelegate buildMethodCall(String methodName, ExpressionDelegate... params);
+	Expression buildMethodCall(String methodName, Expression... params);
 }

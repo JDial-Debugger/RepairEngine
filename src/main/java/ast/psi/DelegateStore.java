@@ -1,6 +1,6 @@
 package ast.psi;
 
-import ast.interfaces.NodeDelegate;
+import ast.interfaces.Node;
 import com.intellij.psi.PsiElement;
 
 public interface DelegateStore {
@@ -12,5 +12,5 @@ public interface DelegateStore {
 	 * @param delegate - The raw PSI object to lookup
 	 * @return - a node that wraps the given delegate
 	 */
-	public NodeDelegate getNodeFrom(PsiElement delegate);
+	public Node getNodeFrom(PsiElement delegate);
 }

@@ -1,13 +1,9 @@
 package ast.psi.mocks;
 
-import ast.interfaces.LiteralExpressionDelegate;
-import ast.interfaces.NodeDelegate;
+import ast.interfaces.Node;
 import ast.psi.NodeFactory;
 import ast.psi.PsiElementExtractor;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiLiteralExpression;
-import org.mockito.ArgumentMatcher;
-import org.mockito.ArgumentMatchers;
 
 import static org.mockito.Mockito.*;
 
@@ -21,7 +17,7 @@ import static org.mockito.Mockito.*;
  * @param <TNode>     The type of the Node to mock
  * @param <TDelegate> the type of the Delegate/PsiElement to mock
  */
-public class MockNode<TNode extends NodeDelegate, TDelegate extends PsiElement> {
+public class MockNode<TNode extends Node, TDelegate extends PsiElement> {
 
 	public TNode self;
 	public TDelegate delegate;

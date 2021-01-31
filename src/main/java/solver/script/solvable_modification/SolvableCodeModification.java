@@ -1,14 +1,14 @@
 package solver.script.solvable_modification;
 
-import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.Expression;
 
 import java.util.Objects;
 
 public class SolvableCodeModification {
-	public ExpressionDelegate originalCode;
+	public Expression originalCode;
 	public SolvableModificationId id;
 
-	public SolvableCodeModification(ExpressionDelegate originalCode, SolvableModificationId id) {
+	public SolvableCodeModification(Expression originalCode, SolvableModificationId id) {
 		this.originalCode = originalCode;
 		this.id = id;
 	}

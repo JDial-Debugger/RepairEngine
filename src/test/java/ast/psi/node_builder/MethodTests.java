@@ -1,9 +1,9 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.CodeBlockDelegate;
-import ast.interfaces.MethodDelegate;
-import ast.interfaces.ParameterListDelegate;
-import ast.interfaces.TypeDelegate;
+import ast.interfaces.CodeBlock;
+import ast.interfaces.Method;
+import ast.interfaces.ParameterList;
+import ast.interfaces.Type;
 import com.intellij.psi.PsiCodeBlock;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiParameterList;
@@ -16,16 +16,16 @@ import static org.mockito.Mockito.verify;
 
 public class MethodTests extends PsiNodeBuilderTestBase {
 
-	private TypeDelegate inputType;
+	private Type inputType;
 	private PsiType inputTypeDelegate;
 	private String inputName;
-	private ParameterListDelegate inputParamList;
+	private ParameterList inputParamList;
 	private PsiParameterList inputParamListDelegate;
-	private CodeBlockDelegate inputBody;
+	private CodeBlock inputBody;
 	private PsiCodeBlock inputBodyDelegate;
 
 	private PsiMethod mockDelegate;
-	private MethodDelegate mockNode;
+	private Method mockNode;
 
 	private PsiParameterList mockDefaultParamList;
 	private PsiCodeBlock mockDefaultBody;
@@ -54,20 +54,20 @@ public class MethodTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void setupInputType() {
-		this.inputType = mock(TypeDelegate.class);
+		this.inputType = mock(Type.class);
 		this.inputTypeDelegate = mock(PsiType.class);
 		when(this.mockExtractor.getDelegateType(this.inputType)).thenReturn(this.inputTypeDelegate);
 	}
 
 	private void setupInputParamList() {
-		this.inputParamList = mock(ParameterListDelegate.class);
+		this.inputParamList = mock(ParameterList.class);
 		this.inputParamListDelegate = mock(PsiParameterList.class);
 		when(this.mockExtractor.getDelegateElement(PsiParameterList.class,
 				this.inputParamList)).thenReturn(this.inputParamListDelegate);
 	}
 
 	private void setupInputBody() {
-		this.inputBody = mock(CodeBlockDelegate.class);
+		this.inputBody = mock(CodeBlock.class);
 		this.inputBodyDelegate = mock(PsiCodeBlock.class);
 		when(this.mockExtractor.getDelegateElement(PsiCodeBlock.class, this.inputBody)).thenReturn(
 				this.inputBodyDelegate);
@@ -75,7 +75,7 @@ public class MethodTests extends PsiNodeBuilderTestBase {
 
 	private void createMockNodes() {
 		this.mockDelegate = mock(PsiMethod.class);
-		this.mockNode = mock(MethodDelegate.class);
+		this.mockNode = mock(Method.class);
 	}
 
 	private void stubDependencies() {
@@ -95,7 +95,7 @@ public class MethodTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		MethodDelegate actualResult = this.builderUnderTest.buildMethod(this.inputType,
+		Method actualResult = this.builderUnderTest.buildMethod(this.inputType,
 				this.inputName,
 				this.inputParamList,
 				this.inputBody);

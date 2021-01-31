@@ -1,6 +1,6 @@
 package solver.repair;
 
-import ast.interfaces.FileDelegate;
+import ast.interfaces.File;
 import ast.interfaces.NodeBuilder;
 import solver.script.SolverScriptGenerator;
 
@@ -29,7 +29,7 @@ public class ASTRepairImpl implements ASTRepair {
 	}
 
 	@Override
-	public Map<Integer, String> getModifiedLines(FileDelegate fileDelegate) {
+	public Map<Integer, String> getModifiedLines(File fileDelegate) {
 		return null;
 	}
 }

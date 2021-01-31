@@ -1,7 +1,6 @@
 package ast.psi.mocks;
 
-import ast.interfaces.NodeDelegate;
-import ast.psi.mocks.MockNode;
+import ast.interfaces.Node;
 import com.intellij.psi.PsiElement;
 
 import static org.mockito.Mockito.mock;
@@ -23,7 +22,7 @@ public class MockPsiElement<TElement extends PsiElement> {
 		verify(self).replace(element);
 	}
 
-	public void verifyReplacedWith(MockNode<? extends NodeDelegate, ? extends PsiElement> mockNode) {
+	public void verifyReplacedWith(MockNode<? extends Node, ? extends PsiElement> mockNode) {
 		this.verifyReplacedWith(mockNode.delegate);
 	}
 }

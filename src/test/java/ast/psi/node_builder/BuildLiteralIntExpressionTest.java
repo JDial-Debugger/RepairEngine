@@ -1,7 +1,6 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.LiteralExpressionDelegate;
-import ast.psi.node_builder.PsiNodeBuilderTestBase;
+import ast.interfaces.LiteralExpression;
 import com.intellij.psi.PsiLiteralExpression;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +9,7 @@ import static org.mockito.Mockito.*;
 
 public class BuildLiteralIntExpressionTest extends PsiNodeBuilderTestBase {
 
-	private LiteralExpressionDelegate mockNode;
+	private LiteralExpression mockNode;
 	private PsiLiteralExpression mockDelegate;
 
 	private static final int INPUT_EXPRESSION_CONTENTS = 5;
@@ -27,7 +26,7 @@ public class BuildLiteralIntExpressionTest extends PsiNodeBuilderTestBase {
 	}
 
 	private void createNodeMocks() {
-		this.mockNode = mock(LiteralExpressionDelegate.class);
+		this.mockNode = mock(LiteralExpression.class);
 		this.mockDelegate = mock(PsiLiteralExpression.class);
 	}
 
@@ -39,7 +38,7 @@ public class BuildLiteralIntExpressionTest extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		LiteralExpressionDelegate actualResult = this.builderUnderTest.buildLiteralIntExpression(
+		LiteralExpression actualResult = this.builderUnderTest.buildLiteralIntExpression(
 				INPUT_EXPRESSION_CONTENTS);
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);

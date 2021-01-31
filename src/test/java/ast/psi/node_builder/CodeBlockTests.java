@@ -1,7 +1,7 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.CodeBlockDelegate;
-import ast.interfaces.StatementDelegate;
+import ast.interfaces.CodeBlock;
+import ast.interfaces.Statement;
 import com.intellij.psi.PsiCodeBlock;
 import com.intellij.psi.PsiStatement;
 import org.junit.jupiter.api.Test;
@@ -16,11 +16,11 @@ public class CodeBlockTests extends PsiNodeBuilderTestBase {
 
 	private static final int INPUT_STATEMENT_COUNT = 5;
 
-	private List<StatementDelegate> inputNodes;
+	private List<Statement> inputNodes;
 	private List<PsiStatement> inputDelegates;
 
 	private PsiCodeBlock mockDelegate;
-	private CodeBlockDelegate mockNode;
+	private CodeBlock mockNode;
 
 	@Test
 	void buildCodeBlockFromStatements() {
@@ -43,7 +43,7 @@ public class CodeBlockTests extends PsiNodeBuilderTestBase {
 
 	private void mockBodyStatements() {
 		for (int i = 0; i < INPUT_STATEMENT_COUNT; ++i) {
-			StatementDelegate curInputStatement = mock(StatementDelegate.class);
+			Statement curInputStatement = mock(Statement.class);
 			this.inputNodes.add(curInputStatement);
 
 			PsiStatement mockCurDelegate = mock(PsiStatement.class);
@@ -55,7 +55,7 @@ public class CodeBlockTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void createMockNodes() {
-		this.mockNode = mock(CodeBlockDelegate.class);
+		this.mockNode = mock(CodeBlock.class);
 		this.mockDelegate = mock(PsiCodeBlock.class);
 	}
 
@@ -66,7 +66,7 @@ public class CodeBlockTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderCorrectlyConstructsBlock() {
-		CodeBlockDelegate actualResult
+		CodeBlock actualResult
 				= this.builderUnderTest.buildCodeBlockFromStatements(this.inputNodes);
 
 		this.verifyInputDelegatesAddedToResultDelegate();
@@ -91,7 +91,7 @@ public class CodeBlockTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		CodeBlockDelegate actualResult = this.builderUnderTest.buildEmptyCodeBlock();
+		CodeBlock actualResult = this.builderUnderTest.buildEmptyCodeBlock();
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);
 	}

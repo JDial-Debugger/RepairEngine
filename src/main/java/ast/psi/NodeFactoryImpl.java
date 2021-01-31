@@ -11,112 +11,112 @@ public class NodeFactoryImpl implements NodeFactory {
 	}
 
 	@Override
-	public AssertStatementDelegate getNode(PsiAssertStatement delegate) {
-		return new PsiAssertStatementDelegate(new NodeConfig<>(delegate,
+	public AssertStatement getNode(com.intellij.psi.PsiAssertStatement delegate) {
+		return new PsiAssertStatement(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public AssignExpressionDelegate getNode(PsiAssignmentExpression delegate) {
-		return new PsiAssignExpressionDelegate(new NodeConfig<>(delegate,
+	public AssignExpression getNode(PsiAssignmentExpression delegate) {
+		return new PsiAssignExpression(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public BinaryExpressionDelegate getNode(PsiBinaryExpression delegate) {
-		return new PsiBinaryExpressionDelegate(new NodeConfig<>(delegate,
+	public BinaryExpression getNode(com.intellij.psi.PsiBinaryExpression delegate) {
+		return new PsiBinaryExpression(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public CodeBlockDelegate getNode(PsiCodeBlock delegate) {
-		return new PsiCodeBlockDelegate(new NodeConfig<>(delegate,
+	public CodeBlock getNode(com.intellij.psi.PsiCodeBlock delegate) {
+		return new PsiCodeBlock(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public DeclarationStatementDelegate getNode(PsiDeclarationStatement delegate) {
-		return new PsiDeclarationStatementDelegate(new NodeConfig<>(delegate,
+	public DeclarationStatement getNode(com.intellij.psi.PsiDeclarationStatement delegate) {
+		return new PsiDeclarationStatement(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public ExpressionDelegate getNode(PsiExpression delegate) {
-		return new PsiExpressionDelegate(new NodeConfig<>(delegate,
+	public Expression getNode(com.intellij.psi.PsiExpression delegate) {
+		return new PsiExpression(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public ExpressionStatementDelegate getNode(PsiExpressionStatement delegate) {
-		return new PsiExpressionStatementDelegate(new NodeConfig<>(delegate,
+	public ExpressionStatement getNode(com.intellij.psi.PsiExpressionStatement delegate) {
+		return new PsiExpressionStatement(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public FileDelegate getNode(PsiFile delegate) {
-		return new PsiFileDelegate(new NodeConfig<>(delegate,
+	public File getNode(com.intellij.psi.PsiFile delegate) {
+		return new PsiFile(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public IfStatementDelegate getNode(PsiIfStatement delegate) {
-		return new PsiIfStatementDelegate(new NodeConfig<>(delegate,
+	public IfStatement getNode(com.intellij.psi.PsiIfStatement delegate) {
+		return new PsiIfStatement(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public LiteralExpressionDelegate getNode(PsiLiteralExpression delegate) {
-		return new PsiLiteralExpressionDelegate(new NodeConfig<>(delegate,
+	public LiteralExpression getNode(com.intellij.psi.PsiLiteralExpression delegate) {
+		return new PsiLiteralExpression(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public MethodDelegate getNode(PsiMethod delegate) {
-		return new PsiMethodDelegate(new NodeConfig<>(delegate,
+	public Method getNode(com.intellij.psi.PsiMethod delegate) {
+		return new PsiMethod(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public NodeDelegate getNode(PsiElement delegate) {
-		return new PsiNodeDelegateBase(new NodeConfig<>(delegate,
+	public Node getNode(PsiElement delegate) {
+		return new PsiNodeBase(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public ParameterListDelegate getNode(PsiParameterList delegate) {
-		return new PsiParameterListDelegate(new NodeConfig<>(delegate,
+	public ParameterList getNode(com.intellij.psi.PsiParameterList delegate) {
+		return new PsiParameterList(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public ReturnStatementDelegate getNode(PsiReturnStatement delegate) {
-		return new PsiReturnStatementDelegate(new NodeConfig<>(delegate,
+	public ReturnStatement getNode(com.intellij.psi.PsiReturnStatement delegate) {
+		return new PsiReturnStatement(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public StatementDelegate getNode(PsiStatement delegate) {
-		return new PsiStatementDelegate(new NodeConfig<>(delegate,
+	public Statement getNode(com.intellij.psi.PsiStatement delegate) {
+		return new PsiStatement(new NodeConfig<>(delegate,
 				new PsiElementExtractorImpl(),
 				new DelegateStoreImpl(new HashMap<>(), new NodeFactoryImpl())));
 	}
 
 	@Override
-	public TypeDelegate getType(PsiType delegate) {
-		return new PsiTypeDelegate(delegate);
+	public Type getType(com.intellij.psi.PsiType delegate) {
+		return new PsiType(delegate);
 	}
 }

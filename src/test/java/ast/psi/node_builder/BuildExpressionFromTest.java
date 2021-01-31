@@ -1,6 +1,6 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.Expression;
 import com.intellij.psi.PsiExpression;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ public class BuildExpressionFromTest extends PsiNodeBuilderTestBase {
 	private String inputText;
 
 	private PsiExpression mockDelegate;
-	private ExpressionDelegate mockNode;
+	private Expression mockNode;
 
 	@Test
 	void buildExpressionFromText() {
@@ -28,7 +28,7 @@ public class BuildExpressionFromTest extends PsiNodeBuilderTestBase {
 	}
 
 	private void createMockNodes() {
-		this.mockNode = mock(ExpressionDelegate.class);
+		this.mockNode = mock(Expression.class);
 		this.mockDelegate = mock(PsiExpression.class);
 	}
 
@@ -40,7 +40,7 @@ public class BuildExpressionFromTest extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		ExpressionDelegate actualResult = this.builderUnderTest.buildExpressionFromText(inputText);
+		Expression actualResult = this.builderUnderTest.buildExpressionFromText(inputText);
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);
 	}

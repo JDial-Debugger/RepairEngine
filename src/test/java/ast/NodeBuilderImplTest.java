@@ -1,6 +1,6 @@
 package ast;
 
-import ast.interfaces.DeclarationStatementDelegate;
+import ast.interfaces.DeclarationStatement;
 import ast.psi.PsiNodeBuilder;
 import com.intellij.psi.PsiDeclarationStatement;
 import com.intellij.psi.PsiElementFactory;
@@ -23,7 +23,7 @@ class NodeBuilderImplTest {
 		PsiDeclarationStatement mockDeclStmt = mock(PsiDeclarationStatement.class);
 		when(mockWrappedFactory.createStatementFromText(eq("int a = 0;"), eq(null)))
 				.thenReturn(mockDeclStmt);
-		DeclarationStatementDelegate result = factoryToTest.buildEmptyDeclarationStatement();
+		DeclarationStatement result = factoryToTest.buildEmptyDeclarationStatement();
 
 	}
 }

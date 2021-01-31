@@ -2,40 +2,39 @@ package ast.psi;
 
 import ast.interfaces.*;
 import com.intellij.psi.*;
-import kotlin.contracts.Returns;
 
 //  Used when classes outside the factory class in this package need to create delegate class for a Psi element
 public interface NodeFactory {
 
-	AssertStatementDelegate getNode(PsiAssertStatement delegate);
+	AssertStatement getNode(PsiAssertStatement delegate);
 
-	AssignExpressionDelegate getNode(PsiAssignmentExpression delegate);
+	AssignExpression getNode(PsiAssignmentExpression delegate);
 
-	BinaryExpressionDelegate getNode(PsiBinaryExpression delegate);
+	BinaryExpression getNode(PsiBinaryExpression delegate);
 
-	CodeBlockDelegate getNode(PsiCodeBlock delegate);
+	CodeBlock getNode(PsiCodeBlock delegate);
 
-	DeclarationStatementDelegate getNode(PsiDeclarationStatement delegate);
+	DeclarationStatement getNode(PsiDeclarationStatement delegate);
 
-	ExpressionDelegate getNode(PsiExpression delegate);
+	Expression getNode(PsiExpression delegate);
 
-	ExpressionStatementDelegate getNode(PsiExpressionStatement delegate);
+	ExpressionStatement getNode(PsiExpressionStatement delegate);
 
-	FileDelegate getNode(PsiFile delegate);
+	File getNode(PsiFile delegate);
 
-	IfStatementDelegate getNode(PsiIfStatement delegate);
+	IfStatement getNode(PsiIfStatement delegate);
 
-	LiteralExpressionDelegate getNode(PsiLiteralExpression delegate);
+	LiteralExpression getNode(PsiLiteralExpression delegate);
 
-	MethodDelegate getNode(PsiMethod delegate);
+	Method getNode(PsiMethod delegate);
 
-	NodeDelegate getNode(PsiElement delegate);
+	Node getNode(PsiElement delegate);
 
-	ParameterListDelegate getNode(PsiParameterList delegate);
+	ParameterList getNode(PsiParameterList delegate);
 
-	ReturnStatementDelegate getNode(PsiReturnStatement delegate);
+	ReturnStatement getNode(PsiReturnStatement delegate);
 
-	StatementDelegate getNode(PsiStatement delegate);
+	Statement getNode(PsiStatement delegate);
 
-	TypeDelegate getType(PsiType delegate);
+	Type getType(PsiType delegate);
 }

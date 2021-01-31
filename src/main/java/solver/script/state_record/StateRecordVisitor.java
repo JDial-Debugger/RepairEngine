@@ -1,10 +1,9 @@
 package solver.script.state_record;
 
-import ast.interfaces.StatementDelegate;
-import ast.interfaces.VisitorDelegateBase;
-import com.intellij.psi.PsiStatement;
+import ast.interfaces.Statement;
+import ast.interfaces.AstVisitorDelegateBase;
 
-public class StateRecordVisitor extends VisitorDelegateBase {
+public class StateRecordVisitor extends AstVisitorDelegateBase {
 	private StateRecordAST ast;
 
 	public StateRecordVisitor(StateRecordAST ast) {
@@ -12,7 +11,7 @@ public class StateRecordVisitor extends VisitorDelegateBase {
 	}
 
 	@Override
-	public void visitStatement(StatementDelegate statement) {
+	public void visitStatement(Statement statement) {
 		super.visitStatement(statement);
 
 	}

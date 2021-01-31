@@ -1,8 +1,8 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.DeclarationStatementDelegate;
-import ast.interfaces.ExpressionDelegate;
-import ast.interfaces.TypeDelegate;
+import ast.interfaces.DeclarationStatement;
+import ast.interfaces.Expression;
+import ast.interfaces.Type;
 import com.intellij.psi.PsiDeclarationStatement;
 import com.intellij.psi.PsiExpression;
 import com.intellij.psi.PsiType;
@@ -15,13 +15,13 @@ import static org.mockito.Mockito.when;
 public class DeclarationStatementTests extends PsiNodeBuilderTestBase {
 
 	private String inputName;
-	private TypeDelegate inputType;
+	private Type inputType;
 	private PsiType inputTypeDelegate;
-	private ExpressionDelegate inputInitializer;
+	private Expression inputInitializer;
 	private PsiExpression inputInitializerDelegate;
 
 	private PsiDeclarationStatement mockDelegate;
-	private DeclarationStatementDelegate mockNode;
+	private DeclarationStatement mockNode;
 
 	private static final String DEFAULT_TEXT = "int a = 0;";
 
@@ -38,7 +38,7 @@ public class DeclarationStatementTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		DeclarationStatementDelegate actualResult = this.builderUnderTest.buildDeclarationStatement(this.inputName,
+		DeclarationStatement actualResult = this.builderUnderTest.buildDeclarationStatement(this.inputName,
 				this.inputType,
 				this.inputInitializer);
 
@@ -50,18 +50,18 @@ public class DeclarationStatementTests extends PsiNodeBuilderTestBase {
 
 		this.inputName = "var1";
 
-		this.inputType = mock(TypeDelegate.class);
+		this.inputType = mock(Type.class);
 		this.inputTypeDelegate = mock(PsiType.class);
 		when(this.mockExtractor.getDelegateType(this.inputType)).thenReturn(this.inputTypeDelegate);
 
-		this.inputInitializer = mock(ExpressionDelegate.class);
+		this.inputInitializer = mock(Expression.class);
 		this.inputInitializerDelegate = mock(PsiExpression.class);
 		when(this.mockExtractor.getDelegateElement(PsiExpression.class,
 				this.inputInitializer)).thenReturn(this.inputInitializerDelegate);
 	}
 
 	private void createMockNodes() {
-		this.mockNode = mock(DeclarationStatementDelegate.class);
+		this.mockNode = mock(DeclarationStatement.class);
 		this.mockDelegate = mock(PsiDeclarationStatement.class);
 	}
 
@@ -92,7 +92,7 @@ public class DeclarationStatementTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResultForEmptyStatement() {
-		DeclarationStatementDelegate actualResult
+		DeclarationStatement actualResult
 				= this.builderUnderTest.buildEmptyDeclarationStatement();
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);

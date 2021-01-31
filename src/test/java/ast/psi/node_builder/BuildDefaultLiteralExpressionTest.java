@@ -1,8 +1,8 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.LiteralExpressionDelegate;
+import ast.interfaces.LiteralExpression;
+import ast.interfaces.PrimitiveType;
 import ast.interfaces.Type;
-import ast.interfaces.TypeDelegate;
 import ast.psi.InvalidTypeException;
 import com.intellij.psi.PsiLiteralExpression;
 import org.junit.jupiter.api.Test;
@@ -15,17 +15,17 @@ import static org.mockito.Mockito.when;
 public class BuildDefaultLiteralExpressionTest extends PsiNodeBuilderTestBase {
 
 	private String expectedDefaultLiteral;
-	private Type typeToTest;
-	private TypeDelegate mockInputType;
+	private PrimitiveType typeToTest;
+	private Type mockInputType;
 
 	private PsiLiteralExpression mockDelegate;
-	private LiteralExpressionDelegate mockNode;
+	private LiteralExpression mockNode;
 
 
 	@Test
 	void buildDefaultLiteralExpressionForByte() {
 		this.expectedDefaultLiteral = "0";
-		this.typeToTest = Type.BYTE;
+		this.typeToTest = PrimitiveType.BYTE;
 		this.buildDefaultLiteralExpression();
 	}
 
@@ -41,12 +41,12 @@ public class BuildDefaultLiteralExpressionTest extends PsiNodeBuilderTestBase {
 	}
 
 	private void setBuilderInput() {
-		this.mockInputType = mock(TypeDelegate.class);
+		this.mockInputType = mock(Type.class);
 		when(this.mockInputType.asEnum()).thenReturn(this.typeToTest);
 	}
 
 	private void createNodeMocks() {
-		this.mockNode = mock(LiteralExpressionDelegate.class);
+		this.mockNode = mock(LiteralExpression.class);
 		this.mockDelegate = mock(PsiLiteralExpression.class);
 	}
 
@@ -58,7 +58,7 @@ public class BuildDefaultLiteralExpressionTest extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		LiteralExpressionDelegate actualResult
+		LiteralExpression actualResult
 				= this.builderUnderTest.buildDefaultLiteralExpressionFor(this.mockInputType);
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);
@@ -67,63 +67,63 @@ public class BuildDefaultLiteralExpressionTest extends PsiNodeBuilderTestBase {
 	@Test
 	void buildDefaultLiteralExpressionForBoolean() {
 		this.expectedDefaultLiteral = "false";
-		this.typeToTest = Type.BOOLEAN;
+		this.typeToTest = PrimitiveType.BOOLEAN;
 		this.buildDefaultLiteralExpression();
 	}
 
 	@Test
 	void buildDefaultLiteralExpressionForChar() {
 		this.expectedDefaultLiteral = "'\\u0000'";
-		this.typeToTest = Type.CHAR;
+		this.typeToTest = PrimitiveType.CHAR;
 		this.buildDefaultLiteralExpression();
 	}
 
 	@Test
 	void buildDefaultLiteralExpressionForDouble() {
 		this.expectedDefaultLiteral = "0.0d";
-		this.typeToTest = Type.DOUBLE;
+		this.typeToTest = PrimitiveType.DOUBLE;
 		this.buildDefaultLiteralExpression();
 	}
 
 	@Test
 	void buildDefaultLiteralExpressionForFloat() {
 		this.expectedDefaultLiteral = "0.0f";
-		this.typeToTest = Type.FLOAT;
+		this.typeToTest = PrimitiveType.FLOAT;
 		this.buildDefaultLiteralExpression();
 	}
 
 	@Test
 	void buildDefaultLiteralExpressionForInt() {
 		this.expectedDefaultLiteral = "0";
-		this.typeToTest = Type.INT;
+		this.typeToTest = PrimitiveType.INT;
 		this.buildDefaultLiteralExpression();
 	}
 
 	@Test
 	void buildDefaultLiteralExpressionForLong() {
 		this.expectedDefaultLiteral = "0.0L";
-		this.typeToTest = Type.LONG;
+		this.typeToTest = PrimitiveType.LONG;
 		this.buildDefaultLiteralExpression();
 	}
 
 	@Test
 	void buildDefaultLiteralExpressionForShort() {
 		this.expectedDefaultLiteral = "0";
-		this.typeToTest = Type.SHORT;
+		this.typeToTest = PrimitiveType.SHORT;
 		this.buildDefaultLiteralExpression();
 	}
 
 	@Test
 	void buildDefaultLiteralExpressionForVoid() {
-		this.expectedDefaultLiteral = Type.VOID.toString();
-		this.typeToTest = Type.VOID;
+		this.expectedDefaultLiteral = PrimitiveType.VOID.toString();
+		this.typeToTest = PrimitiveType.VOID;
 		this.buildDefaultLiteralExpressionForBadType();
 	}
 
 	@Test
 	void buildDefaultLiteralExpressionForNullEnum() {
-		this.expectedDefaultLiteral = Type.NULL.toString();
-		this.typeToTest = Type.NULL;
+		this.expectedDefaultLiteral = PrimitiveType.NULL.toString();
+		this.typeToTest = PrimitiveType.NULL;
 		this.buildDefaultLiteralExpressionForBadType();
 	}
 

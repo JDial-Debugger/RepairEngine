@@ -1,13 +1,10 @@
 package ast.psi.mocks;
 
-import ast.interfaces.CodeBlockDelegate;
-import ast.interfaces.ExpressionDelegate;
-import ast.psi.PsiCodeBlockDelegate;
-import ast.psi.mocks.MockPsiElement;
+import ast.interfaces.CodeBlock;
+import ast.interfaces.Expression;
 import com.intellij.psi.PsiCodeBlock;
 import com.intellij.psi.PsiExpression;
 import com.intellij.psi.PsiIfStatement;
-import com.intellij.psi.PsiStatement;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -53,16 +50,16 @@ public class MockPsiIfStatement extends MockPsiElement<PsiIfStatement> {
 	}
 
 	public void verifyComponentsAreReplacedWith(
-			MockNode<ExpressionDelegate, PsiExpression> newCondition,
-			MockNode<CodeBlockDelegate, PsiCodeBlock> newThenBranch,
-			MockNode<CodeBlockDelegate, PsiCodeBlock> newElseBranch) {
+			MockNode<Expression, PsiExpression> newCondition,
+			MockNode<CodeBlock, PsiCodeBlock> newThenBranch,
+			MockNode<CodeBlock, PsiCodeBlock> newElseBranch) {
 		this.verifyComponentsAreReplacedWith(newCondition, newThenBranch);
 		this.elseBranch.verifyReplacedWith(newElseBranch);
 	}
 
 	public void verifyComponentsAreReplacedWith(
-			MockNode<ExpressionDelegate, PsiExpression> newCondition,
-			MockNode<CodeBlockDelegate, PsiCodeBlock> newThenBranch) {
+			MockNode<Expression, PsiExpression> newCondition,
+			MockNode<CodeBlock, PsiCodeBlock> newThenBranch) {
 		this.condition.verifyReplacedWith(newCondition);
 		this.thenBranch.verifyReplacedWith(newThenBranch);
 	}

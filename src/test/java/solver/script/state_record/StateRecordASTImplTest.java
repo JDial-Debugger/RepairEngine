@@ -1,7 +1,6 @@
 package solver.script.state_record;
 
 import ast.interfaces.*;
-import ast.psi.PsiTypeDelegate;
 import data.ProgramTrace;
 import data.TraceUnit;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,26 +43,26 @@ public class StateRecordASTImplTest {
 		StateRecord sampleRecord = this.createSampleStateRecord();
 		List<ProgramTrace> sampleTraces = this.createSampleTraces(expectedDimensions);
 
-		DeclarationStatementDelegate mockFactoryResult = mock(DeclarationStatementDelegate.class);
-		TypeDelegate mockType = this.getMockIntType();
+		DeclarationStatement mockFactoryResult = mock(DeclarationStatement.class);
+		Type mockType = this.getMockIntType();
 		when(this.mockNodeBuilder.buildEmptyArrayDeclaration(mockType,
 				eq(EXPECTED_ID),
 				aryEq(expectedDimensions))).thenReturn(mockFactoryResult);
 
-		StatementDelegate result = this.astUnderTest.getInitializationStatement(sampleRecord,
+		Statement result = this.astUnderTest.getInitializationStatement(sampleRecord,
 				sampleTraces);
 
 		assertEquals(mockFactoryResult, result, Errors.FAILED_FACTORY_RESULT);
 	}
 
-	private TypeDelegate getMockIntType() {
-		TypeDelegate sampleType = mock(TypeDelegate.class);
-		when(sampleType.asEnum()).thenReturn(Type.INT);
+	private Type getMockIntType() {
+		Type sampleType = mock(Type.class);
+		when(sampleType.asEnum()).thenReturn(PrimitiveType.INT);
 		return sampleType;
 	}
 
 	private StateRecord createSampleStateRecord() {
-		TypeDelegate sampleType = this.getMockIntType();
+		Type sampleType = this.getMockIntType();
 		return new StateRecord(EXPECTED_VAR_NAME, EXPECTED_FUNC_NAME, sampleType);
 	}
 
@@ -90,13 +89,13 @@ public class StateRecordASTImplTest {
 		StateRecord sampleRecord = this.createSampleStateRecord();
 		List<ProgramTrace> emptyTraces = new ArrayList<>();
 
-		DeclarationStatementDelegate mockFactoryResult = mock(DeclarationStatementDelegate.class);
-		TypeDelegate mockType = this.getMockIntType();
+		DeclarationStatement mockFactoryResult = mock(DeclarationStatement.class);
+		Type mockType = this.getMockIntType();
 		when(this.mockNodeBuilder.buildEmptyArrayDeclaration(mockType,
 				eq(EXPECTED_ID),
 				aryEq(new Integer[0]))).thenReturn(mockFactoryResult);
 
-		StatementDelegate result = this.astUnderTest.getInitializationStatement(sampleRecord,
+		Statement result = this.astUnderTest.getInitializationStatement(sampleRecord,
 				emptyTraces);
 
 		assertEquals(mockFactoryResult, result, Errors.FAILED_FACTORY_RESULT);
@@ -106,7 +105,7 @@ public class StateRecordASTImplTest {
 	public void getRecordStatement() {
 		StateRecord sampleRecord = this.createSampleStateRecord();
 
-		StatementDelegate mockFactoryResult = mock(StatementDelegate.class);
+		Statement mockFactoryResult = mock(Statement.class);
 		when(this.mockNodeBuilder.buildStatementFromText(eq(EXPECTED_ID
 				+ "["
 				+ this.sampleExampleIndexId
@@ -116,7 +115,7 @@ public class StateRecordASTImplTest {
 				+ EXPECTED_VAR_NAME
 				+ ";"))).thenReturn(mockFactoryResult);
 
-		StatementDelegate result = this.astUnderTest.getRecordStatement(sampleRecord);
+		Statement result = this.astUnderTest.getRecordStatement(sampleRecord);
 		assertEquals(mockFactoryResult, result, Errors.FAILED_FACTORY_RESULT);
 	}
 }

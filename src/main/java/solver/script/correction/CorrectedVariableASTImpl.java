@@ -1,8 +1,8 @@
 package solver.script.correction;
 
-import ast.interfaces.AssertStatementDelegate;
-import ast.interfaces.DeclarationStatementDelegate;
-import ast.interfaces.IfStatementDelegate;
+import ast.interfaces.AssertStatement;
+import ast.interfaces.DeclarationStatement;
+import ast.interfaces.IfStatement;
 import ast.interfaces.NodeBuilder;
 import data.Variable;
 
@@ -17,17 +17,17 @@ public class CorrectedVariableASTImpl<TValue> implements CorrectedVariableAST<TV
 	}
 
 	@Override
-	public DeclarationStatementDelegate getInitializationStatement(CorrectedVariable correctedVariable) {
+	public DeclarationStatement getInitializationStatement(CorrectedVariable correctedVariable) {
 		return null;
 	}
 
 	@Override
-	public IfStatementDelegate getCaptureStatement(CorrectedVariable correctedVariable) {
+	public IfStatement getCaptureStatement(CorrectedVariable correctedVariable) {
 		return null;
 	}
 
 	@Override
-	public AssertStatementDelegate getValueAssertionStatement(
+	public AssertStatement getValueAssertionStatement(
 			CorrectedVariable correctedVariable, Variable<TValue> expectedValue) {
 		return null;
 	}

@@ -1,6 +1,6 @@
 package ast.psi.factory;
 
-import ast.interfaces.TypeDelegate;
+import ast.interfaces.Type;
 import ast.psi.InvalidDimensionSizeException;
 
 public class ArrayStringBuilderImpl implements ArrayStringBuilder {
@@ -21,7 +21,7 @@ public class ArrayStringBuilderImpl implements ArrayStringBuilder {
 	 */
 	@Override
 	public String buildArrayDeclarationStatement(
-			TypeDelegate type, String name, String initValue, Integer[] dimensions) {
+			Type type, String name, String initValue, Integer[] dimensions) {
 		this.dimensions = dimensions;
 		String declarationText = this.buildArrayDeclString(type, name);
 		String initializationText = this.buildArrayInitString(initValue);
@@ -29,7 +29,7 @@ public class ArrayStringBuilderImpl implements ArrayStringBuilder {
 	}
 
 	//  example: "int a[][][]"
-	private String buildArrayDeclString(TypeDelegate type, String name) {
+	private String buildArrayDeclString(Type type, String name) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(type.toString());
 		this.appendBrackets(sb);

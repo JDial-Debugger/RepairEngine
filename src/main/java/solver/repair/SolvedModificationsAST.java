@@ -1,7 +1,7 @@
 package solver.repair;
 
-import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.Expression;
 
 public interface SolvedModificationsAST<TValue> {
-	public ExpressionDelegate getSolvedModificationAST(SolvedModification<TValue> solvedModification);
+	public Expression getSolvedModificationAST(SolvedModification<TValue> solvedModification);
 }

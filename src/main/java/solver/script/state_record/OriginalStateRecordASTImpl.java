@@ -1,8 +1,8 @@
 package solver.script.state_record;
 
-import ast.interfaces.ExpressionStatementDelegate;
+import ast.interfaces.ExpressionStatement;
 import ast.interfaces.NodeBuilder;
-import ast.interfaces.StatementDelegate;
+import ast.interfaces.Statement;
 import data.ProgramTrace;
 
 import java.util.List;
@@ -18,12 +18,12 @@ public class OriginalStateRecordASTImpl implements  StateRecordAST {
 	}
 
 	@Override
-	public ExpressionStatementDelegate getRecordStatement(StateRecord record) {
+	public ExpressionStatement getRecordStatement(StateRecord record) {
 		return null;
 	}
 
 	@Override
-	public StatementDelegate getInitializationStatement(
+	public Statement getInitializationStatement(
 			StateRecord record, List<ProgramTrace> traces) {
 		return null;
 	}

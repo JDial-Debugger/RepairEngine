@@ -1,10 +1,9 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.DeclarationStatementDelegate;
-import ast.interfaces.LiteralExpressionDelegate;
+import ast.interfaces.DeclarationStatement;
+import ast.interfaces.LiteralExpression;
+import ast.interfaces.PrimitiveType;
 import ast.interfaces.Type;
-import ast.interfaces.TypeDelegate;
-import ast.psi.InvalidDimensionSizeException;
 import com.intellij.psi.PsiDeclarationStatement;
 import com.intellij.psi.PsiLiteralExpression;
 import org.junit.jupiter.api.Test;
@@ -17,12 +16,12 @@ import static org.mockito.Mockito.when;
 
 public class BuildEmptyArrayDeclarationTest extends PsiNodeBuilderTestBase {
 
-	private TypeDelegate mockInputType;
+	private Type mockInputType;
 	private Integer[] inputDimensions;
 	private String inputName;
 
 	private PsiDeclarationStatement mockDelegate;
-	private DeclarationStatementDelegate mockNode;
+	private DeclarationStatement mockNode;
 
 	private static final String EXPECTED_DEFAULT_VALUE = "0";
 	private static final String SAMPLE_STATEMENT_TEXT = "int[2][2][1] array = {{{0}, {0}}};";
@@ -31,7 +30,7 @@ public class BuildEmptyArrayDeclarationTest extends PsiNodeBuilderTestBase {
 	@Test
 	void buildEmptyArrayDeclaration() {
 
-		this.setInputs(Type.INT, new Integer[] { 2, 2, 1 }, "array");
+		this.setInputs(PrimitiveType.INT, new Integer[] { 2, 2, 1 }, "array");
 
 		this.createNodeMocks();
 
@@ -40,15 +39,15 @@ public class BuildEmptyArrayDeclarationTest extends PsiNodeBuilderTestBase {
 		this.assertBuilderReturnsCorrectNodeFactoryResult();
 	}
 
-	private void setInputs(Type type, Integer[] dimensions, String name) {
-		this.mockInputType = mock(TypeDelegate.class);
+	private void setInputs(PrimitiveType type, Integer[] dimensions, String name) {
+		this.mockInputType = mock(Type.class);
 		when(this.mockInputType.asEnum()).thenReturn(type);
 		this.inputDimensions = dimensions;
 		this.inputName = name;
 	}
 
 	private void createNodeMocks() {
-		this.mockNode = mock(DeclarationStatementDelegate.class);
+		this.mockNode = mock(DeclarationStatement.class);
 		this.mockDelegate = mock(PsiDeclarationStatement.class);
 		this.mockLiteral(EXPECTED_DEFAULT_VALUE);
 	}
@@ -58,7 +57,7 @@ public class BuildEmptyArrayDeclarationTest extends PsiNodeBuilderTestBase {
 		when(this.mockElementFactory.createExpressionFromText(literalValue, null)).thenReturn(
 				mockLiteralDelegate);
 
-		LiteralExpressionDelegate mockLiteral = mock(LiteralExpressionDelegate.class);
+		LiteralExpression mockLiteral = mock(LiteralExpression.class);
 		when(this.mockNodeFactory.getNode(mockLiteralDelegate)).thenReturn(mockLiteral);
 		when(mockLiteral.toString()).thenReturn("0");
 	}
@@ -76,7 +75,7 @@ public class BuildEmptyArrayDeclarationTest extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		DeclarationStatementDelegate actualResult
+		DeclarationStatement actualResult
 				= this.builderUnderTest.buildEmptyArrayDeclaration(this.mockInputType,
 				this.inputName,
 				this.inputDimensions);

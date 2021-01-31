@@ -1,7 +1,7 @@
 package solver.script.state_record;
 
 import ast.interfaces.NodeBuilder;
-import ast.interfaces.StatementDelegate;
+import ast.interfaces.Statement;
 import data.ProgramTrace;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class StateRecordASTImpl implements StateRecordAST {
 
 	// __JDIAL__func_var__state_record[__JDIAL__example_idx][__JDIAL__state_idx] = var;
 	@Override
-	public StatementDelegate getRecordStatement(StateRecord record) {
+	public Statement getRecordStatement(StateRecord record) {
 		return this.nodeBuilder.buildStatementFromText(
 				getIdentifierFrom(record)
 				+ "["
@@ -40,7 +40,7 @@ public class StateRecordASTImpl implements StateRecordAST {
 	}
 
 	@Override
-	public StatementDelegate getInitializationStatement(
+	public Statement getInitializationStatement(
 			StateRecord record, List<ProgramTrace> traces) {
 		String identifier = this.getIdentifierFrom(record);
 		Integer[] dimensions = this.getDimensionsAsTraceLengths(traces);

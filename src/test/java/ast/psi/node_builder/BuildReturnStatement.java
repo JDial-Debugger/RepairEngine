@@ -1,7 +1,7 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.ExpressionDelegate;
-import ast.interfaces.StatementDelegate;
+import ast.interfaces.Expression;
+import ast.interfaces.Statement;
 import com.intellij.psi.PsiStatement;
 import org.junit.jupiter.api.Test;
 
@@ -11,10 +11,10 @@ import static org.mockito.Mockito.when;
 
 public class BuildReturnStatement extends PsiNodeBuilderTestBase {
 
-	private ExpressionDelegate inputExpression;
+	private Expression inputExpression;
 
 	private PsiStatement mockDelegate;
-	private StatementDelegate mockNode;
+	private Statement mockNode;
 
 	@Test
 	void buildReturnStatement() {
@@ -29,14 +29,14 @@ public class BuildReturnStatement extends PsiNodeBuilderTestBase {
 	}
 
 	private void setBuilderInput() {
-		this.inputExpression = mock(ExpressionDelegate.class);
+		this.inputExpression = mock(Expression.class);
 
 		String inputExpressionText = "a + 4";
 		when(this.inputExpression.toString()).thenReturn(inputExpressionText);
 	}
 
 	private void createNodeMocks() {
-		this.mockNode = mock(StatementDelegate.class);
+		this.mockNode = mock(Statement.class);
 		this.mockDelegate = mock(PsiStatement.class);
 	}
 
@@ -49,7 +49,7 @@ public class BuildReturnStatement extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		StatementDelegate actualResult
+		Statement actualResult
 				= this.builderUnderTest.buildReturnStatement(this.inputExpression);
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);

@@ -1,6 +1,6 @@
 package ast.psi;
 
-import ast.interfaces.TypeDelegate;
+import ast.interfaces.Type;
 import ast.psi.factory.ArrayStringBuilderImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,13 +11,13 @@ import static org.mockito.Mockito.*;
 class ArrayStringBuilderImplTest {
 
 	private ArrayStringBuilderImpl builderToTest;
-	private TypeDelegate mockTypeDelegate;
+	private Type mockType;
 
 	@BeforeEach
 	public void Setup() {
 		this.builderToTest = new ArrayStringBuilderImpl();
-		this.mockTypeDelegate = mock(TypeDelegate.class);
-		when(this.mockTypeDelegate.toString()).thenReturn("int");
+		this.mockType = mock(Type.class);
+		when(this.mockType.toString()).thenReturn("int");
 	}
 
 	@Test
@@ -28,7 +28,7 @@ class ArrayStringBuilderImplTest {
 
 		String expectedText = "int[][][] var1 = {{{0, 0}, {0, 0}, {0, 0}}}";
 
-		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
+		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockType,
 				name,
 				initValue,
 				dimensions);
@@ -43,7 +43,7 @@ class ArrayStringBuilderImplTest {
 
 		String expectedText = "int[] var1 = {0, 0, 0, 0}";
 
-		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
+		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockType,
 				name,
 				initValue,
 				dimensions);
@@ -58,7 +58,7 @@ class ArrayStringBuilderImplTest {
 
 		String expectedText = "int[][][] var1 = {{{}, {}}, {{}, {}}, {{}, {}}}";
 
-		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
+		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockType,
 				name,
 				initValue,
 				dimensions);
@@ -73,7 +73,7 @@ class ArrayStringBuilderImplTest {
 
 		String expectedText = "int[] var1 = {}";
 
-		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
+		String result = this.builderToTest.buildArrayDeclarationStatement(this.mockType,
 				name,
 				initValue,
 				dimensions);
@@ -88,7 +88,7 @@ class ArrayStringBuilderImplTest {
 
 		String expectedErrorMessage = "Invalid dimension size 0 provided on dimensions[2]";
 		InvalidDimensionSizeException ex = assertThrows(InvalidDimensionSizeException.class,
-				() -> this.builderToTest.buildArrayDeclarationStatement(this.mockTypeDelegate,
+				() -> this.builderToTest.buildArrayDeclarationStatement(this.mockType,
 						name,
 						initValue,
 						dimensions));

@@ -1,6 +1,6 @@
 package solver.script;
 
-import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.Expression;
 import ast.psi.NodeFactoryImpl;
 import ast.psi.PsiElementExtractorImpl;
 import ast.psi.PsiNodeBuilder;
@@ -23,7 +23,7 @@ public class VisitorFactoryImpl implements  VisitorFactory{
 	}
 
 	@Override
-	public SolvableModificationVisitor getSolvableModificationVisitor(ExpressionDelegate solverHolePlaceholder) {
+	public SolvableModificationVisitor getSolvableModificationVisitor(Expression solverHolePlaceholder) {
 		return new SolvableModificationVisitor(
 				new SolvableCodeModificationASTImpl(
 						new PsiNodeBuilder(

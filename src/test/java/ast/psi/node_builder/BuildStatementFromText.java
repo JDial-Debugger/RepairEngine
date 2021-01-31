@@ -1,12 +1,8 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.ExpressionDelegate;
-import ast.interfaces.StatementDelegate;
-import com.intellij.psi.PsiExpression;
+import ast.interfaces.Statement;
 import com.intellij.psi.PsiStatement;
 import org.junit.jupiter.api.Test;
-
-import javax.swing.plaf.nimbus.State;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -16,7 +12,7 @@ public class BuildStatementFromText extends PsiNodeBuilderTestBase {
 	private String inputText;
 
 	private PsiStatement mockDelegate;
-	private StatementDelegate mockNode;
+	private Statement mockNode;
 
 	@Test
 	void buildStatementFromText() {
@@ -30,7 +26,7 @@ public class BuildStatementFromText extends PsiNodeBuilderTestBase {
 	}
 
 	private void createMockNodes() {
-		this.mockNode = mock(StatementDelegate.class);
+		this.mockNode = mock(Statement.class);
 		this.mockDelegate = mock(PsiStatement.class);
 	}
 
@@ -42,7 +38,7 @@ public class BuildStatementFromText extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		StatementDelegate actualResult
+		Statement actualResult
 				= this.builderUnderTest.buildStatementFromText(this.inputText);
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);

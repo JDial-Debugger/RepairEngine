@@ -1,13 +1,11 @@
 package ast.psi.node_builder;
 
-import ast.interfaces.CodeBlockDelegate;
-import ast.interfaces.ExpressionDelegate;
-import ast.interfaces.IfStatementDelegate;
-import ast.interfaces.NodeDelegate;
+import ast.interfaces.CodeBlock;
+import ast.interfaces.Expression;
+import ast.interfaces.IfStatement;
 import ast.psi.mocks.MockNode;
 import ast.psi.mocks.MockPsiIfStatement;
 import com.intellij.psi.PsiCodeBlock;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiExpression;
 import org.junit.jupiter.api.Test;
 
@@ -16,12 +14,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class IfStatementTests extends PsiNodeBuilderTestBase {
-	private MockNode<ExpressionDelegate, PsiExpression> inputCondition;
-	private MockNode<CodeBlockDelegate, PsiCodeBlock> inputThenBranch;
-	private MockNode<CodeBlockDelegate, PsiCodeBlock> inputElseBranch;
+	private MockNode<Expression, PsiExpression> inputCondition;
+	private MockNode<CodeBlock, PsiCodeBlock> inputThenBranch;
+	private MockNode<CodeBlock, PsiCodeBlock> inputElseBranch;
 
 	private MockPsiIfStatement mockDelegate;
-	private IfStatementDelegate mockNode;
+	private IfStatement mockNode;
 
 	private static final String DEFAULT_TEXT = "if(true){}";
 
@@ -38,23 +36,23 @@ public class IfStatementTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void setBuilderInput(boolean includeElseBranch) {
-		this.inputCondition = new MockNode<>(ExpressionDelegate.class, PsiExpression.class);
+		this.inputCondition = new MockNode<>(Expression.class, PsiExpression.class);
 		when(this.mockExtractor.getDelegateElement(PsiExpression.class,
 				this.inputCondition.self)).thenReturn(this.inputCondition.delegate);
 
-		this.inputThenBranch = new MockNode<>(CodeBlockDelegate.class, PsiCodeBlock.class);
+		this.inputThenBranch = new MockNode<>(CodeBlock.class, PsiCodeBlock.class);
 		when(this.mockExtractor.getDelegateElement(PsiCodeBlock.class,
 				this.inputThenBranch.self)).thenReturn(this.inputThenBranch.delegate);
 
 		if (includeElseBranch) {
-			this.inputElseBranch = new MockNode<>(CodeBlockDelegate.class, PsiCodeBlock.class);
+			this.inputElseBranch = new MockNode<>(CodeBlock.class, PsiCodeBlock.class);
 			when(this.mockExtractor.getDelegateElement(PsiCodeBlock.class,
 					this.inputElseBranch.self)).thenReturn(this.inputElseBranch.delegate);
 		}
 	}
 
 	private void createMockNodes(boolean includeElseBranch) {
-		this.mockNode = mock(IfStatementDelegate.class);
+		this.mockNode = mock(IfStatement.class);
 		this.mockDelegate = new MockPsiIfStatement(true, true, includeElseBranch);
 	}
 
@@ -66,7 +64,7 @@ public class IfStatementTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		IfStatementDelegate actualResult
+		IfStatement actualResult
 				= this.builderUnderTest.buildIfStatement(this.inputCondition.self,
 				this.inputThenBranch.self,
 				this.inputElseBranch.self);
@@ -90,7 +88,7 @@ public class IfStatementTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResultWithoutElseBranch() {
-		IfStatementDelegate actualResult
+		IfStatement actualResult
 				= this.builderUnderTest.buildIfStatement(this.inputCondition.self,
 				this.inputThenBranch.self);
 

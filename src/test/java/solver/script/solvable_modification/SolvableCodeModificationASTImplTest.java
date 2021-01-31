@@ -13,17 +13,17 @@ class SolvableCodeModificationASTImplTest {
 
 	private SolvableCodeModificationASTImpl astToTest;
 	private NodeBuilder mockNodeBuilder;
-	private ExpressionDelegate mockOriginalCode;
-	private ExpressionDelegate mockHolePlaceholder;
-	private TypeDelegate mockModificationType;
+	private Expression mockOriginalCode;
+	private Expression mockHolePlaceholder;
+	private Type mockModificationType;
 	private final String expectedNoChangeRawValue = "0";
 
 	@BeforeEach
 	void SetUp() {
 		this.mockNodeBuilder = mock(NodeBuilder.class);
-		this.mockHolePlaceholder = mock(ExpressionDelegate.class);
-		this.mockModificationType = mock(TypeDelegate.class);
-		this.mockOriginalCode = mock(ExpressionDelegate.class);
+		this.mockHolePlaceholder = mock(Expression.class);
+		this.mockModificationType = mock(Type.class);
+		this.mockOriginalCode = mock(Expression.class);
 		when(this.mockOriginalCode.getType()).thenReturn(mockModificationType);
 		this.astToTest = new SolvableCodeModificationASTImpl(this.mockNodeBuilder,
 				mockHolePlaceholder);
@@ -34,38 +34,38 @@ class SolvableCodeModificationASTImplTest {
 		String sampleMethodName = "foo";
 		String sampleVarName = "bar";
 
-		DeclarationStatementDelegate expectedChangeVarDecl
-				= mock(DeclarationStatementDelegate.class);
+		DeclarationStatement expectedChangeVarDecl
+				= mock(DeclarationStatement.class);
 		when(this.mockNodeBuilder.buildDeclarationStatement(sampleVarName,
 				mockModificationType,
 				mockHolePlaceholder)).thenReturn(expectedChangeVarDecl);
 
-		ExpressionDelegate noChangeValue = mock(ExpressionDelegate.class);
+		Expression noChangeValue = mock(Expression.class);
 		when(this.mockNodeBuilder.buildExpressionFromText(this.expectedNoChangeRawValue)).thenReturn(
 				noChangeValue);
 
-		StatementDelegate expectedNoChangeReturn = mock(StatementDelegate.class);
+		Statement expectedNoChangeReturn = mock(Statement.class);
 		when(this.mockNodeBuilder.buildReturnStatement(noChangeValue)).thenReturn(
 				expectedNoChangeReturn);
 
-		CodeBlockDelegate expectedNoChangeIfBody = mock(CodeBlockDelegate.class);
+		CodeBlock expectedNoChangeIfBody = mock(CodeBlock.class);
 
-		IfStatementDelegate expectedNoChangeIfStatement = mock(IfStatementDelegate.class);
+		IfStatement expectedNoChangeIfStatement = mock(IfStatement.class);
 		when(this.mockNodeBuilder.buildIfStatement(this.mockHolePlaceholder,
 				expectedNoChangeIfBody)).thenReturn(expectedNoChangeIfStatement);
 
-		ExpressionDelegate expectedChangeVar = mock(ExpressionDelegate.class);
+		Expression expectedChangeVar = mock(Expression.class);
 		when(this.mockNodeBuilder.buildExpressionFromText(sampleVarName)).thenReturn(expectedChangeVar);
 
-		StatementDelegate expectedChangeReturn = mock(StatementDelegate.class);
+		Statement expectedChangeReturn = mock(Statement.class);
 		when(this.mockNodeBuilder.buildReturnStatement(expectedChangeVar)).thenReturn(
 				expectedChangeReturn);
 
-		CodeBlockDelegate expectedMethodBody = mock(CodeBlockDelegate.class);
+		CodeBlock expectedMethodBody = mock(CodeBlock.class);
 		when(this.mockNodeBuilder.buildEmptyCodeBlock()).thenReturn(expectedNoChangeIfBody,
 				expectedMethodBody);
 
-		MethodDelegate expectedMethod = mock(MethodDelegate.class);
+		Method expectedMethod = mock(Method.class);
 		when(this.mockNodeBuilder.buildMethod(mockModificationType,
 				sampleMethodName,
 				null,
@@ -74,7 +74,7 @@ class SolvableCodeModificationASTImplTest {
 		SolvableModificationId id = new SolvableModificationId(sampleMethodName, sampleVarName);
 		SolvableCodeModification sampleInput = new SolvableCodeModification(this.mockOriginalCode,
 				id);
-		List<NodeDelegate> result = this.astToTest.getInitializationCode(sampleInput);
+		List<Node> result = this.astToTest.getInitializationCode(sampleInput);
 
 		verify(expectedNoChangeIfBody).addStatement(expectedNoChangeReturn);
 		verify(expectedMethodBody).addStatements(expectedNoChangeIfStatement, expectedChangeReturn);
@@ -89,12 +89,12 @@ class SolvableCodeModificationASTImplTest {
 	void getSolvableCode() {
 		String sampleMethodName = "foo";
 		SolvableModificationId ids = new SolvableModificationId(sampleMethodName, null);
-		ExpressionDelegate sampleOriginalCode = mock(ExpressionDelegate.class);
+		Expression sampleOriginalCode = mock(Expression.class);
 
-		ExpressionDelegate expectedMethodCall = mock(ExpressionDelegate.class);
+		Expression expectedMethodCall = mock(Expression.class);
 		when(this.mockNodeBuilder.buildMethodCall(sampleMethodName)).thenReturn(expectedMethodCall);
 
-		BinaryExpressionDelegate mockSolvableCode = mock(BinaryExpressionDelegate.class);
+		BinaryExpression mockSolvableCode = mock(BinaryExpression.class);
 		when(this.mockNodeBuilder.buildBinaryExpression(
 				sampleOriginalCode,
 				BinaryOperator.ADD,
@@ -104,7 +104,7 @@ class SolvableCodeModificationASTImplTest {
 				sampleOriginalCode,
 				ids);
 
-		ExpressionDelegate resultSolvableCode = this.astToTest.getSolvableCode(sampleInput);
+		Expression resultSolvableCode = this.astToTest.getSolvableCode(sampleInput);
 		assertEquals(
 				mockSolvableCode,
 				resultSolvableCode,

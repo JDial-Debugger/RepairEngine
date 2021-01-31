@@ -1,6 +1,6 @@
 package solver.repair;
 
-import ast.interfaces.ExpressionDelegate;
+import ast.interfaces.Expression;
 import ast.interfaces.NodeBuilder;
 
 public class SolvedModificationsASTImpl<TValue> implements  SolvedModificationsAST{
@@ -12,7 +12,7 @@ public class SolvedModificationsASTImpl<TValue> implements  SolvedModificationsA
 	}
 
 	@Override
-	public ExpressionDelegate getSolvedModificationAST(SolvedModification solvedModification) {
+	public Expression getSolvedModificationAST(SolvedModification solvedModification) {
 		return null;
 	}
 }

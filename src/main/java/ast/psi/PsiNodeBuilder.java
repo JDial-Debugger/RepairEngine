@@ -9,16 +9,16 @@ import java.util.List;
 
 public class PsiNodeBuilder implements NodeBuilder {
 
-	private static final PsiTypeDelegate BYTE = new PsiTypeDelegate(PsiType.BYTE);
-	private static final PsiTypeDelegate CHAR = new PsiTypeDelegate(PsiType.CHAR);
-	private static final PsiTypeDelegate DOUBLE = new PsiTypeDelegate(PsiType.DOUBLE);
-	private static final PsiTypeDelegate FLOAT = new PsiTypeDelegate(PsiType.FLOAT);
-	private static final PsiTypeDelegate INT = new PsiTypeDelegate(PsiType.INT);
-	private static final PsiTypeDelegate LONG = new PsiTypeDelegate(PsiType.LONG);
-	private static final PsiTypeDelegate SHORT = new PsiTypeDelegate(PsiType.SHORT);
-	private static final PsiTypeDelegate BOOLEAN = new PsiTypeDelegate(PsiType.BOOLEAN);
-	private static final PsiTypeDelegate VOID = new PsiTypeDelegate(PsiType.VOID);
-	private static final PsiTypeDelegate NULL = new PsiTypeDelegate(PsiType.NULL);
+	private static final PsiType BYTE = new PsiType(com.intellij.psi.PsiType.BYTE);
+	private static final PsiType CHAR = new PsiType(com.intellij.psi.PsiType.CHAR);
+	private static final PsiType DOUBLE = new PsiType(com.intellij.psi.PsiType.DOUBLE);
+	private static final PsiType FLOAT = new PsiType(com.intellij.psi.PsiType.FLOAT);
+	private static final PsiType INT = new PsiType(com.intellij.psi.PsiType.INT);
+	private static final PsiType LONG = new PsiType(com.intellij.psi.PsiType.LONG);
+	private static final PsiType SHORT = new PsiType(com.intellij.psi.PsiType.SHORT);
+	private static final PsiType BOOLEAN = new PsiType(com.intellij.psi.PsiType.BOOLEAN);
+	private static final PsiType VOID = new PsiType(com.intellij.psi.PsiType.VOID);
+	private static final PsiType NULL = new PsiType(com.intellij.psi.PsiType.NULL);
 
 	private final PsiElementFactory psiElementFactory;
 	//  TODO: all methods that modify an existing tree MUST do so via this interface
@@ -48,12 +48,12 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	//  TODO: Implement this
-	public DeclarationStatementDelegate getEmptyArrayDeclaration(int... dimensions) {
+	public DeclarationStatement getEmptyArrayDeclaration(int... dimensions) {
 		return null;
 	}
 
 	@Override
-	public LiteralExpressionDelegate buildLiteralIntExpression(int expressionContents) {
+	public LiteralExpression buildLiteralIntExpression(int expressionContents) {
 		PsiLiteralExpression result
 				= (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(""
 				+ expressionContents, null);
@@ -61,8 +61,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public DeclarationStatementDelegate buildEmptyArrayDeclaration(
-			TypeDelegate type, String name, Integer[] dimensions) {
+	public DeclarationStatement buildEmptyArrayDeclaration(
+			Type type, String name, Integer[] dimensions) {
 		String defaultInitValue = this.buildDefaultLiteralExpressionFor(type).toString();
 		String statementText = this.arrayStringBuilder.buildArrayDeclarationStatement(type,
 				name,
@@ -75,31 +75,31 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public LiteralExpressionDelegate buildDefaultLiteralExpressionFor(TypeDelegate type) {
+	public LiteralExpression buildDefaultLiteralExpressionFor(Type type) {
 		PsiLiteralExpression delegate;
-		Type asEnum = type.asEnum();
-		if (asEnum == Type.BYTE) {
+		PrimitiveType asEnum = type.asEnum();
+		if (asEnum == PrimitiveType.BYTE) {
 			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
 					null);
-		} else if (asEnum == Type.BOOLEAN) {
+		} else if (asEnum == PrimitiveType.BOOLEAN) {
 			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(FALSE,
 					null);
-		} else if (asEnum == Type.CHAR) {
+		} else if (asEnum == PrimitiveType.CHAR) {
 			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_CHAR,
 					null);
-		} else if (asEnum == Type.DOUBLE) {
+		} else if (asEnum == PrimitiveType.DOUBLE) {
 			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_DECIMAL,
 					null);
-		} else if (asEnum == Type.FLOAT) {
+		} else if (asEnum == PrimitiveType.FLOAT) {
 			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_FLOAT,
 					null);
-		} else if (asEnum == Type.INT) {
+		} else if (asEnum == PrimitiveType.INT) {
 			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
 					null);
-		} else if (asEnum == Type.LONG) {
+		} else if (asEnum == PrimitiveType.LONG) {
 			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_LONG,
 					null);
-		} else if (asEnum == Type.SHORT) {
+		} else if (asEnum == PrimitiveType.SHORT) {
 			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
 					null);
 		} else {
@@ -112,7 +112,7 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public StatementDelegate buildReturnStatement(ExpressionDelegate expressionToReturn) {
+	public Statement buildReturnStatement(Expression expressionToReturn) {
 		PsiStatement delegate = this.psiElementFactory.createStatementFromText("return "
 				+ expressionToReturn.toString()
 				+ ";", null);
@@ -120,34 +120,34 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public CodeBlockDelegate buildCodeBlockFromStatements(List<StatementDelegate> statements) {
+	public CodeBlock buildCodeBlockFromStatements(List<Statement> statements) {
 		PsiCodeBlock delegate = this.psiElementFactory.createCodeBlock();
-		for (StatementDelegate statement : statements) {
+		for (Statement statement : statements) {
 			delegate.add(this.elementExtractor.getDelegateElement(PsiStatement.class, statement));
 		}
 		return this.nodeFactory.getNode(delegate);
 	}
 
 	@Override
-	public CodeBlockDelegate buildEmptyCodeBlock() {
+	public CodeBlock buildEmptyCodeBlock() {
 		PsiCodeBlock delegate = this.psiElementFactory.createCodeBlock();
 		return this.nodeFactory.getNode(delegate);
 	}
 
 	@Override
-	public ExpressionDelegate buildExpressionFromText(String text) {
+	public Expression buildExpressionFromText(String text) {
 		PsiExpression delegate = this.psiElementFactory.createExpressionFromText(text, null);
 		return this.nodeFactory.getNode(delegate);
 	}
 
 	@Override
-	public StatementDelegate buildStatementFromText(String text) {
+	public Statement buildStatementFromText(String text) {
 		PsiStatement delegate = this.psiElementFactory.createStatementFromText(text, null);
 		return this.nodeFactory.getNode(delegate);
 	}
 
 	@Override
-	public DeclarationStatementDelegate buildEmptyDeclarationStatement() {
+	public DeclarationStatement buildEmptyDeclarationStatement() {
 		String defaultText = "int a = 0;";
 		PsiDeclarationStatement delegate
 				= (PsiDeclarationStatement) psiElementFactory.createStatementFromText(defaultText,
@@ -156,10 +156,10 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public DeclarationStatementDelegate buildDeclarationStatement(
-			String name, TypeDelegate type, ExpressionDelegate initializer) {
+	public DeclarationStatement buildDeclarationStatement(
+			String name, Type type, Expression initializer) {
 
-		PsiType typeDelegate = this.elementExtractor.getDelegateType(type);
+		com.intellij.psi.PsiType typeDelegate = this.elementExtractor.getDelegateType(type);
 		PsiExpression expressionDelegate
 				= this.elementExtractor.getDelegateElement(PsiExpression.class, initializer);
 		PsiDeclarationStatement delegate
@@ -170,8 +170,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public IfStatementDelegate buildIfStatement(
-			ExpressionDelegate condition, CodeBlockDelegate thenBody) {
+	public IfStatement buildIfStatement(
+			Expression condition, CodeBlock thenBody) {
 
 		PsiExpression conditionDelegate
 				= this.elementExtractor.getDelegateElement(PsiExpression.class, condition);
@@ -194,8 +194,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public IfStatementDelegate buildIfStatement(
-			ExpressionDelegate condition, CodeBlockDelegate thenBody, CodeBlockDelegate elseBody) {
+	public IfStatement buildIfStatement(
+			Expression condition, CodeBlock thenBody, CodeBlock elseBody) {
 		PsiIfStatement delegate = this.buildIfStatement(this.elementExtractor.getDelegateElement(PsiExpression.class,
 				condition),
 				this.elementExtractor.getDelegateElement(PsiCodeBlock.class, thenBody));
@@ -210,31 +210,32 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public MethodDelegate buildMethod(
-			TypeDelegate returnType,
+	public Method buildMethod(
+			Type returnType,
 			String name,
-			ParameterListDelegate paramList,
-			CodeBlockDelegate body) {
-		PsiType returnTypeDelegate = this.elementExtractor.getDelegateType(returnType);
+			ParameterList paramList,
+			CodeBlock body) {
+		com.intellij.psi.PsiType
+				returnTypeDelegate = this.elementExtractor.getDelegateType(returnType);
 		PsiMethod delegate = this.psiElementFactory.createMethod(name, returnTypeDelegate);
 		replaceChildren(delegate, paramList, body);
 		return this.nodeFactory.getNode(delegate);
 	}
 
 	private void replaceChildren(
-			PsiMethod method, ParameterListDelegate paramList, CodeBlockDelegate body) {
+			PsiMethod method, ParameterList paramList, CodeBlock body) {
 		this.replaceParamList(method, paramList);
 		this.replaceBody(method, body);
 	}
 
-	private void replaceParamList(PsiMethod method, ParameterListDelegate paramList) {
+	private void replaceParamList(PsiMethod method, ParameterList paramList) {
 		if (paramList != null) {
 			method.getParameterList().replace(this.elementExtractor.getDelegateElement(PsiParameterList.class,
 					paramList));
 		}
 	}
 
-	private void replaceBody(PsiMethod method, CodeBlockDelegate body) {
+	private void replaceBody(PsiMethod method, CodeBlock body) {
 		PsiCodeBlock originalBody = method.getBody();
 		//  Factory result should never be null so no need to handle when it isn't
 		if (originalBody != null) {
@@ -244,8 +245,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public BinaryExpressionDelegate buildBinaryExpression(
-			ExpressionDelegate left, BinaryOperator op, ExpressionDelegate right) {
+	public BinaryExpression buildBinaryExpression(
+			Expression left, BinaryOperator op, Expression right) {
 		PsiBinaryExpression delegate
 				= (PsiBinaryExpression) this.psiElementFactory.createExpressionFromText(left.toString()
 				+ op.toString()
@@ -254,7 +255,7 @@ public class PsiNodeBuilder implements NodeBuilder {
 	}
 
 	@Override
-	public ExpressionDelegate buildMethodCall(String methodName, ExpressionDelegate... params) {
+	public Expression buildMethodCall(String methodName, Expression... params) {
 		//  Psi factory API does not have parameter list creation so we must construct it from text
 		StringBuilder callText = new StringBuilder();
 		callText.append(methodName);
