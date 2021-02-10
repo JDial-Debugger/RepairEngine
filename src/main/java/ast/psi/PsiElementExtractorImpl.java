@@ -10,14 +10,14 @@ public class PsiElementExtractorImpl implements PsiElementExtractor {
 	}
 
 	@Override
-	public <TWrapped extends PsiElement, TWrapper extends NodeDelegate> TWrapped getWrappedElement(
-			Class<TWrapped> wrappedType, TWrapper wrapper) {
+	public <TWrapped extends PsiElement, TWrapper extends NodeDelegate> TWrapped getDelegateElement(
+			Class<TWrapped> delegateType, TWrapper wrapper) {
 		PsiNodeDelegateBase impl = (PsiNodeDelegateBase) wrapper;
-		return wrappedType.cast(impl.getWrappedElement());
+		return delegateType.cast(impl.getWrappedElement());
 	}
 
 	@Override
-	public PsiType getWrappedType(TypeDelegate typeDelegate) {
+	public PsiType getDelegateType(TypeDelegate typeDelegate) {
 		return ((PsiTypeDelegate) typeDelegate).getWrappedType();
 	}
 }

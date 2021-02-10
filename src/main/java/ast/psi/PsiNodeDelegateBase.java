@@ -4,21 +4,23 @@ import ast.interfaces.NodeDelegate;
 import ast.interfaces.VisitorDelegate;
 import com.intellij.psi.PsiElement;
 
-import java.util.Map;
+import java.util.Set;
 
+/**
+ * All AST Nodes extend this class. Serves as a wrapper for a PSI element from the IntelliJ library.
+ * Most functionality is delegated to the wrapped PSI element. This class is never meant to be
+ * instantiated, but extended for use for the different types of AST nodes.
+ */
 public class PsiNodeDelegateBase implements NodeDelegate {
 
 	protected PsiElement element;
 	protected PsiElementExtractor extractor;
-	protected DelegateFactory delegateFactory;
-	protected Map<PsiElement, NodeDelegate> wrappedElementToDelegate;
+	protected DelegateStore delegateStore;
 
-	protected PsiNodeDelegateBase(PsiElement element) {
-		this.element = element;
-	}
-
-	public void setImplementationExtractor(PsiElementExtractor extractor) {
-		this.extractor = extractor;
+	protected PsiNodeDelegateBase(NodeConfig<? extends PsiElement> config) {
+		this.element = config.delegateElement;
+		this.extractor = config.elementExtractor;
+		this.delegateStore = config.delegateStore;
 	}
 
 	@Override
@@ -30,18 +32,15 @@ public class PsiNodeDelegateBase implements NodeDelegate {
 	public void acceptChildren(VisitorDelegate visitor) {
 		PsiElement child = element.getFirstChild();
 		while (child != null) {
-			this.getDelegateFrom(child).accept(visitor);
+			this.delegateStore.getNodeFrom(child).accept(visitor);
 			child = child.getNextSibling();
 		}
 	}
 
-	protected NodeDelegate getDelegateFrom(PsiElement wrappedElement) {
-		if (this.wrappedElementToDelegate.containsKey(wrappedElement)) {
-			return this.wrappedElementToDelegate.get(wrappedElement);
-		}
-		NodeDelegate wrapper = delegateFactory.getNode(wrappedElement);
-		this.wrappedElementToDelegate.put(wrappedElement, wrapper);
-		return wrapper;
+	@Override
+	public Set<String> getVariableNamesInScope() {
+		//  TODO Implement this
+		return null;
 	}
 
 	@Override
@@ -51,8 +50,7 @@ public class PsiNodeDelegateBase implements NodeDelegate {
 
 	@Override
 	public void replace(NodeDelegate nodeToReplaceWith) {
-		PsiElement wrappedElement = this.extractor.getWrappedElement(
-				PsiElement.class,
+		PsiElement wrappedElement = this.extractor.getDelegateElement(PsiElement.class,
 				nodeToReplaceWith);
 		this.element.replace(wrappedElement);
 		this.element = wrappedElement;
@@ -64,7 +62,7 @@ public class PsiNodeDelegateBase implements NodeDelegate {
 
 	@Override
 	public NodeDelegate getParent() {
-		return this.getDelegateFrom(this.element.getParent());
+		return this.delegateStore.getNodeFrom(this.element.getParent());
 	}
 
 }

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SolvableCodeModificationASTImplTest {
 
 	private SolvableCodeModificationASTImpl astToTest;
-	private NodeFactory mockNodeFactory;
+	private NodeBuilder mockNodeBuilder;
 	private ExpressionDelegate mockOriginalCode;
 	private ExpressionDelegate mockHolePlaceholder;
 	private TypeDelegate mockModificationType;
@@ -20,12 +20,12 @@ class SolvableCodeModificationASTImplTest {
 
 	@BeforeEach
 	void SetUp() {
-		this.mockNodeFactory = mock(NodeFactory.class);
+		this.mockNodeBuilder = mock(NodeBuilder.class);
 		this.mockHolePlaceholder = mock(ExpressionDelegate.class);
 		this.mockModificationType = mock(TypeDelegate.class);
 		this.mockOriginalCode = mock(ExpressionDelegate.class);
 		when(this.mockOriginalCode.getType()).thenReturn(mockModificationType);
-		this.astToTest = new SolvableCodeModificationASTImpl(this.mockNodeFactory,
+		this.astToTest = new SolvableCodeModificationASTImpl(this.mockNodeBuilder,
 				mockHolePlaceholder);
 	}
 
@@ -36,37 +36,37 @@ class SolvableCodeModificationASTImplTest {
 
 		DeclarationStatementDelegate expectedChangeVarDecl
 				= mock(DeclarationStatementDelegate.class);
-		when(this.mockNodeFactory.getDeclarationStatement(sampleVarName,
+		when(this.mockNodeBuilder.buildDeclarationStatement(sampleVarName,
 				mockModificationType,
 				mockHolePlaceholder)).thenReturn(expectedChangeVarDecl);
 
 		ExpressionDelegate noChangeValue = mock(ExpressionDelegate.class);
-		when(this.mockNodeFactory.getExpressionFromText(this.expectedNoChangeRawValue)).thenReturn(
+		when(this.mockNodeBuilder.buildExpressionFromText(this.expectedNoChangeRawValue)).thenReturn(
 				noChangeValue);
 
 		StatementDelegate expectedNoChangeReturn = mock(StatementDelegate.class);
-		when(this.mockNodeFactory.getReturnStatement(noChangeValue)).thenReturn(
+		when(this.mockNodeBuilder.buildReturnStatement(noChangeValue)).thenReturn(
 				expectedNoChangeReturn);
 
 		CodeBlockDelegate expectedNoChangeIfBody = mock(CodeBlockDelegate.class);
 
 		IfStatementDelegate expectedNoChangeIfStatement = mock(IfStatementDelegate.class);
-		when(this.mockNodeFactory.getIfStatement(this.mockHolePlaceholder,
+		when(this.mockNodeBuilder.buildIfStatement(this.mockHolePlaceholder,
 				expectedNoChangeIfBody)).thenReturn(expectedNoChangeIfStatement);
 
 		ExpressionDelegate expectedChangeVar = mock(ExpressionDelegate.class);
-		when(this.mockNodeFactory.getExpressionFromText(sampleVarName)).thenReturn(expectedChangeVar);
+		when(this.mockNodeBuilder.buildExpressionFromText(sampleVarName)).thenReturn(expectedChangeVar);
 
 		StatementDelegate expectedChangeReturn = mock(StatementDelegate.class);
-		when(this.mockNodeFactory.getReturnStatement(expectedChangeVar)).thenReturn(
+		when(this.mockNodeBuilder.buildReturnStatement(expectedChangeVar)).thenReturn(
 				expectedChangeReturn);
 
 		CodeBlockDelegate expectedMethodBody = mock(CodeBlockDelegate.class);
-		when(this.mockNodeFactory.getEmptyCodeBlock()).thenReturn(expectedNoChangeIfBody,
+		when(this.mockNodeBuilder.buildEmptyCodeBlock()).thenReturn(expectedNoChangeIfBody,
 				expectedMethodBody);
 
 		MethodDelegate expectedMethod = mock(MethodDelegate.class);
-		when(this.mockNodeFactory.getMethod(mockModificationType,
+		when(this.mockNodeBuilder.buildMethod(mockModificationType,
 				sampleMethodName,
 				null,
 				expectedMethodBody)).thenReturn(expectedMethod);
@@ -92,10 +92,10 @@ class SolvableCodeModificationASTImplTest {
 		ExpressionDelegate sampleOriginalCode = mock(ExpressionDelegate.class);
 
 		ExpressionDelegate expectedMethodCall = mock(ExpressionDelegate.class);
-		when(this.mockNodeFactory.getMethodCall(sampleMethodName)).thenReturn(expectedMethodCall);
+		when(this.mockNodeBuilder.buildMethodCall(sampleMethodName)).thenReturn(expectedMethodCall);
 
 		BinaryExpressionDelegate mockSolvableCode = mock(BinaryExpressionDelegate.class);
-		when(this.mockNodeFactory.getBinaryExpression(
+		when(this.mockNodeBuilder.buildBinaryExpression(
 				sampleOriginalCode,
 				BinaryOperator.ADD,
 				expectedMethodCall)).thenReturn(mockSolvableCode);

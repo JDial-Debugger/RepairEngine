@@ -1,4 +1,8 @@
 package ast.interfaces;
 
-public interface AssignExpressionDelegate extends NodeDelegate {
+public interface AssignExpressionDelegate extends ExpressionDelegate {
+
+    ExpressionDelegate getLExpression();
+
+    ExpressionDelegate getRExpression();
 }
