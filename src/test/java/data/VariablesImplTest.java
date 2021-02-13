@@ -37,7 +37,7 @@ public class VariablesImplTest {
 		                                                     .collect(Collectors.toSet()));
 		mockSetFactory = mock(SetFactory.class);
 		mockSet = mock(Set.class);
-		when(mockSetFactory.getHashSet()).thenReturn(mockSet);
+		when(mockSetFactory.createHashSet()).thenReturn(mockSet);
 
 		variablesImplToTest = new VariablesImpl(mockSetFactory, mockVarNameToValue);
 	}

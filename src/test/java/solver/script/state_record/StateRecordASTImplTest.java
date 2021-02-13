@@ -19,6 +19,7 @@ public class StateRecordASTImplTest {
 
 	private StateRecordASTImpl astUnderTest;
 	private NodeBuilder mockNodeBuilder;
+	private StateRecordIDGenerator mockIdGenerator;
 	private String sampleStateIndexId;
 	private String sampleExampleIndexId;
 	private static final String EXPECTED_ID = "__JDIAL__func1__var1__state_record";
@@ -30,9 +31,8 @@ public class StateRecordASTImplTest {
 		this.sampleStateIndexId = "__JDIAL__state_index";
 		this.sampleExampleIndexId = "__JDIAL__example_index";
 		this.mockNodeBuilder = mock(NodeBuilder.class);
-		this.astUnderTest = new StateRecordASTImpl(this.mockNodeBuilder,
-				this.sampleStateIndexId,
-				this.sampleExampleIndexId);
+		this.mockIdGenerator = mock(StateRecordIDGenerator.class);
+		this.astUnderTest = new StateRecordASTImpl(this.mockNodeBuilder, this.mockIdGenerator);
 	}
 
 	@Test

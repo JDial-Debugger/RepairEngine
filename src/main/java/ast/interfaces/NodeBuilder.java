@@ -43,4 +43,11 @@ public interface NodeBuilder {
 			Expression left, BinaryOperator op, Expression right);
 
 	Expression buildMethodCall(String methodName, Expression... params);
+
+	AssignExpression buildAssignExpression(Expression left, Expression right);
+
+	AssignExpression buildAssignExpression(
+			Expression left, AssignOperator op, Expression right);
+
+	ExpressionStatement buildExpressionStatement(Expression expression);
 }

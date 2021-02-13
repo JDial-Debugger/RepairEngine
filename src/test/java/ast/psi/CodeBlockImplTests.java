@@ -1,5 +1,6 @@
 package ast.psi;
 
+import ast.interfaces.NodeBuilder;
 import ast.interfaces.Statement;
 import com.intellij.psi.PsiCodeBlock;
 import com.intellij.psi.PsiStatement;
@@ -17,6 +18,7 @@ public class CodeBlockImplTests {
 	private PsiCodeBlock mockDelegate;
 	private PsiElementExtractor mockExtractor;
 	private DelegateStore mockDelegateStore;
+	private NodeBuilder mockNodeBuilder;
 	private Statement[] sampleStatements;
 	private PsiStatement[] sampleStatementDelegates;
 
@@ -28,15 +30,16 @@ public class CodeBlockImplTests {
 		this.mockDelegate = mock(PsiCodeBlock.class);
 		this.mockExtractor = mock(PsiElementExtractor.class);
 		this.mockDelegateStore = mock(DelegateStore.class);
+		this.mockNodeBuilder = mock(NodeBuilder.class);
 		NodeConfig<PsiCodeBlock> config = new NodeConfig<>(this.mockDelegate,
 				this.mockExtractor,
-				this.mockDelegateStore);
+				this.mockDelegateStore,
+				this.mockNodeBuilder);
 		this.codeBlockUnderTest = new CodeBlockImpl(config);
 	}
 
 	@Test
 	public void iterator() {
-
 		this.setInput();
 
 		this.stubDelegateStore();

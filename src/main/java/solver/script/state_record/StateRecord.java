@@ -5,6 +5,7 @@ import ast.interfaces.Type;
 import java.util.Objects;
 
 public class StateRecord {
+	//  TODO possible optimization: use expression instead of string avoids needless building of expression
 	public String variableName;
 	public String functionName;
 	public Type variableType;

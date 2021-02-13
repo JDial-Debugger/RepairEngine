@@ -2,7 +2,9 @@ package ast.psi;
 
 import ast.interfaces.Node;
 import ast.interfaces.AstVisitor;
+import ast.interfaces.NodeBuilder;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiExpression;
 
 import java.util.Set;
 
@@ -16,11 +18,27 @@ public class NodeImplBase implements Node {
 	protected PsiElement element;
 	protected PsiElementExtractor extractor;
 	protected DelegateStore delegateStore;
+	protected NodeBuilder nodeBuilder;
 
 	protected NodeImplBase(NodeConfig<? extends PsiElement> config) {
 		this.element = config.delegateElement;
 		this.extractor = config.elementExtractor;
 		this.delegateStore = config.delegateStore;
+		this.nodeBuilder = config.nodeBuilder;
+	}
+
+	@Override
+	public void addBefore(Node nodeToAdd, Node anchor) {
+		PsiElement nodeToAddDelegate = this.extractor.getDelegateElement(PsiElement.class, nodeToAdd);
+		PsiElement anchorDelegate = this.extractor.getDelegateElement(PsiElement.class, anchor);
+		this.element.addBefore(nodeToAddDelegate, anchorDelegate);
+	}
+
+	@Override
+	public void addAfter(Node nodeToAdd, Node anchor) {
+		PsiElement nodeToAddDelegate = this.extractor.getDelegateElement(PsiElement.class, nodeToAdd);
+		PsiElement anchorDelegate = this.extractor.getDelegateElement(PsiElement.class, anchor);
+		this.element.addAfter(nodeToAddDelegate, anchorDelegate);
 	}
 
 	@Override

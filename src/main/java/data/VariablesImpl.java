@@ -41,7 +41,7 @@ public class VariablesImpl implements Variables {
 
 	@Override
 	public <TValue> Set<Variable<TValue>> getAllOfType(Class<TValue> type) {
-		Set<Variable<TValue>> result = this.setFactory.<Variable<TValue>>getHashSet();
+		Set<Variable<TValue>> result = this.setFactory.<Variable<TValue>>createHashSet();
 		for (Map.Entry<String, Object> entry : this.varNameToVarValue.entrySet()) {
 			attemptAddVariable(entry.getKey(), entry.getValue(), result, type);
 		}

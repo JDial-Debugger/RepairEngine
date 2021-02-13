@@ -7,12 +7,12 @@ import java.util.List;
 public class ListFactoryImpl implements ListFactory {
 
 	@Override
-	public <TContents> List<TContents> getEmptyArrayList() {
+	public <TContents> List<TContents> createEmptyArrayList() {
 		return new ArrayList<TContents>();
 	}
 
 	@Override
-	public <TContents> List<TContents> getListFrom(TContents[] array) {
+	public <TContents> List<TContents> createListFrom(TContents[] array) {
 		return Arrays.asList(array);
 	}
 }

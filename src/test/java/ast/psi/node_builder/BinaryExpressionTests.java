@@ -56,7 +56,10 @@ public class BinaryExpressionTests extends PsiNodeBuilderTestBase {
 	}
 
 	private void assertBuilderReturnsCorrectNodeFactoryResult() {
-		BinaryExpression actualResult = this.builderUnderTest.buildBinaryExpression(this.inputLeft, this.inputOp, this.inputRight);
+		BinaryExpression actualResult = this.builderUnderTest.buildBinaryExpression(
+				this.inputLeft,
+				this.inputOp,
+				this.inputRight);
 
 		assertEquals(this.mockNode, actualResult, BAD_RETURN);
 	}

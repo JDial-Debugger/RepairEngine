@@ -10,4 +10,26 @@ public interface AstVisitor {
 	public void visitBinaryExpression(BinaryExpression expression);
 
 	public void visitNode(Node node);
+
+	void visitCodeBlock(CodeBlock codeBlock);
+
+	void visitAssignExpression(AssignExpression expr);
+
+	void visitBlockStatement(BlockStatement stmt);
+
+	void visitDeclarationStatement(DeclarationStatement stmt);
+
+	void visitExpressionStatement(ExpressionStatement stmt);
+
+	void visitIfStatement(IfStatement stmt);
+
+	void visitLiteralExpression(LiteralExpression expr);
+
+	void visitLocalVariable(LocalVariable var);
+
+	void visitParameter(Parameter param);
+
+	void visitParameterList(ParameterList paramList);
+
+	void visitReturnStatement(ReturnStatement stmt);
 }

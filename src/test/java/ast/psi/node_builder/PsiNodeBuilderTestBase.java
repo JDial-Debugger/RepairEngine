@@ -22,7 +22,6 @@ class PsiNodeBuilderTestBase {
 	protected PsiNodeBuilder builderUnderTest;
 	//  Mocks
 	protected PsiElementFactory mockElementFactory;
-	protected CommandProcessorDelegate mockProcessor;
 	protected PsiElementExtractor mockExtractor;
 	protected ArrayStringBuilder mockArrayStringBuilder;
 	protected NodeFactory mockNodeFactory;
@@ -32,12 +31,10 @@ class PsiNodeBuilderTestBase {
 	@BeforeEach
 	protected void setUp() {
 		this.mockElementFactory = mock(PsiElementFactory.class);
-		this.mockProcessor = mock(CommandProcessorDelegate.class);
 		this.mockExtractor = mock(PsiElementExtractor.class);
 		this.mockArrayStringBuilder = mock(ArrayStringBuilder.class);
 		this.mockNodeFactory = mock(NodeFactory.class);
 		this.builderUnderTest = new PsiNodeBuilder(this.mockElementFactory,
-				this.mockProcessor,
 				this.mockExtractor,
 				this.mockArrayStringBuilder,
 				this.mockNodeFactory);

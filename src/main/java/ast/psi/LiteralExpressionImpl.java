@@ -1,5 +1,6 @@
 package ast.psi;
 
+import ast.interfaces.AstVisitor;
 import ast.interfaces.LiteralExpression;
 
 public class LiteralExpressionImpl extends ExpressionImpl
@@ -8,4 +9,8 @@ public class LiteralExpressionImpl extends ExpressionImpl
 		super(config);
 	}
 
+	@Override
+	public void accept(AstVisitor astVisitor) {
+		astVisitor.visitLiteralExpression(this);
+	}
 }

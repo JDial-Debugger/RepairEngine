@@ -26,9 +26,13 @@ public interface NodeFactory {
 
 	LiteralExpression getNode(PsiLiteralExpression delegate);
 
+	LocalVariable getNode(PsiLocalVariable delegate);
+
 	Method getNode(PsiMethod delegate);
 
 	Node getNode(PsiElement delegate);
+
+	Parameter getNode(PsiParameter delegate);
 
 	ParameterList getNode(PsiParameterList delegate);
 
@@ -36,5 +40,8 @@ public interface NodeFactory {
 
 	Statement getNode(PsiStatement delegate);
 
+	BlockStatement getNode(PsiBlockStatement delegate);
+
 	Type getType(PsiType delegate);
+
 }

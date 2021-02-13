@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class SetFactoryImpl implements SetFactory {
 	@Override
-	public <TContents> Set<TContents> getHashSet() {
+	public <TContents> Set<TContents> createHashSet() {
 		return new HashSet<TContents>();
 	}
 }

@@ -9,44 +9,40 @@ import java.util.List;
 public class StateRecordASTImpl implements StateRecordAST {
 
 	private NodeBuilder nodeBuilder;
-	private String stateIndexId;
-	private String exampleIndexId;
+	private static final String STATE_INDEX_ID = "__JDIAL__STATE_IDX";
+	private static final String EXAMPLE_INDEX_ID = "__JDIAL_EXAMPLE_IDX";
+	private StateRecordIDGenerator idGenerator;
 
-	private static final String ID_PREFIX = "__JDIAL__";
-	private static final String ID_SUFFIX = "__state_record";
-
-	public StateRecordASTImpl(NodeBuilder nodeBuilder, String stateIndexId, String exampleIndexId) {
+	public StateRecordASTImpl(
+			NodeBuilder nodeBuilder,
+			StateRecordIDGenerator idGenerator) {
 		this.nodeBuilder = nodeBuilder;
-		this.stateIndexId = stateIndexId;
-		this.exampleIndexId = exampleIndexId;
+		this.idGenerator = idGenerator;
 	}
 
-	// __JDIAL__func_var__state_record[__JDIAL__example_idx][__JDIAL__state_idx] = var;
+	//  Example:
+	//  __JDIAL__func_var__state_record[__JDIAL__example_idx][__JDIAL__state_idx] = var;
 	@Override
 	public Statement getRecordStatement(StateRecord record) {
-		return this.nodeBuilder.buildStatementFromText(
-				getIdentifierFrom(record)
+		return this.nodeBuilder.buildStatementFromText(this.idGenerator.getId(record.functionName,
+				record.variableName)
 				+ "["
-				+ this.exampleIndexId
+				+ EXAMPLE_INDEX_ID
 				+ "]["
-				+ this.stateIndexId
+				+ STATE_INDEX_ID
 				+ "] = "
 				+ record.variableName
 				+ ";");
 	}
 
-	private String getIdentifierFrom(StateRecord record) {
-		return ID_PREFIX + record.functionName + "__" + record.variableName + ID_SUFFIX;
-	}
 
 	@Override
 	public Statement getInitializationStatement(
 			StateRecord record, List<ProgramTrace> traces) {
-		String identifier = this.getIdentifierFrom(record);
+		String identifier = this.idGenerator.getId(record.variableName, record.functionName);
 		Integer[] dimensions = this.getDimensionsAsTraceLengths(traces);
 
-		return this.nodeBuilder.buildEmptyArrayDeclaration(
-				record.variableType,
+		return this.nodeBuilder.buildEmptyArrayDeclaration(record.variableType,
 				identifier,
 				dimensions);
 	}

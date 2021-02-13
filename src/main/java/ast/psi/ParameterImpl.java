@@ -1,5 +1,6 @@
 package ast.psi;
 
+import ast.interfaces.AstVisitor;
 import ast.interfaces.Parameter;
 import ast.interfaces.Type;
 import com.intellij.psi.PsiElement;
@@ -20,5 +21,10 @@ public class ParameterImpl extends NodeImplBase implements Parameter {
 	public Type getType() {
 		PsiType type = ((PsiParameter) this.element).getType();
 		return this.delegateStore.getTypeFrom(type);
+	}
+
+	@Override
+	public void accept(AstVisitor astVisitor) {
+		astVisitor.visitParameter(this);
 	}
 }

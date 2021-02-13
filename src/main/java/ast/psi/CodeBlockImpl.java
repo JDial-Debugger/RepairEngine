@@ -1,5 +1,6 @@
 package ast.psi;
 
+import ast.interfaces.AstVisitor;
 import ast.interfaces.CodeBlock;
 import ast.interfaces.Statement;
 import com.intellij.psi.PsiCodeBlock;
@@ -7,6 +8,7 @@ import com.intellij.psi.PsiStatement;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
@@ -30,6 +32,16 @@ public class CodeBlockImpl extends NodeImplBase implements CodeBlock {
 		}
 	}
 
+	@Override
+	public Statement[] getStatements() {
+		PsiStatement[] delegates = ((PsiCodeBlock) this.element).getStatements();
+		Statement[] stmts = new Statement[delegates.length];
+		for (int i = 0; i < delegates.length; ++i) {
+			stmts[i] = (Statement) this.delegateStore.getNodeFrom(delegates[i]);
+		}
+		return stmts;
+	}
+
 	@NotNull
 	@Override
 	public Iterator<Statement> iterator() {
@@ -48,5 +60,10 @@ public class CodeBlockImpl extends NodeImplBase implements CodeBlock {
 				return (Statement) delegateStore.getNodeFrom(delegate);
 			}
 		};
+	}
+
+	@Override
+	public void accept(AstVisitor astVisitor) {
+		astVisitor.visitCodeBlock(this);
 	}
 }

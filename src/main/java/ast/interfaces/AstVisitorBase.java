@@ -26,4 +26,59 @@ public abstract class AstVisitorBase implements AstVisitor {
 	public void visitStatement(Statement statement) {
 		this.visitNode(statement);
 	}
+
+	@Override
+	public void visitCodeBlock(CodeBlock codeBlock) {
+		this.visitNode(codeBlock);
+	}
+
+	@Override
+	public void visitAssignExpression(AssignExpression expr) {
+		this.visitExpression(expr);
+	}
+
+	@Override
+	public void visitBlockStatement(BlockStatement stmt) {
+		this.visitStatement(stmt);
+	}
+
+	@Override
+	public void visitDeclarationStatement(DeclarationStatement stmt) {
+		this.visitStatement(stmt);
+	}
+
+	@Override
+	public void visitExpressionStatement(ExpressionStatement stmt) {
+		this.visitStatement(stmt);
+	}
+
+	@Override
+	public void visitIfStatement(IfStatement stmt) {
+		this.visitStatement(stmt);
+	}
+
+	@Override
+	public void visitLiteralExpression(LiteralExpression expr) {
+		this.visitExpression(expr);
+	}
+
+	@Override
+	public void visitLocalVariable(LocalVariable var) {
+		this.visitNode(var);
+	}
+
+	@Override
+	public void visitParameter(Parameter param) {
+		this.visitNode(param);
+	}
+
+	@Override
+	public void visitParameterList(ParameterList paramList) {
+		this.visitNode(paramList);
+	}
+
+	@Override
+	public void visitReturnStatement(ReturnStatement stmt) {
+		this.visitStatement(stmt);
+	}
 }

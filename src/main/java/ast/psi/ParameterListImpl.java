@@ -1,5 +1,6 @@
 package ast.psi;
 
+import ast.interfaces.AstVisitor;
 import ast.interfaces.Parameter;
 import ast.interfaces.ParameterList;
 import com.intellij.psi.PsiParameter;
@@ -23,5 +24,10 @@ public class ParameterListImpl extends NodeImplBase implements ParameterList {
 			params[i] = (Parameter) this.delegateStore.getNodeFrom(paramDelegates[i]);
 		}
 		return params;
+	}
+
+	@Override
+	public void accept(AstVisitor astVisitor) {
+		astVisitor.visitParameterList(this);
 	}
 }
