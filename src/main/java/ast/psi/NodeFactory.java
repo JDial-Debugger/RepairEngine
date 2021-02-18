@@ -42,6 +42,8 @@ public interface NodeFactory {
 
 	BlockStatement getNode(PsiBlockStatement delegate);
 
+	ForStatement getNode(PsiForStatement delegate);
+
 	Type getType(PsiType delegate);
 
 }

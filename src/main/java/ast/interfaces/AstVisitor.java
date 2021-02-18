@@ -32,4 +32,6 @@ public interface AstVisitor {
 	void visitParameterList(ParameterList paramList);
 
 	void visitReturnStatement(ReturnStatement stmt);
+
+	void visitForStatement(ForStatement stmt);
 }

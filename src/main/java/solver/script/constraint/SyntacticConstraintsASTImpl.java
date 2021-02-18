@@ -1,10 +1,14 @@
 package solver.script.constraint;
 
+import ast.interfaces.Expression;
 import ast.interfaces.NodeBuilder;
+import ast.interfaces.Statement;
 import solver.script.solvable_modification.SolvableCodeModificationAST;
 import solver.script.solvable_modification.SolvableModificationId;
 
-public class SyntacticConstraintsASTImpl implements  SyntacticConstraintsAST {
+import java.util.List;
+
+public class SyntacticConstraintsASTImpl implements SyntacticConstraintsAST {
 
 	private NodeBuilder nodeBuilder;
 	private SolvableCodeModificationAST solvableModificationAST;
@@ -17,5 +21,15 @@ public class SyntacticConstraintsASTImpl implements  SyntacticConstraintsAST {
 	@Override
 	public void addSolvableModificationConstraint(SolvableModificationId solvableModificationId) {
 
+	}
+
+	@Override
+	public Expression getReferenceExpression() {
+		return null;
+	}
+
+	@Override
+	public List<Statement> getInitializationStatements() {
+		return null;
 	}
 }

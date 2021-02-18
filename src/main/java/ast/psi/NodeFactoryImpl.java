@@ -166,6 +166,14 @@ public class NodeFactoryImpl implements NodeFactory {
 	}
 
 	@Override
+	public ForStatement getNode(PsiForStatement delegate) {
+		return new ForStatementImpl(new NodeConfig<>(delegate,
+				new PsiElementExtractorImpl(),
+				this.delegateStore,
+				this.nodeBuilder));
+	}
+
+	@Override
 	public Type getType(com.intellij.psi.PsiType delegate) {
 		return new TypeImpl(delegate);
 	}

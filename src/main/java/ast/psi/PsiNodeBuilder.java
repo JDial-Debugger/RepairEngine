@@ -49,12 +49,14 @@ public class PsiNodeBuilder implements NodeBuilder {
 	public DeclarationStatement buildEmptyArrayDeclaration(
 			Type type, String name, Integer[] dimensions) {
 		String defaultInitValue = this.buildDefaultLiteralExpressionFor(type).toString();
-		String statementText = this.arrayStringBuilder.buildArrayDeclarationStatement(type,
+		String statementText = this.arrayStringBuilder.buildArrayDeclarationStatement(
+				type,
 				name,
 				defaultInitValue,
 				dimensions);
 		PsiDeclarationStatement delegate
-				= (PsiDeclarationStatement) this.psiElementFactory.createStatementFromText(statementText,
+				= (PsiDeclarationStatement) this.psiElementFactory.createStatementFromText(
+				statementText,
 				null);
 		return this.nodeFactory.getNode(delegate);
 	}
@@ -64,28 +66,36 @@ public class PsiNodeBuilder implements NodeBuilder {
 		PsiLiteralExpression delegate;
 		PrimitiveType asEnum = type.asEnum();
 		if (asEnum == PrimitiveType.BYTE) {
-			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
+			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(
+					ZERO,
 					null);
 		} else if (asEnum == PrimitiveType.BOOLEAN) {
-			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(FALSE,
+			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(
+					FALSE,
 					null);
 		} else if (asEnum == PrimitiveType.CHAR) {
-			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_CHAR,
+			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(
+					ZERO_CHAR,
 					null);
 		} else if (asEnum == PrimitiveType.DOUBLE) {
-			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_DECIMAL,
+			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(
+					ZERO_DECIMAL,
 					null);
 		} else if (asEnum == PrimitiveType.FLOAT) {
-			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_FLOAT,
+			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(
+					ZERO_FLOAT,
 					null);
 		} else if (asEnum == PrimitiveType.INT) {
-			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
+			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(
+					ZERO,
 					null);
 		} else if (asEnum == PrimitiveType.LONG) {
-			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO_LONG,
+			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(
+					ZERO_LONG,
 					null);
 		} else if (asEnum == PrimitiveType.SHORT) {
-			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(ZERO,
+			delegate = (PsiLiteralExpression) this.psiElementFactory.createExpressionFromText(
+					ZERO,
 					null);
 		} else {
 			String enumAsString = asEnum == null ? null + "" : asEnum.toString();
@@ -135,7 +145,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 	public DeclarationStatement buildEmptyDeclarationStatement() {
 		String defaultText = "int a = 0;";
 		PsiDeclarationStatement delegate
-				= (PsiDeclarationStatement) psiElementFactory.createStatementFromText(defaultText,
+				= (PsiDeclarationStatement) psiElementFactory.createStatementFromText(
+				defaultText,
 				null);
 		return this.nodeFactory.getNode(delegate);
 	}
@@ -148,7 +159,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 		PsiExpression expressionDelegate
 				= this.elementExtractor.getDelegateElement(PsiExpression.class, initializer);
 		PsiDeclarationStatement delegate
-				= this.psiElementFactory.createVariableDeclarationStatement(name,
+				= this.psiElementFactory.createVariableDeclarationStatement(
+				name,
 				typeDelegate,
 				expressionDelegate);
 		return this.nodeFactory.getNode(delegate);
@@ -160,7 +172,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 
 		PsiExpression conditionDelegate
 				= this.elementExtractor.getDelegateElement(PsiExpression.class, condition);
-		PsiCodeBlock bodyDelegate = this.elementExtractor.getDelegateElement(PsiCodeBlock.class,
+		PsiCodeBlock bodyDelegate = this.elementExtractor.getDelegateElement(
+				PsiCodeBlock.class,
 				thenBody);
 
 		PsiIfStatement delegate = this.buildIfStatement(conditionDelegate, bodyDelegate);
@@ -171,7 +184,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 	private PsiIfStatement buildIfStatement(PsiExpression condition, PsiCodeBlock thenBody) {
 		String defaultIfText = "if(true){}";
 		PsiIfStatement ifStatement
-				= (PsiIfStatement) this.psiElementFactory.createStatementFromText(defaultIfText,
+				= (PsiIfStatement) this.psiElementFactory.createStatementFromText(
+				defaultIfText,
 				null);
 		ifStatement.getCondition().replace(condition);
 		ifStatement.getThenBranch().replace(thenBody);
@@ -181,10 +195,13 @@ public class PsiNodeBuilder implements NodeBuilder {
 	@Override
 	public IfStatement buildIfStatement(
 			Expression condition, CodeBlock thenBody, CodeBlock elseBody) {
-		PsiIfStatement delegate = this.buildIfStatement(this.elementExtractor.getDelegateElement(PsiExpression.class,
-				condition),
+		PsiIfStatement delegate = this.buildIfStatement(
+				this.elementExtractor.getDelegateElement(
+						PsiExpression.class,
+						condition),
 				this.elementExtractor.getDelegateElement(PsiCodeBlock.class, thenBody));
-		delegate = this.addElseBodyToIfStatement(delegate,
+		delegate = this.addElseBodyToIfStatement(
+				delegate,
 				this.elementExtractor.getDelegateElement(PsiCodeBlock.class, elseBody));
 		return this.nodeFactory.getNode(delegate);
 	}
@@ -213,7 +230,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 
 	private void replaceParamList(PsiMethod method, ParameterList paramList) {
 		if (paramList != null) {
-			method.getParameterList().replace(this.elementExtractor.getDelegateElement(PsiParameterList.class,
+			method.getParameterList().replace(this.elementExtractor.getDelegateElement(
+					PsiParameterList.class,
 					paramList));
 		}
 	}
@@ -222,7 +240,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 		PsiCodeBlock originalBody = method.getBody();
 		//  Factory result should never be null so no need to handle when it isn't
 		if (originalBody != null) {
-			originalBody.replace(this.elementExtractor.getDelegateElement(PsiCodeBlock.class,
+			originalBody.replace(this.elementExtractor.getDelegateElement(
+					PsiCodeBlock.class,
 					body));
 		}
 	}
@@ -266,7 +285,8 @@ public class PsiNodeBuilder implements NodeBuilder {
 			Expression left, AssignOperator op, Expression right) {
 		String expressionText = left.toString() + op.toString() + right.toString();
 		PsiAssignmentExpression delegate
-				= (PsiAssignmentExpression) this.psiElementFactory.createExpressionFromText(expressionText,
+				= (PsiAssignmentExpression) this.psiElementFactory.createExpressionFromText(
+				expressionText,
 				null);
 		return this.nodeFactory.getNode(delegate);
 	}
@@ -277,6 +297,40 @@ public class PsiNodeBuilder implements NodeBuilder {
 		PsiExpressionStatement delegate
 				= (PsiExpressionStatement) this.psiElementFactory.createStatementFromText(
 				expressionText,
+				null);
+		return this.nodeFactory.getNode(delegate);
+	}
+
+	@Override
+	public ForStatement buildForStatement(
+			Statement init,
+			Expression condition,
+			Statement update,
+			Statement body) {
+
+		String initText = init == null ? " ;" : init.toString();
+		String conditionText = condition == null ? "" : condition.toString();
+		String updateText = "";
+		if (update != null) {
+			updateText = update.toString();
+			boolean lastCharInUpdateTextIsSemiColon
+					= updateText.charAt(updateText.length() - 1) == ';';
+			if (lastCharInUpdateTextIsSemiColon) {
+				updateText = updateText.substring(0, updateText.length() - 1);
+			}
+		}
+		String bodyText = body == null ? ";" : body.toString();
+
+		String statementText = "for ("
+				+ initText
+				+ " "
+				+ conditionText
+				+ "; "
+				+ updateText
+				+ ")"
+				+ bodyText;
+		PsiForStatement delegate = (PsiForStatement) this.psiElementFactory.createStatementFromText(
+				statementText,
 				null);
 		return this.nodeFactory.getNode(delegate);
 	}

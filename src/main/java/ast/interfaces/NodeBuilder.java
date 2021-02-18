@@ -50,4 +50,10 @@ public interface NodeBuilder {
 			Expression left, AssignOperator op, Expression right);
 
 	ExpressionStatement buildExpressionStatement(Expression expression);
+
+	ForStatement buildForStatement(
+			Statement init,
+			Expression condition,
+			Statement update,
+			Statement body);
 }

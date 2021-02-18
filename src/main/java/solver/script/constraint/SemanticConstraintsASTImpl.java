@@ -1,10 +1,12 @@
 package solver.script.constraint;
 
-import ast.interfaces.CodeBlock;
 import ast.interfaces.Expression;
 import ast.interfaces.NodeBuilder;
+import ast.interfaces.Statement;
 import solver.script.state_record.StateRecord;
 import solver.script.state_record.StateRecordAST;
+
+import java.util.List;
 
 public class SemanticConstraintsASTImpl implements  SemanticConstraintsAST {
 
@@ -27,7 +29,7 @@ public class SemanticConstraintsASTImpl implements  SemanticConstraintsAST {
 	}
 
 	@Override
-	public CodeBlock getInitializationStatements() {
+	public List<Statement> getInitializationStatements() {
 		return null;
 	}
 }

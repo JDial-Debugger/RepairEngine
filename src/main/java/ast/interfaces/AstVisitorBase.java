@@ -81,4 +81,9 @@ public abstract class AstVisitorBase implements AstVisitor {
 	public void visitReturnStatement(ReturnStatement stmt) {
 		this.visitStatement(stmt);
 	}
+
+	@Override
+	public void visitForStatement(ForStatement stmt) {
+		this.visitStatement(stmt);
+	}
 }

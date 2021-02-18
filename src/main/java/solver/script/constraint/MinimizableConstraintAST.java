@@ -1,9 +1,11 @@
 package solver.script.constraint;
 
-import ast.interfaces.CodeBlock;
 import ast.interfaces.Expression;
+import ast.interfaces.Statement;
+
+import java.util.List;
 
 public interface MinimizableConstraintAST {
-	public Expression getReferenceExpression();
-	public CodeBlock getInitializationStatements();
+	Expression getReferenceExpression();
+	List<Statement> getInitializationStatements();
 }
