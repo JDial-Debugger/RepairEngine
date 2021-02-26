@@ -56,4 +56,6 @@ public interface NodeBuilder {
 			Expression condition,
 			Statement update,
 			Statement body);
+
+	Type buildType(PrimitiveType primitiveType);
 }

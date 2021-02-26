@@ -334,4 +334,44 @@ public class PsiNodeBuilder implements NodeBuilder {
 				null);
 		return this.nodeFactory.getNode(delegate);
 	}
+
+	@Override
+	public Type buildType(PrimitiveType primitiveType) {
+		PsiType delegate = null;
+		switch (primitiveType) {
+			case BYTE:
+				delegate = PsiType.BYTE;
+				break;
+			case BOOLEAN:
+				delegate = PsiType.BOOLEAN;
+				break;
+			case CHAR:
+				delegate = PsiType.CHAR;
+				break;
+			case DOUBLE:
+				delegate = PsiType.DOUBLE;
+				break;
+			case FLOAT:
+				delegate = PsiType.FLOAT;
+				break;
+			case INT:
+				delegate = PsiType.INT;
+				break;
+			case LONG:
+				delegate = PsiType.LONG;
+				break;
+			case SHORT:
+				delegate = PsiType.SHORT;
+				break;
+			case NULL:
+				delegate = PsiType.NULL;
+				break;
+			case VOID:
+				delegate = PsiType.VOID;
+				break;
+			default:
+				break;
+		}
+		return this.nodeFactory.getType(delegate);
+	}
 }

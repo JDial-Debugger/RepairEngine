@@ -8,7 +8,7 @@ import solver.script.state_record.StateRecordAST;
 
 import java.util.List;
 
-public class SemanticConstraintsASTImpl implements  SemanticConstraintsAST {
+public class SemanticConstraintsASTImpl implements SemanticConstraintsAST {
 
 	private StateRecordAST stateRecordAST;
 	private NodeBuilder nodeBuilder;
@@ -24,12 +24,7 @@ public class SemanticConstraintsASTImpl implements  SemanticConstraintsAST {
 	}
 
 	@Override
-	public Expression getReferenceExpression() {
-		return null;
-	}
-
-	@Override
-	public List<Statement> getInitializationStatements() {
+	public Expression getConstraintReferenceExpression() {
 		return null;
 	}
 }
