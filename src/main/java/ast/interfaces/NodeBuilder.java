@@ -60,4 +60,6 @@ public interface NodeBuilder {
 	Type buildType(PrimitiveType primitiveType);
 
 	UnaryExpression buildUnaryExpression(Expression expression, UnaryOperator op);
+
+	ArrayAccessExpression buildArrayAccessExpression(Expression array, Expression index);
 }

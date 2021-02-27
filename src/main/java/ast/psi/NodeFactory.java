@@ -46,7 +46,7 @@ public interface NodeFactory {
 
 	UnaryExpression getNode(PsiUnaryExpression delegate);
 
-	ArrayAccessExpressionImpl getNode(PsiArrayAccessExpression delegate);
+	ArrayAccessExpression getNode(PsiArrayAccessExpression delegate);
 
 	Type getType(PsiType delegate);
 

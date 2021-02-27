@@ -40,10 +40,10 @@ public class SemanticConstraintsASTImpl implements SemanticConstraintsAST {
 		Expression innerCondition = this.getLoopCondition(outerCounterName, this.exampleCount);
 		Statement innerIncrementer = this.getLoopIncrementer(outerCounterName);
 
-		Expression changedState = this.nodeBuilder.buildarr
-		Expression compareChangedToOriginalState = this.nodeBuilder.buildBinaryExpression()
+		//Expression changedState = this.nodeBuilder.buildarr
+		//Expression compareChangedToOriginalState = this.nodeBuilder.buildBinaryExpression()
 
-		this.nodeBuilder.buildForStatement(outerInitializer, outerConditon, outerIncrementer);
+		//this.nodeBuilder.buildForStatement(outerInitializer, outerConditon, outerIncrementer);
 		return null;
 	}
 

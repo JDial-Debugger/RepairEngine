@@ -184,7 +184,7 @@ public class NodeFactoryImpl implements NodeFactory {
 	}
 
 	@Override
-	public ArrayAccessExpressionImpl getNode(PsiArrayAccessExpression delegate) {
+	public ArrayAccessExpression getNode(PsiArrayAccessExpression delegate) {
 		return new ArrayAccessExpressionImpl(new NodeConfig<>(
 				delegate,
 				new PsiElementExtractorImpl(),

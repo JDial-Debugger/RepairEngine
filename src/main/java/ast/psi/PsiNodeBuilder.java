@@ -3,6 +3,7 @@ package ast.psi;
 import ast.interfaces.*;
 import ast.psi.factory.ArrayStringBuilder;
 import com.intellij.psi.*;
+import com.intellij.psi.impl.source.tree.java.PsiArrayAccessExpressionImpl;
 
 import java.util.List;
 
@@ -390,6 +391,16 @@ public class PsiNodeBuilder implements NodeBuilder {
 					+ expression
 					+ ")", null);
 		}
+		return this.nodeFactory.getNode(delegate);
+	}
+
+	@Override
+	public ArrayAccessExpression buildArrayAccessExpression(Expression array, Expression index) {
+		String exprText = array.toString() + "[" + index + "]";
+		PsiArrayAccessExpression delegate
+				= (PsiArrayAccessExpression) this.psiElementFactory.createExpressionFromText(
+				exprText,
+				null);
 		return this.nodeFactory.getNode(delegate);
 	}
 }
