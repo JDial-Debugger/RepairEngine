@@ -12,7 +12,6 @@ public class SyntacticConstraintsASTImpl implements SyntacticConstraintsAST {
 
 	private NodeBuilder nodeBuilder;
 	private SolvableCodeModificationAST solvableModificationAST;
-	private Expression constraintReference;
 
 	private static final String ID = "__JDIAL__syntactic_distance";
 
@@ -20,13 +19,12 @@ public class SyntacticConstraintsASTImpl implements SyntacticConstraintsAST {
 			NodeBuilder nodeBuilder,
 			SolvableCodeModificationAST solvableModificationAST) {
 		this.nodeBuilder = nodeBuilder;
-		this.constraintReference = this.nodeBuilder.buildExpressionFromText(ID);
 		this.solvableModificationAST = solvableModificationAST;
 	}
 
 	@Override
 	public Expression getConstraintReferenceExpression() {
-		return this.constraintReference;
+		return this.nodeBuilder.buildExpressionFromText(ID);
 	}
 
 	@Override
@@ -52,7 +50,7 @@ public class SyntacticConstraintsASTImpl implements SyntacticConstraintsAST {
 			Expression changeVarExpression
 					= this.nodeBuilder.buildExpressionFromText(id.changeVariable);
 			Expression addChangeVarExpr = this.nodeBuilder.buildAssignExpression(
-					this.constraintReference,
+					this.getConstraintReferenceExpression(),
 					AssignOperator.ADD,
 					changeVarExpression);
 			initializationStatements.add(this.nodeBuilder.buildExpressionStatement(addChangeVarExpr));

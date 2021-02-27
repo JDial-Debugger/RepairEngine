@@ -30,8 +30,6 @@ public class SyntacticConstraintsASTTests {
 	public void setUp() {
 		this.mockNodeBuilder = mock(NodeBuilder.class);
 		this.sampleReferenceExpression = mock(Expression.class);
-		when(this.mockNodeBuilder.buildExpressionFromText(eq(EXPECTED_ID)))
-				.thenReturn(this.sampleReferenceExpression);
 		this.mockSolvableCodeModificationAST = mock(SolvableCodeModificationAST.class);
 		this.astUnderTest = new SyntacticConstraintsASTImpl(
 				this.mockNodeBuilder,
@@ -40,6 +38,8 @@ public class SyntacticConstraintsASTTests {
 
 	@Test
 	public void testGetConstraintReferenceExpression() {
+		when(this.mockNodeBuilder.buildExpressionFromText(eq(EXPECTED_ID)))
+				.thenReturn(this.sampleReferenceExpression);
 		Expression actualResult = this.astUnderTest.getConstraintReferenceExpression();
 		assertEquals(this.sampleReferenceExpression, actualResult, "Did not return builder result");
 	}
@@ -68,6 +68,9 @@ public class SyntacticConstraintsASTTests {
 
 	@Test
 	public void testGetInitializationStatements() {
+		when(this.mockNodeBuilder.buildExpressionFromText(eq(EXPECTED_ID)))
+				.thenReturn(this.sampleReferenceExpression);
+
 		List<Statement> expectedStatements = new ArrayList<>();
 		expectedStatements.add(this.stubDeclarationStatementCreation());
 
