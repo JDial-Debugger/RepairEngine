@@ -34,4 +34,6 @@ public interface AstVisitor {
 	void visitReturnStatement(ReturnStatement stmt);
 
 	void visitForStatement(ForStatement stmt);
+
+	void visitUnaryExpression(UnaryExpression expr);
 }

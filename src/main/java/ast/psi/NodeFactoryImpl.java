@@ -174,6 +174,16 @@ public class NodeFactoryImpl implements NodeFactory {
 	}
 
 	@Override
+	public UnaryExpression getNode(PsiUnaryExpression delegate) {
+		return new UnaryExpressionImpl(new NodeConfig<>(
+				delegate,
+				new PsiElementExtractorImpl(),
+				this.delegateStore,
+				this.nodeBuilder)) {
+		};
+	}
+
+	@Override
 	public Type getType(com.intellij.psi.PsiType delegate) {
 		return new TypeImpl(delegate);
 	}

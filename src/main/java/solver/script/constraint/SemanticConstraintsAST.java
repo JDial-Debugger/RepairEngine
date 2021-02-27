@@ -1,7 +1,10 @@
 package solver.script.constraint;
 
+import ast.interfaces.Statement;
 import solver.script.state_record.StateRecord;
 
 public interface SemanticConstraintsAST extends MinimizableConstraintAST {
-	public void addStateRecordChangedConstraint(StateRecord stateRecord, StateRecord originalStateRecord);
+	Statement getStateRecordChangedConstraint(
+			StateRecord stateRecord,
+			StateRecord originalStateRecord);
 }

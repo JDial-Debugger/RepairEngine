@@ -58,4 +58,6 @@ public interface NodeBuilder {
 			Statement body);
 
 	Type buildType(PrimitiveType primitiveType);
+
+	UnaryExpression buildUnaryExpression(Expression expression, UnaryOperator op);
 }

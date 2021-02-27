@@ -3,7 +3,6 @@ package ast.psi;
 import ast.interfaces.*;
 import ast.psi.factory.ArrayStringBuilder;
 import com.intellij.psi.*;
-import intellij.CommandProcessorDelegate;
 
 import java.util.List;
 
@@ -155,7 +154,7 @@ public class PsiNodeBuilder implements NodeBuilder {
 	public DeclarationStatement buildDeclarationStatement(
 			String name, Type type, Expression initializer) {
 
-		com.intellij.psi.PsiType typeDelegate = this.elementExtractor.getDelegateType(type);
+		PsiType typeDelegate = this.elementExtractor.getDelegateType(type);
 		PsiExpression expressionDelegate
 				= this.elementExtractor.getDelegateElement(PsiExpression.class, initializer);
 		PsiDeclarationStatement delegate
@@ -373,5 +372,24 @@ public class PsiNodeBuilder implements NodeBuilder {
 				break;
 		}
 		return this.nodeFactory.getType(delegate);
+	}
+
+	@Override
+	public UnaryExpression buildUnaryExpression(Expression expression, UnaryOperator op) {
+		PsiUnaryExpression delegate;
+		if (op == UnaryOperator.POST_DECREMENT || op == UnaryOperator.POST_INCREMENT) {
+			delegate
+					= (PsiUnaryExpression) this.psiElementFactory.createExpressionFromText(
+					"("
+							+ expression
+							+ ")" + op.toString(), null);
+		} else {
+			delegate
+					= (PsiUnaryExpression) this.psiElementFactory.createExpressionFromText(op.toString()
+					+ "("
+					+ expression
+					+ ")", null);
+		}
+		return this.nodeFactory.getNode(delegate);
 	}
 }

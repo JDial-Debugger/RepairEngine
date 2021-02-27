@@ -44,6 +44,8 @@ public interface NodeFactory {
 
 	ForStatement getNode(PsiForStatement delegate);
 
+	UnaryExpression getNode(PsiUnaryExpression delegate);
+
 	Type getType(PsiType delegate);
 
 }

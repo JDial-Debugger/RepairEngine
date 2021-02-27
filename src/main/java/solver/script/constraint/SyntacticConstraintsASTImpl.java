@@ -1,6 +1,7 @@
 package solver.script.constraint;
 
 import ast.interfaces.*;
+import com.intellij.psi.PsiUnaryExpression;
 import solver.script.solvable_modification.SolvableCodeModificationAST;
 import solver.script.solvable_modification.SolvableModificationId;
 
