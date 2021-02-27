@@ -31,18 +31,46 @@ public class SemanticConstraintsASTImpl implements SemanticConstraintsAST {
 	public Statement getStateRecordChangedConstraint(
 			StateRecord stateRecord, StateRecord originalStateRecord) {
 		String outerCounterName = "i";
-		DeclarationStatement outerInitializer = this.nodeBuilder.buildDeclarationStatement(
-				outerCounterName,
+
+		DeclarationStatement outerInitializer = this.getLoopInitializer(outerCounterName);
+		Expression outerCondition = this.getLoopCondition(outerCounterName, this.exampleCount);
+		Statement outerIncrementer = this.getLoopIncrementer(outerCounterName);
+
+		DeclarationStatement innerInitializer = this.getLoopInitializer(outerCounterName);
+		Expression innerCondition = this.getLoopCondition(outerCounterName, this.exampleCount);
+		Statement innerIncrementer = this.getLoopIncrementer(outerCounterName);
+
+		Expression changedState = this.nodeBuilder.buildarr
+		Expression compareChangedToOriginalState = this.nodeBuilder.buildBinaryExpression()
+
+		this.nodeBuilder.buildForStatement(outerInitializer, outerConditon, outerIncrementer);
+		return null;
+	}
+
+	private DeclarationStatement getLoopInitializer(String counterName) {
+		return this.nodeBuilder.buildDeclarationStatement(
+				counterName,
 				this.nodeBuilder.buildType(
 						PrimitiveType.INT),
 				this.nodeBuilder.buildLiteralIntExpression(0));
-		Expression counterReference = this.nodeBuilder.buildExpressionFromText(outerCounterName);
-		Expression outerCondiiton = this.nodeBuilder.buildBinaryExpression(
-				counterReference,
+	}
+
+	private Expression getLoopCondition(String counterName, int iterationsCount) {
+		Expression counterReferenceInCondition = this.nodeBuilder.buildExpressionFromText(
+				counterName);
+		return this.nodeBuilder.buildBinaryExpression(
+				counterReferenceInCondition,
 				BinaryOperator.LESS,
-				this.nodeBuilder.buildLiteralIntExpression(this.exampleCount));
-		//this.nodeBuilder.buildForStatement();
-		return null;
+				this.nodeBuilder.buildLiteralIntExpression(iterationsCount));
+	}
+
+	private Statement getLoopIncrementer(String counterName) {
+		Expression counterReference = this.nodeBuilder.buildExpressionFromText(
+				counterName);
+		Expression outerIncrementer = this.nodeBuilder.buildUnaryExpression(
+				counterReference,
+				UnaryOperator.PRE_INCREMENT);
+		return this.nodeBuilder.buildExpressionStatement(outerIncrementer);
 	}
 
 	@Override

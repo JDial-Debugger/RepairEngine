@@ -88,6 +88,11 @@ public abstract class AstVisitorBase implements AstVisitor {
 	}
 
 	@Override
+	public void visitArrayAccessExpression(ArrayAccessExpression expr) {
+		this.visitExpression(expr);
+	}
+
+	@Override
 	public void visitUnaryExpression(UnaryExpression expr) {
 		this.visitExpression(expr);
 	}

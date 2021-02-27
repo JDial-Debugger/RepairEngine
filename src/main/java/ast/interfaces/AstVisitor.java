@@ -35,5 +35,7 @@ public interface AstVisitor {
 
 	void visitForStatement(ForStatement stmt);
 
+	void visitArrayAccessExpression(ArrayAccessExpression expr);
+
 	void visitUnaryExpression(UnaryExpression expr);
 }

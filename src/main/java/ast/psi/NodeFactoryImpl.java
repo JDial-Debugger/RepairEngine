@@ -184,6 +184,16 @@ public class NodeFactoryImpl implements NodeFactory {
 	}
 
 	@Override
+	public ArrayAccessExpressionImpl getNode(PsiArrayAccessExpression delegate) {
+		return new ArrayAccessExpressionImpl(new NodeConfig<>(
+				delegate,
+				new PsiElementExtractorImpl(),
+				this.delegateStore,
+				this.nodeBuilder)) {
+		};
+	}
+
+	@Override
 	public Type getType(com.intellij.psi.PsiType delegate) {
 		return new TypeImpl(delegate);
 	}
