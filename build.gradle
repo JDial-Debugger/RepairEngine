@@ -18,6 +18,7 @@ intellij {
 
 test {
     useJUnitPlatform()
+    systemProperty "idea.home/path", "/Users/mattkramer/projects/intellij/intellij-community"
 }
 
 dependencies {
