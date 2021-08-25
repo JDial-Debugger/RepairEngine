@@ -45,7 +45,7 @@ public class SolvableCodeModificationASTImpl implements SolvableCodeModification
 				methodName,
 				changeVarName);
 
-		return Arrays.asList(new Node[] { changeVarDecl, changeMethod });
+		return Arrays.asList(changeVarDecl, changeMethod);
 	}
 
 	//  int coeff_1() { ... }

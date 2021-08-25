@@ -219,6 +219,7 @@ public class PsiNodeBuilder implements NodeBuilder {
 		com.intellij.psi.PsiType returnTypeDelegate = this.elementExtractor.getDelegateType(
 				returnType);
 		PsiMethod delegate = this.psiElementFactory.createMethod(name, returnTypeDelegate);
+		delegate.getModifierList().setModifierProperty(PsiModifier.PUBLIC, false);
 		replaceChildren(delegate, paramList, body);
 		return this.nodeFactory.getNode(delegate);
 	}

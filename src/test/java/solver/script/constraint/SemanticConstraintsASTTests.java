@@ -21,14 +21,11 @@ import static org.mockito.Mockito.mock;
 
 public class SemanticConstraintsASTTests extends LightJavaCodeInsightFixtureTestCase {
 
-	private Project project;
 	private NodeBuilder nodeBuilder;
 	private NodeFactory nodeFactory;
 	private SemanticConstraintsAST astUnderTest;
 	private final int inputExampleCount = 3;
 	private final int inputExecutionLength = 10;
-	private final String inputVarName = "var1";
-	private final String inputFuncName = "func1";
 	private final String expectedSemanticDistanceId = "__JDIAL__semantic_distance";
 	private final String expectedChangedStateRecordId = "__JDIAL__func1_var1_state";
 	private final String expectedOriginalStateRecordId = "__JDIAL__func1_var1_original_state";
